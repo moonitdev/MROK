@@ -1,0 +1,33 @@
+# Directories #
+target/
+.idea
+classes/
+META-INF/
+__old/
+  
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+  
+######################
+# Windows
+######################
+  
+# Windows image file caches
+Thumbs.db 
+  
+# Folder config file
+Desktop.ini
+
+# Executable file
+*.exe
+*.bat
+
+######################
+# OSX
+######################
+  
+.DS_Store
+.svn
