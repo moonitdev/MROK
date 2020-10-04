@@ -106,3 +106,8 @@ db.createUser(
 ## [Slack](https://slack.com/intl/en-kr/)
 
 ## [Advanced REST Client](https://advancedrestclient.com/)
+
+
+
+cd C:\Dev\docMoon\projects\MROK
+call venv/scripts/activate
