@@ -49,6 +49,7 @@ $ pip install virtualenv
 
 ### 가상환경 만들기
 $ virtualenv vrok
+
 ### 가상환경 
 $ source vrok/bin/activate
 (venv) $ pip list
@@ -61,7 +62,7 @@ $ source vrok/bin/activate
 이제 activate해야 하는데, 여기서는 source 대신 call
 
 
-> call vrok/scripts/activate
+C:\Dev\docMoon\projects\MROK> call venv/scripts/activate
 (venv) > pip list
 
 

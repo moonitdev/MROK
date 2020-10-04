@@ -4,6 +4,7 @@ target/
 classes/
 META-INF/
 __old/
+_setup/
   
 # Package Files #
 *.jar
