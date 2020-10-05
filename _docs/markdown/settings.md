@@ -108,6 +108,87 @@ db.createUser(
 ## [Advanced REST Client](https://advancedrestclient.com/)
 
 
+MROK> virtualenv venv
+MROK> call venv/scripts/activate
 
-cd C:\Dev\docMoon\projects\MROK
-call venv/scripts/activate
+
+
+
+### python 패키지 설치
+ 
+#### pyautogui
+ 
+- GUI 
+```
+pip3 install pyautogui
+```
+ 
+ 
+#### opencv
+ 
+ 
+```
+pip uninstall opencv-contrib-python
+pip uninstall opencv-python
+ 
+# 가상환경인 경우
+pip3 install opencv-contrib-python==3.4.2.16
+ 
+# 가상환경이 아닌 경우
+pip install --user opencv-contrib-python==3.4.2.16
+```
+ 
+#### gspread / oauth2client
+```
+# 가상환경인 경우
+pip3 install gspread
+pip3 install --upgrade oauth2client
+ 
+# 가상환경이 아닌 경우
+pip install --user gspread
+pip install --user --upgrade oauth2client
+```
+ 
+#### pytesseract
+ 
+- https://github.com/UB-Mannheim/tesseract/wiki
+
+##### osx
+
+```
+
+
+brew install tesseract
+
+
+sudo chown -R macmini /usr/local/share/Library/Caches/Yarn/v4
+
+
+brew install tesseract-lang
+
+brew list tesseract
+
+
+
+/usr/local/Cellar/tesseract/4.1.1/bin/tesseract
+/usr/local/Cellar/tesseract-lang/4.0.0/share/tessdata/
+
+```
+
+
+```
+pip install matplotlib
+
+pip install pyautogui
+pip install pynput
+pip install pytesseract
+
+
+
+
+```
+
+
+#### 
+ 
+## Visual Studio Code
