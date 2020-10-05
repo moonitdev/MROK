@@ -108,36 +108,22 @@ db.createUser(
 ## [Advanced REST Client](https://advancedrestclient.com/)
 
 
-MROK> virtualenv venv
-MROK> call venv/scripts/activate
-
-
-
-
 ### python 패키지 설치
- 
-#### pyautogui
- 
-- GUI 
+
+SIFT 사용을 위해 opencv 3.4.2.16를 깔아야 함
+
 ```
-pip3 install pyautogui
+conda create --name mrok python=3.6
+conda activate mrok
+pip install numpy
+pip install matplotlib
+pip install pynput
+pip install pyautogui
+
+pip install opencv-python==3.4.2.16
+pip install opencv-contrib-python==3.4.2.16
 ```
- 
- 
-#### opencv
- 
- 
-```
-pip uninstall opencv-contrib-python
-pip uninstall opencv-python
- 
-# 가상환경인 경우
-pip3 install opencv-contrib-python==3.4.2.16
- 
-# 가상환경이 아닌 경우
-pip install --user opencv-contrib-python==3.4.2.16
-```
- 
+
 #### gspread / oauth2client
 ```
 # 가상환경인 경우
