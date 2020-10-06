@@ -16,8 +16,13 @@ import cv2
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import pyautogui as pag
+import pytesseract
 
 from pynput.keyboard import Listener, Key
+
+pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract.exe'
+tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\tessdata"'
+
 
 SCREEN_X = 1919
 SCREEN_Y = 1079
@@ -507,11 +512,27 @@ def show_image_mark(image=None, coords=[]):
     image = set_cv_image(image)
     for coord in coords:
         if type(coord) is list:
-            cv2.circle(image, (int(coord[0]), int(coord[1])), 5, (0, 0, 255), 2)
+            cv2.circle(image, (int(coord[0]), int(coord[1])), 5, (255, 0, 0), 5)
         # cv2.rectangle(image, (box[0], box[1]), (box[2], box[3]), (0, 0, 255), 2)
     imgplot = plt.imshow(image)
     plt.show()
 
+
+def filter_color(image, color='WHITE'):
+    if color == 'WHITE':
+        lower = np.array([0,0,168])
+        upper = np.array([172,111,255])
+
+    img = set_cv_image(image)
+    img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    # 색상 범위를 제한하여 mask 생성
+    img_mask = cv2.inRange(img_hsv, lower, upper)
+    # 원본 이미지를 가지고 Object 추출 이미지로 생성
+    img_result = cv2.bitwise_and(img, img, mask=img_mask)
+    # 결과 이미지 생성
+    #imgplot = plt.imshow(img_result)
+    #plt.show()
+    return img_result
 
 def wait_match_image(template, image=None, precision=0.978, pause=3, duration=15):
     time.sleep(pause)
@@ -530,6 +551,85 @@ def wait_match_image(template, image=None, precision=0.978, pause=3, duration=15
     return False
 
 
+def set_ocr_image(image, reverse=False, path=None):
+    """
+    기능: 이미지 전처리(OCR용 이미지 생성)
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - image || 원본 이미지(opencv 배열) | list | None | opencv 배열
+        - reverse || 이미지 색상 반전 여부 | bool | False | True -> 흑백 반전
+        - path || 저장할 파일 경로 | None / str | None | 'dir1/filename.png'
+    Note:
+        - 
+    """
+    img = set_cv_image(image, 'GRAY')
+    # retval, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY)
+    retval, img = cv2.threshold(img, 100, 255, cv2.THRESH_OTSU)
+    img = cv2.resize(img,(0,0),fx=3,fy=3)
+    img = cv2.GaussianBlur(img, (11,11), 0)
+    img = cv2.medianBlur(img, 9)
+    if reverse:
+        img = ~img
+    if img is []:
+        return False
+    if path != None:
+        cv2.imwrite(path, img)
+    # cv2.imread(image, cv2.IMREAD_GRAYSCALE)
+    imgplot = plt.imshow(img)
+    plt.show()
+    return img
+
+
+## @@brief:: 이미지(screen box 좌표 or file path 값) 문자인식
+## @@note::
+def do_ocr(image, lang='eng', reverse=False, direct=True):
+    """
+    기능: 이미지의 해당 언어(eng) 문자인식 결과를 반환
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - image || 원본 이미지(opencv 배열) | list | None | opencv 배열
+        - lang || OCR 기준 언어 | str | eng | eng / num / ...
+        - reverse || 이미지 색상 반전 여부 | bool | False | True -> 흑백 반전
+    Note:
+        - 
+    """
+    if not direct:
+        img = set_ocr_image(image=image, reverse=reverse)
+    else:
+        img = image
+    # imgplot = plt.imshow(img)
+    # plt.show()
+    # print(pytesseract.image_to_string(img, lang, config = tessdata_dir_config))
+    return pytesseract.image_to_string(img, lang, config = tessdata_dir_config)
+
+
+# def do_ocr_filtered(image, color='WHITE', lang='eng', reverse=False):
+#     img = filter_color(image, color)
+#     #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+#     retval, img = cv2.threshold(img,200,255, cv2.THRESH_BINARY)
+#     img = cv2.resize(img,(0,0),fx=3,fy=3)
+#     img = cv2.GaussianBlur(img,(11,11),0)
+#     img = cv2.medianBlur(img,9)
+#     if reverse:
+#         img = ~img
+#     if img is []:
+#         return False
+#     imgplot = plt.imshow(img)
+#     plt.show()
+#     return pytesseract.image_to_string(img, lang, config = tessdata_dir_config)
+
+
+## @@brief:: 이미지(screen box 좌표 or file path 값) 문자인식
+## @@note::
+def rectify_ocr(text, lang='digit'):
+    if lang is 'digit':
+        s = ['i', 'I', 'l', 'o', 'O', ',']
+        d = ['1', '1', '1', '0', '0', '']
+        for i, v in enumerate(s):
+            #print('s: {}, d: {}'.format(s[i], d[i]))
+            text = text.replace(s[i], d[i])
+    return text
+
 if __name__ == '__main__':
 
     # image = {'path': '../_setup/screenshots/test/source_test01.png', 'box': [0, 0, 600, 100]}
@@ -539,27 +639,36 @@ if __name__ == '__main__':
 
     # print(center)
 
-    template = '../_setup/screenshots/test/verification_templates01.png'
-    image = '../_setup/screenshots/test/verification_image01.png'
-    # boxes = extract_templates(template, False)
-    templates = extract_templates(template, False)
+    # template = '../_setup/screenshots/test/verification_templates01.png'
+    # image = '../_setup/screenshots/test/verification_image01.png'
 
+    # path = '../_setup/screenshots/verification/full06.png'
+    # tpl = {'path': path, 'box': [948, 210, 1200, 280]}
+    # image = {'path': path, 'box': [732, 282, 1190, 742]}
+
+    # # boxes = extract_templates(template, False)
+    # templates = extract_templates(tpl, False)
+
+    # centers = []
     # for template in templates:
-    #     print(type(template))
-    #     # imgplot = plt.imshow(template)
-    #     # plt.show()
-
-    centers = []
-    for template in templates:
-        center = feature_image_box(template, image, precision=0.75, inverse=True)
-        if center is False:
-            print('no match image')
-        centers.append(center)
+    #     center = feature_image_box(template, image, precision=0.75, inverse=True)
+    #     if center is False:
+    #         print('no match image')
+    #     centers.append(center)
     
-    print(centers)
+    # print(centers)
 
-    show_image_mark(image=image, coords=centers)
+    # show_image_mark(image=image, coords=centers)
 
+    image = '../_setup/screenshots/ocr/rankings_top_power01.png'
+    path = '../_setup/screenshots/ocr/main_top_location01.png'
+    # path = '../_setup/screenshots/ocr/internet01.png'
+
+    # set_ocr_image(image, reverse=True, path=path)
+
+    # ocr = do_ocr(path, lang='digits_comma', reverse=True, direct=False)
+    ocr = do_ocr(path, lang='eng', reverse=True, direct=False)
+    print('ocr result: {}'.format(ocr))
 
 # def find_verification_verify():
 #     # return _bs.match_image_box(get_image_path('btn_VerificationVerify', 'UIS'), precision=0.9)
