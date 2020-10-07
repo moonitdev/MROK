@@ -1,7 +1,25 @@
+
+
+def get_identity():
+  pass
+
+
+def info_detail():
+  pass
+
+
+def info_resources():
+  pass
+
+
+def info_commanders():
+  pass
+
 class Character:
   def __init__():
     pass
 
+    self.identity = {'account':'', 'nick':'', 'id':''}
     self.resources = {}
     self.commanders = {}
     self.troops = {}
