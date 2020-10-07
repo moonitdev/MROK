@@ -15,47 +15,57 @@ import pytesseract
 ##@@@-------------------------------------------------------------------------
 ##@@@ External(.json/.py)
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
-from settings import _ENV, _PATH, _MAP
+from settings import _ENV, _IMGS, _MAP
 # from emulators import KEY_MAP as ui_key
 # from emulators import LOCATION_ROK_FULL as ui_xy
 # from emulators import IMAGE_ROK_FULL as ui_img
 sys.path.append(os.path.join(os.path.dirname(__file__), '../supporters'))
 from databaser.GoogleSpread import GoogleSpread
+from imageFns import *
+from dataFns import json_to_file
+
 ##@@@@========================================================================
 ##@@@@ Functions
 
 ##@@@-------------------------------------------------------------------------
 ##@@@ Basic Functions
 
-# def setup_ui_images(file_='TEST', sheet_='crop'):
-#     """
-#     Brief: 
-#     Args:
-#     Returns:
-#     """
-#     dicts = _bs.get_dict_from_sheet(_bs.fetch_sheet(file_, sheet_), 0)
-#     #jsons = []
-#     uis = {}
-#     for dic in dicts:
-#         for k, v in dic.items():
-#             if k == 'x_y_w_h' and v != '':
-#                 # dicts.remove(dic)
+gdrive = GoogleSpread()
+dicts = gdrive.read_sheet('ROK_UI', '1920_1080')
+# ROOT = 'C:\\Dev\\docMoon\\projects\\MROK\\_setup\\screenshots\\'
 
-#                 shots = '/Volumes/data/dev/SynologyDrive/projects/_ROK/bot/_screenShots/'
-#                 file = shots + re.sub(r'\D', '', dic['original']) + _ENV['IMG_EXT']
-#                 box = _bs.compute_box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
-#                 #box = _bs.compute_box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
-#                 path = '../images/_uis/' + dic['prefix'] + _ENV['IMG_EXT']
-#                 print('file: {}, box: {}, path: {}'.format(file, box, path))
+def setup_ui_images():
+    """
+    기능: googledrive spreadsheet에 저장된 ROK ui 내용으로 이미지를 crop 저장, json 파일 생성
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - ui 정보 json 파일 | json | [{'':''}]
+    Note:
+        - 
+    """
+    uis = {}
+    for dic in dicts:
+        for k, v in dic.items():
+            if k == 'x_y_w_h' and v != '':
+                box = box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
+                source = _IMGS['SCREENSHOTS'] + dic['subdir'] + '/' + dic['source']
+                # print('source: {}, box: {}, path: {}'.format(source, box, path))
 
-#                 ### save ui images
-#                 if dic['use'] == 'i' or dic['use'] == 'b':
-#                     _bs.save_file_crop(file, box, path)
-#                 if dic['use'] == 'x' or dic['use'] == 'b':
-#                     uis[dic['prefix']] = _bs.compute_center_from_box(box)
-#                 _bs.json_to_file(uis, '../_config/uis.json')
-#     print(uis)
-#     return uis
+                if dic['prefix'].split('_')[0] == 'box':
+                    pass
+                else:
+                    if dic['prefix'].split('_')[0] == 'txt':
+                        destination = _IMGS['_OCR'] + dic['prefix'] + _ENV['IMG_EXT']
+                    else:
+                        destination = _IMGS['UIS'] + dic['prefix'] + _ENV['IMG_EXT']
+                
+                    # print('source: {}, box: {}, destination: {}'.format(source, box, destination))
+                    save_file_crop(source=source, box=box, destination=destination)
+
+                uis[dic['prefix']] = box
+                json_to_file(uis, '../_config/json/uis.json')
+    # print(uis)
+    return uis
 
 
 # def setup_ui_boxes(file_='TEST', sheet_='crop'):
@@ -65,7 +75,7 @@ from databaser.GoogleSpread import GoogleSpread
 #     for dic in dicts:
 #         for k, v in dic.items():
 #             if k == 'use' and v == 'x':
-#                 uis[dic['prefix']] = _bs.compute_box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
+#                 uis[dic['prefix']] = box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
 #                 _bs.json_to_file(uis, '../_config/ui_boxes.json')
 #     print(uis)
 #     return uis
@@ -75,8 +85,12 @@ from databaser.GoogleSpread import GoogleSpread
 ##@@@@ Execute Test
 if __name__ == '__main__':
     pass
-    gdrive = GoogleSpread()
+    # gdrive = GoogleSpread()
     # read = gdrive.read_sheet('ROK_UI', '1920_1080')
-    read = gdrive.read_sheet('Coin_Exchanges', 'test')
+    # # read = gdrive.read_sheet('Coin_Exchanges', 'test')
     
-    print(read)
+    # print(read)
+
+    # box = box_from_wh([651, 1040, 32, 30])
+    # print(box)
+    setup_ui_images()

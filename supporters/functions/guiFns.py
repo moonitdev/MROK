@@ -19,7 +19,8 @@ import numpy as np
 
 ##@@@-------------------------------------------------------------------------
 ##@@@ User Libraries
-import imageProcessor
+sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
+from imageFns import *
 
 
 ##@@@@========================================================================

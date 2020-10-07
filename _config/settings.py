@@ -23,6 +23,16 @@ _ENV = {
     'CLICK_INTERVAL': 1,  # 마우스 클릭간 시간 간격
 }
 
+_IMGS = {
+    'ROOT': '../_config/images/',
+    'UIS': '../_config/images/uis/',  ## UI images
+    'OBJECTS': '../_config/images/objects/',  ## UI images
+    'MAPS': '../_config/images/maps/',  ## map images
+    'SCREENSHOTS': '../_config/images/screenshots/',  ## screenshot images
+    '_OCR': '../_config/images/_ocr/',  ## ocr용 이미지(원본)
+    'OCR': '../_config/images/ocr/'  ## ocr용 이미지(최종)
+}
+
 _PATH = {
     'ROOT': '../images/',
     'UIS': '../images/uis/',  ## UI images

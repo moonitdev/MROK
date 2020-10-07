@@ -1,0 +1,308 @@
+{
+  "btn_OS_Player": [
+    651,
+    1040,
+    683,
+    1070
+  ],
+  "btn_OS_PlayerMulti": [
+    713,
+    1040,
+    743,
+    1070
+  ],
+  "box_OS_Quickloanch": [
+    564,
+    1032,
+    1576,
+    1078
+  ],
+  "box_Player_Apps-mid": [
+    220,
+    228,
+    1740,
+    594
+  ],
+  "box_Player_Topbar-mid": [
+    1670,
+    6,
+    1870,
+    40
+  ],
+  "box_Player_Rightbar-mid": [
+    1834,
+    6,
+    1870,
+    1026
+  ],
+  "btn_OS_PlayerOn-mid": [
+    650,
+    1040,
+    682,
+    1080
+  ],
+  "btn_Player_ROK-mid": [
+    698,
+    252,
+    764,
+    318
+  ],
+  "img_Player_Loading-mid": [
+    696,
+    96,
+    1226,
+    238
+  ],
+  "btn_Main_Profile": [
+    16,
+    0,
+    130,
+    96
+  ],
+  "txt_Main_Power": [
+    180,
+    12,
+    380,
+    58
+  ],
+  "txt_Main_Food": [
+    1040,
+    14,
+    1162,
+    54
+  ],
+  "txt_Main_Wood": [
+    1232,
+    14,
+    1346,
+    54
+  ],
+  "txt_Main_Stone": [
+    1416,
+    14,
+    1528,
+    54
+  ],
+  "txt_Main_Gold": [
+    1598,
+    14,
+    1716,
+    54
+  ],
+  "txt_Main_Gem": [
+    1776,
+    14,
+    1866,
+    54
+  ],
+  "btn_Main_GemPlus": [
+    1868,
+    14,
+    1910,
+    54
+  ],
+  "btn_Main_VIP": [
+    148,
+    80,
+    278,
+    116
+  ],
+  "txt_Main_VIP": [
+    198,
+    84,
+    278,
+    112
+  ],
+  "box_Main_Buff": [
+    354,
+    70,
+    736,
+    124
+  ],
+  "txt_Main_Age": [
+    1774,
+    74,
+    1918,
+    102
+  ],
+  "txt_Main_Time": [
+    1724,
+    104,
+    1918,
+    128
+  ],
+  "btn_Main_Quests": [
+    24,
+    222,
+    100,
+    288
+  ],
+  "box_Main_Events": [
+    1224,
+    126,
+    1918,
+    234
+  ],
+  "btn_Main_EventsEvents": [
+    1816,
+    142,
+    1872,
+    224
+  ],
+  "btn_Main_EventsLostkingdoms": [
+    1688,
+    142,
+    1748,
+    224
+  ],
+  "btn_Main_EventsPackages": [
+    1570,
+    142,
+    1624,
+    224
+  ],
+  "msk_Main_EventsNew": [
+    1872,
+    128,
+    1910,
+    170
+  ],
+  "btn_Main_TroopsExpand": [
+    1754,
+    240,
+    1790,
+    278
+  ],
+  "box_Main_Troops": [
+    1772,
+    240,
+    1908,
+    642
+  ],
+  "txt_Main_TroopsNum": [
+    1812,
+    242,
+    1872,
+    270
+  ],
+  "msk_Main_TroopsGather": [
+    1852,
+    348,
+    1888,
+    384
+  ],
+  "msk_Main_TroopsParticipate": [
+    1852,
+    462,
+    1888,
+    498
+  ],
+  "msk_Main_TroopsStation": [
+    1852,
+    578,
+    1888,
+    614
+  ],
+  "btn_Main_Search": [
+    46,
+    778,
+    132,
+    844
+  ],
+  "btn_Main_CityView": [
+    28,
+    944,
+    158,
+    1026
+  ],
+  "btn_Main_Chat": [
+    190,
+    989,
+    256,
+    1053
+  ],
+  "msk_Main_ChatNew": [
+    234,
+    978,
+    254,
+    998
+  ],
+  "box_Main_ChatBrief": [
+    262,
+    956,
+    914,
+    1080
+  ],
+  "btn_Main_Mail": [
+    1806,
+    832,
+    1888,
+    892
+  ],
+  "btn_Main_Menu": [
+    1792,
+    978,
+    1900,
+    1036
+  ],
+  "msk_Main_MenuNew": [
+    1876,
+    934,
+    1916,
+    978
+  ],
+  "mak_Main_Distance": [
+    1470,
+    40,
+    1556,
+    132
+  ],
+  "btn_Main_KingdomView": [
+    28,
+    944,
+    158,
+    1026
+  ],
+  "btn_Main_WorldView": [
+    1804,
+    964,
+    1894,
+    1046
+  ],
+  "box_Verification_Templates": [
+    944,
+    364,
+    1240,
+    450
+  ],
+  "box_Verification_Image": [
+    692,
+    452,
+    1228,
+    988
+  ],
+  "btn_Verification_OK": [
+    1110,
+    1021,
+    1150,
+    1043
+  ],
+  "btn_Verification_Close": [
+    704,
+    1016,
+    740,
+    1052
+  ],
+  "btn_Verification_Refresh": [
+    764,
+    1016,
+    800,
+    1052
+  ],
+  "txt_Verification_Comment": [
+    702,
+    390,
+    936,
+    420
+  ]
+}

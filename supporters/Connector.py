@@ -1,29 +1,40 @@
 import os, sys
-import rokgui
-import imagePrcessor
+import json
+sys.path.append(os.path.join(os.path.dirname(__file__), './functions'))
+from guiFns import *
+from imageFns import *
+
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
+from settings import _ENV, _IMGS, _MAP
+
+
+with open('../_config/json/uis.json', encoding='UTF-8') as f:
+    uis = json.load(f)
+# with open('../_config/ui_boxes.json', encoding='UTF-8') as f:
+#     vals = json.load(f)
 
 def is_connected():
-
     if match_image_box(template, image=[]):
-
-    pass
-
+        pass
 
 
-CITY_VIEW
-KINGDOM_VIEW
-WORLD_VIEW
+def img_path(prefix, where='UIS'):
+    return _IMGS[where] + prefix + _ENV['IMG_EXT']
+
+# CITY_VIEW
+# KINGDOM_VIEW
+# WORLD_VIEW
 
 class Connector:
-    def __init__():
+    def __init__(self):
         # OS, 해상도, 계정, 캐릭터, ...
-        self.state  # connect state('OFF', 'VERIFICATION', 'DISCONNECTED', 'ADWARE', 'OVERLAPPED', 'GOOD')
-        self.OS  # win, osx, linux, ...
-        self.resolution # [1920, 1080]
-        self.emulator # LDPLAYER, BLUESTACK, 
-        self.account # deverlife@gmail.com, mowater@gmail.com, ...
-        self.nick # 
-        self.id
+        self.state = 'OFF' # connect state('OFF', 'VERIFICATION', 'DISCONNECTED', 'ADWARE', 'OVERLAPPED', 'GOOD')
+        self.OS = 'win' # win, osx, linux, ...
+        self.resolution = [1920, 1080] # [1920, 1080]
+        self.emulator = 'LDPLAYER' # LDPLAYER, BLUESTACK, 
+        self.account = 'deverlife@gmail.com' # deverlife@gmail.com, mowater@gmail.com, ...
+        self.nick = '천년왕국' # 게임 닉네임
+        self.id = '33627943'  # 게임 아이디
 
     def set_state(self):
         pass
@@ -70,7 +81,30 @@ class Connector:
 
 
     def on_player(self):
-        pass
+        icon_player = match_image_box(template=img_path('btn_OS_Player'), image=uis['box_OS_Quickloanch'])
+        mouse_click(icon_player)
+        icon_rok = wait_match_image(template=img_path('btn_Player_ROK-mid'), image=uis['box_Player_Apps-mid'], pause=20)
+        if not icon_rok:
+            print('template image not founded: {}'.format(img_path('btn_Player_ROK-mid')))
+            return False
+        # if type(icon_rok) == list:
+        time.sleep(1)
+        mouse_click(icon_rok)
+        key_press('f11')
+        icon_map = wait_match_image(template=img_path('btn_Main_CityView'), image=expand_box(uis['btn_Main_CityView'], offset=[20]), pause=20, duration=30)
+        if icon_rok:
+            mouse_click(icon_map)
+        # icon_player = match_image_box(template=uis['btn_OS_Player'], image=uis['box_OS_Quickloanch'])
+        # mouse_click(icon_player)
+        # icon_rok = wait_match_image(template=uis['btn_Player_ROK-mid'], image=uis['box_Player_Apps-mid'], pause=10)
+        # if icon_rok:
+        #     return False
+        # # if type(icon_rok) == list:
+        # time.sleep(1)
+        # mouse_click(icon_rok)
+        # key_press('f11')
+        # icon_map = wait_match_image(template=uis['btn_Main_CityView'], image=expand_box(uis['btn_Main_CityView'], offset=[20]), pause=20)
+
 
     def on_rok(self):
         pass
@@ -151,3 +185,9 @@ class Connector:
 #         unfoldMenuBtn()
     
 #     return 0
+
+
+if __name__ == '__main__':
+    conn = Connector()
+
+    conn.on_player()

@@ -23,6 +23,15 @@ from pynput.keyboard import Listener, Key
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract.exe'
 tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\tessdata"'
 
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
+from settings import _ENV, _PATH, _MAP
+# from emulators import KEY_MAP as ui_key
+# from emulators import OBJECTS as ui_obj
+# from emulators import LOCATION_ROK_FULL as ui_xy
+# from emulators import IMAGE_ROK_FULL as ui_img
+
+
+_CENTER = [_ENV['MAX_X']//2,_ENV['MAX_Y']//2]
 
 SCREEN_X = 1919
 SCREEN_Y = 1079
@@ -53,6 +62,15 @@ def set_viewbox(box=None):
     return viewbox
 
 
+def box_from_wh(wh):
+    """
+    Brief: get wh coordinate([x1, y1, w, h]) from box coordinate([x1:left, y1:top, x2:right, y2:bottom])
+    Args:
+        wh (list): wh coordinate([x1, y1, w, h])
+    Returns:
+        box (list): box coordinate
+    """
+    return [wh[0], wh[1], wh[0] + wh[2], wh[1] + wh[3]]
 
 
 def wh_from_box(box):
@@ -534,18 +552,30 @@ def filter_color(image, color='WHITE'):
     #plt.show()
     return img_result
 
-def wait_match_image(template, image=None, precision=0.978, pause=3, duration=15):
+
+def wait_match_image(template, image=None, precision=0.9, pause=10, duration=15, interval=2):
+    """
+    기능: 매치되는 이미지가 있을 때까지 잠깐씩(pause 초) 멈추면서 duration 횟수만큼 찾기 반복
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - template || 템플릿 이미지(opencv 배열) | list | 필수 | opencv 배열
+        - image || 원본 이미지(opencv 배열) | list | None | opencv 배열
+        - precision || 이미지 유사도 | float | 0.7 | 0 < precision <= 1
+        - pause || 처음 멈춤 시간(초) | float | 3 | 3
+        - duration || 반복 횟수 | int | 15 | 15
+        - interval || 반복시 멈춤 시간(초) | float | 1 | 1
+    Note:
+        - 
+    """
     time.sleep(pause)
     center = match_image_box(template, image=image, precision=precision)
-    _ITV_MATCH_IMAGE = 0.5
     if duration == 0:
         return center
     else:
-        #n = duration // _ITV_MATCH_IMAGE
         for _ in range(0, duration):
             center = match_image_box(template, image=image, precision=precision)
             if center == False:
-                time.sleep(_ITV_MATCH_IMAGE)
+                time.sleep(interval)
             else:
                 return center
     return False
