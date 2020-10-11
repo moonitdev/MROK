@@ -8,6 +8,7 @@
 
 - [A comprehensive guide to OCR with Tesseract, OpenCV and Python](https://nanonets.com/blog/ocr-with-tesseract/)
 
+- [Training Tesseract on your custom dataset using Qt Box Editor](https://medium.com/quantrium-tech/training-tesseract-using-qt-box-editor-1c089ae3029)
 
 - [jTessBoxEditor](http://vietocr.sourceforge.net/training.html)
 
@@ -36,7 +37,7 @@
 
 
 # 
-
+https://medium.com/quantrium-tech/training-tesseract-using-qt-box-editor-1c089ae3029
 
 https://towardsdatascience.com/simple-ocr-with-tesseract-a4341e4564b6
 
@@ -81,3 +82,37 @@ C:\Dev\docMoon\trainings\ocr> tesseract main_top_power01.png stdout -l num
 tesseract moreinfo01.png stdout -l num
 
 tesseract moreinfo_power4.png stdout -l num
+
+
+
+## traineddata 만들기
+
+1. png -> tif(여러장 그림 저장 가능)
+- jTessBoxEditor > Tools > Merge TIFF : OCR적용 png 파일들 -> roknum.font.exp0.tif 
+
+2. box 만들기
+```
+> tesseract roknum.font.exp0.tif roknum.font.exp0 batch.nochop makebox
+```
+
+3. box 확인, 수정
+- jTessBoxEditor > Box Editor > Box Coordinates
+
+4. font_properties 파일
+```
+> echo font 0 0 0 0 0 > font_properties
+```
+
+5. traineddata 만들기
+```
+tesseract.exe roknum.font.exp0.tif roknum.font.exp0 nobatch box.train
+shapeclustering -F font_properties -U unicharset -O roknum.unicharset roknum.font.exp0.tr
+mftraining -F font_properties -U unicharset -O roknum.unicharset roknum.font.exp0.tr
+cntraining.exe roknum.font.exp0.tr
+
+rename normproto roknum.normproto 
+rename inttemp roknum.inttemp 
+rename pffmtable roknum.pffmtable 
+rename shapetable roknum.shapetable 
+combine_tessdata.exe roknum.
+```

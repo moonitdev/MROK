@@ -23,15 +23,15 @@ from pynput.keyboard import Listener, Key
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract.exe'
 tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\tessdata"'
 
-sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
-from settings import _ENV, _PATH, _MAP
-# from emulators import KEY_MAP as ui_key
-# from emulators import OBJECTS as ui_obj
-# from emulators import LOCATION_ROK_FULL as ui_xy
-# from emulators import IMAGE_ROK_FULL as ui_img
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../_config'))
+from settings import _ENV, _IMGS, _MAP
+# # from emulators import KEY_MAP as ui_key
+# # from emulators import OBJECTS as ui_obj
+# # from emulators import LOCATION_ROK_FULL as ui_xy
+# # from emulators import IMAGE_ROK_FULL as ui_img
 
 
-_CENTER = [_ENV['MAX_X']//2,_ENV['MAX_Y']//2]
+# _CENTER = [_ENV['MAX_X']//2,_ENV['MAX_Y']//2]
 
 SCREEN_X = 1919
 SCREEN_Y = 1079
@@ -70,6 +70,7 @@ def box_from_wh(wh):
     Returns:
         box (list): box coordinate
     """
+    # print(wh)
     return [wh[0], wh[1], wh[0] + wh[2], wh[1] + wh[3]]
 
 
@@ -260,7 +261,7 @@ def set_cv_image(image=None, color='COLOR', show=False):
     return img
 
 
-def find_match_image_box(template, image=None, mask=None, precision=0.98, method=cv2.TM_CCORR_NORMED, offset=[0,0], show=False, multi=False):
+def find_match_image_box(template, image=None, mask=None, precision=0.99, method=cv2.TM_CCORR_NORMED, offset=[0,0], show=False, multi=False):
     """
     기능: 원본 이미지(image)에 템플릿 이미지(template)(>precision)가 있으면 중앙 좌표(원본 이미지) 반환, 없으면 False
     입력:
@@ -298,9 +299,8 @@ def find_match_image_box(template, image=None, mask=None, precision=0.98, method
 
         if max_val > precision:
             center = [max_loc[0] + w//2 + offset[0], max_loc[1] + h//2 + offset[1]]
-            # print('matched!!!: {}, center: {}'.format(max_val, center))
+            print('matched!!!: {}, center: {}'.format(max_val, center))
             if show == True:
-                #cv2.rectangle(img_original, (max_loc[0], max_loc[1]), (max_loc[0]+w, max_loc[1]+h), (0, 0, 255), 2)
                 cv2.rectangle(img_original, (max_loc[0], max_loc[1]), (max_loc[0]+w + offset[0], max_loc[1]+h + offset[1]), (0, 0, 255), 2)
                 cv2.imshow('find image', img_original)
                 cv2.waitKey(0)
@@ -336,7 +336,7 @@ def find_match_image_box(template, image=None, mask=None, precision=0.98, method
         return centers
 
 
-def match_image_box(template, image=None, mask=None, precision=0.98, method=cv2.TM_CCORR_NORMED, show=False, multi=False, color=None):
+def match_image_box(template, image=None, mask=None, precision=0.99, method=cv2.TM_CCORR_NORMED, show=False, multi=False, color=None):
     """
     기능: 원본 이미지(image)에 템플릿 이미지(template)(>precision)가 있으면 중앙 좌표(원본 이미지) 반환, 없으면 False(이미지 등 매개변수들을 find_match_image_box 함수에 전달)
     입력:
@@ -558,9 +558,9 @@ def wait_match_image(template, image=None, precision=0.9, pause=10, duration=15,
     기능: 매치되는 이미지가 있을 때까지 잠깐씩(pause 초) 멈추면서 duration 횟수만큼 찾기 반복
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
-        - template || 템플릿 이미지(opencv 배열) | list | 필수 | opencv 배열
-        - image || 원본 이미지(opencv 배열) | list | None | opencv 배열
-        - precision || 이미지 유사도 | float | 0.7 | 0 < precision <= 1
+        - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
+        - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
+        - precision || 이미지 유사도 | float | 0.9 | 0 < precision <= 1
         - pause || 처음 멈춤 시간(초) | float | 3 | 3
         - duration || 반복 횟수 | int | 15 | 15
         - interval || 반복시 멈춤 시간(초) | float | 1 | 1
@@ -662,120 +662,13 @@ def rectify_ocr(text, lang='digit'):
 
 if __name__ == '__main__':
 
-    # image = {'path': '../_setup/screenshots/test/source_test01.png', 'box': [0, 0, 600, 100]}
-    # template = '../_setup/screenshots/test/template_test01.png'
+    img_path = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\screenshots\\uis\\menu_alliance_technology_war04.png'
+    # image = {'path': '../_config/images/screenshots/uis/menu_alliance_technology_development04.png', 'box': [202, 154, 1714, 1034]}
+    image = {'path': img_path, 'box': [202, 154, 1714, 1034]}
+    # template = '../_config/images/uis/img_menu_alliance_technology_notFull.png'
+    template = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\uis\\img_menu_alliance_technology_notFull.png'
+    match_image_box(template=template, image=image, precision=0.997, multi=True, show=True)
 
-    # center = match_image_box(template=template, image=image, mask=None, precision=0.98, method=cv2.TM_CCORR_NORMED, show=True, multi=False, color=None)
-
-    # print(center)
-
-    # template = '../_setup/screenshots/test/verification_templates01.png'
-    # image = '../_setup/screenshots/test/verification_image01.png'
-
-    # path = '../_setup/screenshots/verification/full06.png'
-    # tpl = {'path': path, 'box': [948, 210, 1200, 280]}
-    # image = {'path': path, 'box': [732, 282, 1190, 742]}
-
-    # # boxes = extract_templates(template, False)
-    # templates = extract_templates(tpl, False)
-
-    # centers = []
-    # for template in templates:
-    #     center = feature_image_box(template, image, precision=0.75, inverse=True)
-    #     if center is False:
-    #         print('no match image')
-    #     centers.append(center)
-    
-    # print(centers)
-
-    # show_image_mark(image=image, coords=centers)
-
-    image = '../_setup/screenshots/ocr/rankings_top_power01.png'
-    path = '../_setup/screenshots/ocr/main_top_location01.png'
-    # path = '../_setup/screenshots/ocr/internet01.png'
-
-    # set_ocr_image(image, reverse=True, path=path)
-
-    # ocr = do_ocr(path, lang='digits_comma', reverse=True, direct=False)
-    ocr = do_ocr(path, lang='eng', reverse=True, direct=False)
-    print('ocr result: {}'.format(ocr))
-
-# def find_verification_verify():
-#     # return _bs.match_image_box(get_image_path('btn_VerificationVerify', 'UIS'), precision=0.9)
-#     return _bs.match_image_box(get_image_path('btn_VerificationVerify', 'UIS'), [830, 470, 1738, 648], precision=0.9)
-
-
-# def do_verification_reward(precision=0.4):
-#     template = [946, 220, 1180, 272]
-#     image = [730, 280, 1190, 740]
-#     img_btn_OK = [1024, 754, 1190, 812]
-
-#     center_btn_OK = [1100, 786]
-#     center_btn_close = [756, 782]
-
-#     boxes = _bs.extract_templates(template)
-#     print('boxes at gui.py: {}'.format(boxes))
-
-#     if len(boxes) > 4 or boxes is False:
-#         print('too many templates')
-#         click_mouse(center_btn_close)
-#         return False
-
-#     centers = []
-#     for box in boxes:
-#         center = _bs.feature_image_box(box, image, precision, inverse=True)
-#         if center is False:
-#             print('no match image')
-#             click_mouse(center_btn_close)
-#             return False
-#         centers.append(center)
-    
-#     print(centers)
-#     for center in centers:
-#         click_mouse(center)
-#         delay_secs(1)
-
-#     click_mouse(center_btn_OK)
-
-#     return centers
-
-
-# def do_verification_rewards(precision=0.4, attempts=6):
-#     btn_verify = find_verification_verify()
-#     if btn_verify is False:
-#         return 0
-#     else:
-#         click_mouse(btn_verify)
-#         delay_secs(5)
-
-#     center_btn_OK = [1104, 784]
-#     centers = do_verification_reward(precision)
-
-#     tries = 0
-
-#     if centers is False:
-#         tries += 1
-#         # print('no match image!')
-#         # if tries > attempts:
-#         #     do_verification_rewards()  ## 재시도@@@@@@@@@@
-
-#         # click_mouse([800, 120])  ## 인증 팝업 바깥쪽을 누름@@@@@
-#         delay_secs(5)
-#         do_verification_rewards(precision, attempts)
-
-#     elif len(centers) > 4:
-#         tries += 1
-#         # print('too many templates!')
-#         # if tries > attempts:
-#         #     do_verification_rewards()  ## 재시도@@@@@@@@@@
-#         # click_mouse([800, 120])  ## 인증 팝업 바깥쪽을 누름@@@@@
-#         delay_secs(5)
-#         do_verification_rewards(precision)
-
-#     delay_secs(5)
-
-#     if find_verification_verify() is False:
-#         print(centers)
-#         return centers
-#     else:
-#         do_verification_rewards(precision, attempts)
+    # source = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\_ocr\\txt_Main_Power.png'
+    # dest = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\_ocr\\test.png'
+    # set_ocr_image(image=source, reverse=False, path=dest)

@@ -29,8 +29,8 @@ from imageFns import *
 
 ##@@@-------------------------------------------------------------------------
 ##@@@ External(.json/.py)
-sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
-from settings import _ENV, _PATH, _MAP
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../_config'))
+from settings import _ENV, _IMGS, _MAP
 # from emulators import KEY_MAP as ui_key
 # from emulators import OBJECTS as ui_obj
 # from emulators import LOCATION_ROK_FULL as ui_xy
@@ -55,23 +55,58 @@ def mouse_move(position=[0, 0], duration=_ENV['DURATION_CLICK']):
     pag.moveTo(position[0], position[1], duration)
 
 
-def mouse_click(position=[0, 0], duration=_ENV['DURATION_CLICK']):
+def mouse_click(position=None, duration=_ENV['DURATION_CLICK'], clicks=1, interval=0.25):
     """
     기능: 해당 위치에서 마우스를 클릭함
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
-        - position || 스크린 좌표 | list | [0, 0] | [247, 102]
+        - position || 스크린 좌표 | list | None | [247, 102]
+        - duration || 마우스 클릭 시간(초) | float | _ENV['MOUSE_DURATION']: 0.5
+        - clicks || 마우스 클릭 횟수 | int | 1 | 2: 2번 클릭
+        - interval || 마우스 클릭 간격(초) | float | 0.25 | 0.25 -> 0.25초 간격으로 마우스를 클릭
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 클릭한 마우스 위치 | list | [247, 102]
+    """
+    if position == None:
+        pag.click(duration=duration, clicks=clicks, interval=interval)
+    else:
+        pag.moveTo(position[0], position[1], duration)
+        time.sleep(random.uniform(0.0101, 0.0299))
+        pag.mouseDown()
+        time.sleep(random.uniform(0.0101, 0.0299))
+        pag.mouseUp()
+
+
+def mouse_press(position=None, duration=_ENV['DURATION_PRESS']):
+    """
+    기능: 해당 위치에서 마우스를 지속 시간만큼 눌렀다가(down) 뗌(up)
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - position || 스크린 좌표 | list | None | [247, 102]
+        - duration || 마우스 다운 지속 시간(초) | float | _ENV['DURATION_DOWN']: 5
+    """
+    if type(position) is list:
+        pag.moveTo(position[0], position[1])
+    time.sleep(0.1)
+    pag.mouseDown()
+    time.sleep(duration)
+    pag.mouseUp()
+
+
+def mouse_click_box(box=[0, 0, 100, 100], duration=_ENV['DURATION_CLICK']):
+    """
+    기능: 해당 박스의 중앙 좌표에서 마우스를 클릭함
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - box || 스크린 영역 상자 | list | [0, 0, 100, 100] | [0, 0, 100, 100]
         - duration || 마우스 클릭 시간(초) | float | _ENV['MOUSE_DURATION']: 0.5
     출력:
         - 의미 | 데이터 타입 | 예시
         - 클릭한 마우스 위치 | list | [247, 102]
     """
-    pag.moveTo(position[0], position[1], duration)
-    time.sleep(random.uniform(0.0101, 0.0299))
-    pag.mouseDown()
-    time.sleep(random.uniform(0.0101, 0.0299))
-    pag.mouseUp()
-
+    mouse_click(position=center_from_box(box), duration=duration)
+    
 
 def mouse_click_series(series=[{}]):
     """
@@ -89,7 +124,28 @@ def mouse_click_series(series=[{}]):
     for one in series:
         mouse_click(one['pos'])
         if 'callback' in one:
-            one['callback'](one['kwargs'])
+            one['callback'](**one['kwargs'])
+        time.sleep(one['interval'])
+
+
+def mouse_click_series_box(series=[{}]):
+    """
+    기능: series에 해당하는 마우스 연속 클릭
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - series || 마우스 클릭 배열 | list(of dict) | [{}] | {'pos':[0, 0], 'interval':1, 'callback':time.sleep, 'kwargs': {'a':'b'}},
+            * box : 마우스 클릭 위치(list)
+            * interval : 클릭 후 멈춤 시간(float)
+            * callback : 클릭 후 실행 함수(function)
+            * kwargs : callback 함수의 매개 변수(dict)
+    Note:
+        - 
+    """
+    for one in series:
+        mouse_click_box(one['box'])
+        if 'callback' in one:
+            # print(**one['kwargs'])
+            one['callback'](**one['kwargs'])
         time.sleep(one['interval'])
 
 
@@ -108,19 +164,118 @@ def mouse_drag(start=[], end=[], duration=_ENV['DURATION_DRAG']):
     pag.dragTo(end[0], end[1], duration=duration)
 
 
-def mouse_scroll(start=[], scroll=1):
+def mouse_scroll(start=[], scroll=-100):
     """
     기능: start에서 end까지 마우스 드래그
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
         - start || 드래그 시작 좌표 | list | [] | [300, 500]
-        - scroll || 스크롤 클릭수? | int | 1 | -10
+        - scroll || 스크롤 거리? | int | 1 | -100 (100만큼 아래로 스크롤) / 200 (200만큼 위로 스크롤)
     Note:
-        - ROK에서 작동 잘 안됨!!!
+        - scroll 최대 길이(스크롤 창 높이)
     """
     pag.moveTo(start[0], start[1])
-    time.sleep(0.5)
+    time.sleep(1)
     pag.scroll(scroll)
+
+
+def mouse_click_match(template, image=None):
+    """
+    기능: image(스크린 영역)에 template과 일치하는 이미지가 있으면 그 중앙 좌표를 클릭
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
+        - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
+    Note:
+        - 
+    """
+    center = match_image_box(template=template, image=image)
+    if not center:
+        print("not founded!!!")
+        return False
+    else:
+        mouse_click(center)
+
+
+def mouse_click_match_wait(template, image=None, precision=0.9, pause=10, duration=15, interval=2):
+    """
+    기능: image(스크린 영역)에 template과 일치하는 이미지가 있으면 그 중앙 좌표를 클릭(pause, duration, interval에 맞게 반복 찾기)
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
+        - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
+        - precision || 이미지 유사도 | float | 0.9 | 0 < precision <= 1
+        - pause || 처음 멈춤 시간(초) | float | 3 | 3
+        - duration || 반복 횟수 | int | 15 | 15
+        - interval || 반복시 멈춤 시간(초) | float | 1 | 1
+    Note:
+        - 
+    """
+    center = wait_match_image(template=template, image=image, precision=precision, pause=pause, duration=duration, interval=interval)
+    if not center:
+        print("not founded!!!")
+        return False
+    else:
+        mouse_click(center)
+
+
+def mouse_click_match_scroll(template, image=None, start=[], scroll=-200, n=5):
+    """
+    기능: image(스크린 영역)에 template과 일치하는 이미지가 있을 때까지 스크롤 혹은 드래그 반복
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
+        - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
+        - start || 스크롤/드래그 시작 좌표 | list | [] | [300, 500]
+        - scroll || 스크롤 거리 / 드래그 끝 좌표 | int / list | -200 | -100 (100만큼 아래로 스크롤), 200 (200만큼 위로 스크롤) // [300, 600] 드래그 끝 좌표
+        - n : 스크롤 횟수 | int | 5 | 5 (5번 스크롤 시도)
+    Note:
+        - 
+    """
+    
+    for _ in range(0, n):
+        center = match_image_box(template=template, image=image)
+        if not center:
+            print('not found: {}'.format(_))
+            if type(scroll) == int:
+                mouse_scroll(start, scroll)
+            else:
+                mouse_drag(start, scroll)
+                time.sleep(1)
+                mouse_move(start)
+            time.sleep(3)
+            continue
+        else:
+            print('center: {}'.format(center))
+            mouse_click(center)
+            break
+
+
+def mouse_click_match_drag(template, image=None, start=[], end=[], n=5):
+    """
+    기능: image(스크린 영역)에 template과 일치하는 이미지가 있을 때까지 드래그 반복
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
+        - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
+        - start || 드래그 시작 좌표 | list | [] | [300, 500]
+        - end || 드래그 끝 좌표 | list | [] | [300, 500]
+        - n : 스크롤 횟수 | int | 5 | 5 (5번 드래그 시도)
+    Note:
+        - 
+    """
+    
+    for _ in range(0, n):
+        center = match_image_box(template=template, image=image)
+        if not center:
+            print('not found: {}'.format(_))
+            mouse_drag(start, end)
+            time.sleep(3)
+            continue
+        else:
+            print('center: {}'.format(center))
+            mouse_click(center)
+            break
 
 
 ##@@@-------------------------------------------------------------------------
@@ -163,6 +318,26 @@ def key_input(position=[], keys=None):
     mouse_click(position=position)
     pag.typewrite(keys)
 
+
+def zoom(mode='OUT', n=1, interval=0.1):
+    """
+    기능: 해당 위치(position)에 커서(마우스)를 이동.클릭하고, 문자열(keys)을 입력
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - position || 문자열 입력 좌표 | list | [] | [300, 500]
+        - keys || 입력 문자열 | str | None | 'abc'
+    Note:
+        - 
+    """
+    if mode == 'OUT':
+        for _ in range(0, n):
+            key_press('f5')
+            time.sleep(interval)
+    else:
+        for _ in range(0, n):
+            key_press('f4')
+            time.sleep(interval)
+
 # def press_hotkey():
 #     """
 #     Brief: pressHotKey
@@ -184,7 +359,24 @@ if __name__ == '__main__':
     # mouse_click_series(series)
     time.sleep(5)
     # mouse_drag(start=[500, 200], end=[960, 540])
-    mouse_scroll(start=[960, 540], scroll=1)
+    # mouse_scroll(start=[960, 540], scroll=1)
+
+    # zoom(mode='IN', n=20, interval=1)
+    # template = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\screenshots\\test\\scroll_quest1.png'
+    # wh = [258, 380, 1428, 606]
+    # scroll = -wh[3]
+    # image = box_from_wh(wh)
+    # start = center_from_box(image)
+
+    # print('image: {}, start: {}, scroll: {}'.format(image, start, scroll))
+    # mouse_click_match_scroll(template=template, image=image, start=start, scroll=scroll, n=5)
+
+    # mouse_scroll(start=[960, 540], scroll=-500)
+
+    # mouse_drag([960, 1028], [960, 330], duration=10)
+    # mouse_drag([960, 1010], [960, 360], duration=2)
+
+    mouse_drag([960, 984], [960, 380], duration=2)
 
 # def scrollMouse():
 #     """

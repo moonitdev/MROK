@@ -2,27 +2,24 @@
 ##@@@ Basic Libraries
 import os, sys
 import re
-import time
-import numpy as np
+# import time
+# import numpy as np
 
-##@@@-------------------------------------------------------------------------
-##@@@ Installed(conda/pip) Libraries
-import pyautogui as pag
-import cv2
-import pytesseract
+# ##@@@-------------------------------------------------------------------------
+# ##@@@ Installed(conda/pip) Libraries
+# import pyautogui as pag
+# import cv2
+# import pytesseract
 
 
 ##@@@-------------------------------------------------------------------------
 ##@@@ External(.json/.py)
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
 from settings import _ENV, _IMGS, _MAP
-# from emulators import KEY_MAP as ui_key
-# from emulators import LOCATION_ROK_FULL as ui_xy
-# from emulators import IMAGE_ROK_FULL as ui_img
 sys.path.append(os.path.join(os.path.dirname(__file__), '../supporters'))
 from databaser.GoogleSpread import GoogleSpread
 from imageFns import *
-from dataFns import json_to_file
+from dataFns import json_to_file, modify_file, str_to_json  # , file_to_json
 
 ##@@@@========================================================================
 ##@@@@ Functions
@@ -31,8 +28,34 @@ from dataFns import json_to_file
 ##@@@ Basic Functions
 
 gdrive = GoogleSpread()
-dicts = gdrive.read_sheet('ROK_UI', '1920_1080')
+# dicts = gdrive.read_sheet('ROK_SETTINGS', '1920_1080')
 # ROOT = 'C:\\Dev\\docMoon\\projects\\MROK\\_setup\\screenshots\\'
+
+def setup_config():
+    """
+    기능: googledrive spreadsheet에 저장된 ROK config 내용으로 config.json 파일 생성
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - config 정보 json 파일 | json | [{'':''}]
+    Note:
+        - 
+    """
+    dicts = gdrive.read_sheet('ROK_SETTINGS', 'config')
+
+    out = {}
+    for d in dicts:
+        print(d)
+        out[d['key']] = d['value']
+
+        if d['type'] == 'int':
+            out[d['key']] = int(d['value'])
+        elif  d['type'] == 'float':
+            out[d['key']] = float(d['value'])
+        elif  d['type'] == 'json':
+            out[d['key']] = str_to_json(d['value'])
+
+    json_to_file(out, '../_config/json/config.json', mode='w+')
+
 
 def setup_ui_images():
     """
@@ -43,13 +66,14 @@ def setup_ui_images():
     Note:
         - 
     """
+    dicts = gdrive.read_sheet('ROK_SETTINGS', 'uis')
     uis = {}
     for dic in dicts:
         for k, v in dic.items():
             if k == 'x_y_w_h' and v != '':
                 box = box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
                 source = _IMGS['SCREENSHOTS'] + dic['subdir'] + '/' + dic['source']
-                # print('source: {}, box: {}, path: {}'.format(source, box, path))
+                print('source: {}, box: {}'.format(source, box))
 
                 if dic['prefix'].split('_')[0] == 'box':
                     pass
@@ -63,9 +87,24 @@ def setup_ui_images():
                     save_file_crop(source=source, box=box, destination=destination)
 
                 uis[dic['prefix']] = box
-                json_to_file(uis, '../_config/json/uis.json')
+    json_to_file(uis, '../_config/json/uis.json')
+    modify_file('../_config/json/uis.json', {'\n}{':','}) # Note: 뒤에 추가하면서 생긴 '}{' 삭제
     # print(uis)
     return uis
+
+
+def setup_characters():
+    """
+    기능: googledrive spreadsheet에 저장된 ROK characters 내용으로 characters.json 파일 생성
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - character 정보 json 파일 | json | [{'':''}]
+    Note:
+        - 
+    """
+    dicts = gdrive.read_sheet('ROK_SETTINGS', 'characters')
+    json_to_file(dicts, '../_config/json/characters.json', mode='w+')
+    return dicts
 
 
 # def setup_ui_boxes(file_='TEST', sheet_='crop'):
@@ -84,13 +123,6 @@ def setup_ui_images():
 ##@@@@========================================================================
 ##@@@@ Execute Test
 if __name__ == '__main__':
-    pass
-    # gdrive = GoogleSpread()
-    # read = gdrive.read_sheet('ROK_UI', '1920_1080')
-    # # read = gdrive.read_sheet('Coin_Exchanges', 'test')
-    
-    # print(read)
-
-    # box = box_from_wh([651, 1040, 32, 30])
-    # print(box)
-    setup_ui_images()
+    setup_ui_images()  ## UI 이미지 만들기, 좌표 저장(uis.json)
+    # setup_config()  ## config.json 생성
+    # setup_characters()  ## config.json 생성

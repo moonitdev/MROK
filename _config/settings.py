@@ -26,6 +26,7 @@ _ENV = {
 _IMGS = {
     'ROOT': '../_config/images/',
     'UIS': '../_config/images/uis/',  ## UI images
+    'CHARACTERS': '../_config/images/characters/',  ## UI images
     'OBJECTS': '../_config/images/objects/',  ## UI images
     'MAPS': '../_config/images/maps/',  ## map images
     'SCREENSHOTS': '../_config/images/screenshots/',  ## screenshot images

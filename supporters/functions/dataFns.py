@@ -20,7 +20,7 @@ def create_folder(path=None):
         os.makedirs(path)
 
 
-def json_to_file(data={'a':'A', 'b':'B'}, path=None, encoding='UTF-8'):
+def json_to_file(data={'a':'A', 'b':'B'}, path=None, encoding='UTF-8', mode='a+'):
     """
     기능: data(json 형식)를 path(파일 이름 포함: '')에 파일로 저장
     입력:
@@ -28,8 +28,9 @@ def json_to_file(data={'a':'A', 'b':'B'}, path=None, encoding='UTF-8'):
         - data || 저장할 데이터 | str | None | {'a':'A', 'b':'B'}
         - path || 저장할 파일 경로(파일 이름 포함) | str | None | 'C:/dir1/dir2/fn1.json' 또는 'dir3/fn2.json'
         - encoding || 저장할 파일 인코딩 값 | str | 'UTF-8' | 'UTF-8'
+        - mode || 쓰기 모드 지정 | str | 'a+' | 'a+': 추가하기 / 'w+': 새로 쓰기
     """
-    with open(path, 'w', encoding=encoding) as file:
+    with open(path, mode, encoding=encoding) as file:
         file.write(json.dumps(data, indent=2, ensure_ascii=False, default=str))
 
 
@@ -46,6 +47,9 @@ def file_to_json(path, encoding='UTF-8'):
     """
     with open(path, encoding=encoding) as f:
         return json.load(f)
+
+def str_to_json(data):
+    return json.loads(data)
 
 
 def modify_file(path=None, replacements=None):
@@ -119,7 +123,7 @@ def write_file(path=None, data=None, encoding='UTF-8'):
         - path || 저장 할 파일 경로(파일 이름 포함) | str | None | 'C:/dir1/dir2/fn1.txt' 또는 'dir3/fn2.txt'
         - data || 저장할 내용 | str | None | '저장할 내용입니다'
     """
-    with open(path, 'w', encoding=encoding) as f:
+    with open(path, 'a+', encoding=encoding) as f:
         f.write(data)
 
 

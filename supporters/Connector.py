@@ -1,5 +1,7 @@
 import os, sys
 import json
+import platform, ctypes
+
 sys.path.append(os.path.join(os.path.dirname(__file__), './functions'))
 from guiFns import *
 from imageFns import *
@@ -29,8 +31,8 @@ class Connector:
     def __init__(self):
         # OS, 해상도, 계정, 캐릭터, ...
         self.state = 'OFF' # connect state('OFF', 'VERIFICATION', 'DISCONNECTED', 'ADWARE', 'OVERLAPPED', 'GOOD')
-        self.OS = 'win' # win, osx, linux, ...
-        self.resolution = [1920, 1080] # [1920, 1080]
+        self.OS = self.set_OS() # Windows, Darwin(OSX), Linux, ...
+        self.resolution = self.set_resolution() # [1920, 1080]
         self.emulator = 'LDPLAYER' # LDPLAYER, BLUESTACK, 
         self.account = 'deverlife@gmail.com' # deverlife@gmail.com, mowater@gmail.com, ...
         self.nick = '천년왕국' # 게임 닉네임
@@ -40,10 +42,12 @@ class Connector:
         pass
 
     def set_OS(self):
-        pass
+        return platform.system()
 
     def set_resolution(self):
-        pass
+        user32 = ctypes.windll.user32
+        screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+        return list(screensize)
 
     def set_emulator(self):
         pass
@@ -56,7 +60,6 @@ class Connector:
 
     def set_id(self):
         pass
-
 
     def get_state(self):
         return self.state
@@ -81,29 +84,15 @@ class Connector:
 
 
     def on_player(self):
-        icon_player = match_image_box(template=img_path('btn_OS_Player'), image=uis['box_OS_Quickloanch'])
-        mouse_click(icon_player)
-        icon_rok = wait_match_image(template=img_path('btn_Player_ROK-mid'), image=uis['box_Player_Apps-mid'], pause=20)
-        if not icon_rok:
-            print('template image not founded: {}'.format(img_path('btn_Player_ROK-mid')))
-            return False
-        # if type(icon_rok) == list:
-        time.sleep(1)
-        mouse_click(icon_rok)
+        """
+        기능: (quicklaunch bar에 있는) LDPLAYER를 켜고, (플레이어 바탕화면에 있는) ROK를 실행시키고, 풀스크린으로 만든 후, 게임 로딩이 완성되면, 메뉴 버튼(우측 하단)을 누름
+        Note:
+            - 
+        """
+        mouse_click_match(template=img_path('btn_OS_Player'), image=uis['box_OS_Quickloanch'])
+        mouse_click_match_wait(template=img_path('btn_Player_ROK-mid'), image=expand_box(uis['btn_Player_ROK-mid'], offset=[10]), precision=0.99, pause=10)
         key_press('f11')
-        icon_map = wait_match_image(template=img_path('btn_Main_CityView'), image=expand_box(uis['btn_Main_CityView'], offset=[20]), pause=20, duration=30)
-        if icon_rok:
-            mouse_click(icon_map)
-        # icon_player = match_image_box(template=uis['btn_OS_Player'], image=uis['box_OS_Quickloanch'])
-        # mouse_click(icon_player)
-        # icon_rok = wait_match_image(template=uis['btn_Player_ROK-mid'], image=uis['box_Player_Apps-mid'], pause=10)
-        # if icon_rok:
-        #     return False
-        # # if type(icon_rok) == list:
-        # time.sleep(1)
-        # mouse_click(icon_rok)
-        # key_press('f11')
-        # icon_map = wait_match_image(template=uis['btn_Main_CityView'], image=expand_box(uis['btn_Main_CityView'], offset=[20]), pause=20)
+        mouse_click_match_wait(template=img_path('btn_Main_Menu'), image=expand_box(uis['btn_Main_Menu'], offset=[20]), precision=0.99, pause=20, duration=30)
 
 
     def on_rok(self):
@@ -118,76 +107,88 @@ class Connector:
     def goto_nick(self):
         pass
 
-    def verificate(self):
-        pass
+    def catch_verification(self):
+        btn_alert = match_image_box(template=img_path('btn_Verification_Alert'), image=expand_box(uis['btn_Verification_Alert'], offset=[20, 300]))
+
+        if type(btn_alert) is list:
+            mouse_click(btn_alert)
+            time.sleep(2)
+            self.do_verification(attempts=0)
+            return True
+        
+        lbl_rewards = match_image_box(template=img_path('lbl_Verification_Rewards'), image=expand_box(uis['lbl_Verification_Rewards'], offset=[20, 300]))
+        if type(lbl_rewards) is list:
+            mouse_click(lbl_rewards)
+            time.sleep(2)
+            self.do_verification(attempts=0)
+            return True
+        
+        return False
+
+
+    def find_verification_centers(self):
+        templates = extract_templates(image=uis['box_Verification_Templates'])
+
+        centers = []
+        for template in templates:
+            center = feature_image_box(template=template, image=uis['box_Verification_Image'], precision=0.7, inverse=True)
+            if center is False:
+                return False
+            centers.append(center)
+
+        return centers
+
+
+    def click_verifications(self, centers, attempts=0):
+        for center in centers:
+            mouse_click(center)
+        mouse_click_match(template=img_path('btn_Verification_OK'), image=expand_box(uis['btn_Verification_OK'], offset=[20, 300]))
+        print(centers)
+        time.sleep(1)
+        btn_OK = match_image_box(template=img_path('btn_Verification_OK'), image=expand_box(uis['btn_Verification_OK'], offset=[20, 300]))
+        if not btn_OK:
+            return True
+        else:
+            return False
+
+
+    def do_verification(self, attempts=0):
+        """
+        기능: verification 퍼즐 해결
+        Note:
+            - 
+        """
+        # box_Verification_Templates
+        # box_Verification_Image
+        # btn_Verification_OK
+        # btn_Verification_Close
+        # btn_Verification_Refresh
+        centers = self.find_verification_centers()
+
+        if not centers:
+            mouse_click_match(template=img_path('btn_Verification_Refresh'), image=expand_box(uis['btn_Verification_Refresh'], offset=[20, 300]))
+            time.sleep(3)
+            self.do_verification(attempts=attempts)
+        else:
+            if attempts > 4:
+                print("verification is not complete!!!")
+                return False
+            success = self.click_verifications(centers, attempts=attempts)
+            # time.sleep(1)
+            if not success:
+                self.do_verification(attempts=attempts + 1)
+            else:
+                return True
+
 
     def reconnect(self):
         pass
 
 
-
-
-
-# def turnOnEmulator(emulator=_ENV['_EMULATOR']):
-#     # 버튼
-#     #_UI = emulators[emulator]['BUTTONS']
-
-#     # For BLUESTACK
-#     if emulator == 'BLUESTACK':
-#         clickMouse(_UI['location']['icon_wallpaper'])
-#         time.sleep(10)
-#         clickMouse([1000, 500])
-
-#     # For LDPLAYER
-#     elif emulator == 'LDPLAYER':
-#         # 바탕화면 더블 클릭
-#         clickMouse2(_OS['ROK_WALLPAPER']['xy'])
-
-#         ## popup 닫기 !!!!
-#         ## 상단 메뉴바 아래 부분에서 '닫기' 버튼 있으면, 클릭!!!!
-#         for btn in _UI['OUTER']['POPUP_CLOSES']:
-#             time.sleep(1)
-#             clickMouse(btn)
-
-#         # ROK 아이콘 클릭
-#         for _ in range(0, 15):
-#             print('rok icon path: ' + _ENV['_IMAGES_FOLDER'] + _UI['OUTER']['WALLPAPER_ROK_MID']['fn'])
-#             loaded = matchImageBox(_ENV['_IMAGES_FOLDER'] + _UI['OUTER']['WALLPAPER_ROK_MID']['fn'])
-#             if loaded == False:
-#                 time.sleep(10)
-#             else:
-#                 clickMouse(loaded)
-#                 break
-
-#         ## popup(avast) 닫기
-#         clickMouse(_UI['OUTER']['POPUP_AVAST'])
-
-#         # 최대화 버튼 클릭
-#         time.sleep(2)
-#         clickMouse(_UI['OUTER']['MENUBAR_MAX_MID']['xy'])
-
-#         # 게임 화면 진입 여부 확인
-#         for _ in range(0, 30):
-#             loaded = matchImageBox(_ENV['_IMAGES_FOLDER'] + _UI['MAIN']['VIEWALLIANCE_MAX']['fn'])
-#             if loaded == False:
-#                 time.sleep(10)
-#             else:
-#                 print(loaded)
-#                 break
-        
-#         ## 게임 화면 진입이 안된 경우 처리!!!
-#         if loaded == False:
-#             pass
-
-#         time.sleep(2)
-        
-#         # 하단 메뉴 펼침
-#         unfoldMenuBtn()
-    
-#     return 0
-
-
 if __name__ == '__main__':
     conn = Connector()
+    # conn.on_player()
 
-    conn.on_player()
+    time.sleep(5)
+
+    conn.do_verification()

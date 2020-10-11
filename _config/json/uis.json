@@ -1,4 +1,154 @@
 {
+  "btn_characterMangement_create": [
+    1018,
+    794,
+    1154,
+    930
+  ],
+  "btn_characterMangement_login_YES": [
+    1180,
+    748,
+    1260,
+    784
+  ],
+  "btn_characterMangement_login_NO": [
+    684,
+    748,
+    746,
+    784
+  ],
+  "btn_characterMangement_CLOSE": [
+    1616,
+    102,
+    1660,
+    146
+  ],
+  "box_characterMangement": [
+    266,
+    224,
+    1654,
+    960
+  ],
+  "img_avatar_login_M000": [
+    312,
+    246,
+    448,
+    384
+  ],
+  "img_avatar_login_M001": [
+    1016,
+    246,
+    1152,
+    384
+  ],
+  "img_avatar_login_M002": [
+    312,
+    458,
+    448,
+    596
+  ],
+  "img_avatar_login_M003": [
+    1016,
+    458,
+    1152,
+    596
+  ],
+  "img_avatar_login_M004": [
+    312,
+    668,
+    448,
+    806
+  ],
+  "img_avatar_login_M005": [
+    1016,
+    668,
+    1152,
+    806
+  ],
+  "img_avatar_login_M007": [
+    312,
+    216,
+    448,
+    354
+  ],
+  "img_avatar_login_M010": [
+    1016,
+    216,
+    1152,
+    354
+  ],
+  "img_avatar_login_M011": [
+    312,
+    428,
+    448,
+    566
+  ],
+  "img_avatar_login_M202": [
+    312,
+    246,
+    448,
+    384
+  ],
+  "img_avatar_login_M201": [
+    1016,
+    246,
+    1152,
+    384
+  ],
+  "img_avatar_login_M101": [
+    312,
+    246,
+    448,
+    384
+  ],
+  "img_avatar_login_M102": [
+    1016,
+    246,
+    1152,
+    384
+  ],
+  "btn_accountSetting_CLOSE": [
+    40,
+    24,
+    74,
+    58
+  ],
+  "btn_accountSetting_switchAccount": [
+    1236,
+    420,
+    1412,
+    444
+  ],
+  "btn_accountSetting_switchAccount_google": [
+    1078,
+    444,
+    1324,
+    476
+  ],
+  "btn_accountSetting_switchAccount_google_deverlife": [
+    572,
+    506,
+    652,
+    528
+  ],
+  "btn_accountSetting_switchAccount_google_life681225": [
+    572,
+    606,
+    672,
+    628
+  ],
+  "btn_accountSetting_switchAccount_google_monwater": [
+    572,
+    712,
+    666,
+    734
+  ],
+  "box_accountSetting_switchAccount_google": [
+    568,
+    470,
+    718,
+    918
+  ],
   "btn_OS_Player": [
     651,
     1040,
@@ -304,5 +454,827 @@
     390,
     936,
     420
+  ],
+  "btn_profile_settings_CLOSE": [
+    1654,
+    46,
+    1698,
+    88
+  ],
+  "btn_profile_settings_notifications": [
+    366,
+    212,
+    516,
+    368
+  ],
+  "btn_profile_generalSettings": [
+    718,
+    212,
+    868,
+    368
+  ],
+  "btn_profile_settings_emojis": [
+    1066,
+    212,
+    1216,
+    368
+  ],
+  "btn_profile_settings_searchGovernor": [
+    1416,
+    212,
+    1566,
+    368
+  ],
+  "btn_profile_settings_characterMangement": [
+    366,
+    482,
+    516,
+    638
+  ],
+  "btn_profile_settings_account": [
+    718,
+    482,
+    868,
+    638
+  ],
+  "btn_profile_settings_customerService": [
+    1066,
+    482,
+    1216,
+    638
+  ],
+  "btn_profile_settings_language": [
+    1416,
+    482,
+    1566,
+    638
+  ],
+  "btn_profile_settings_communities": [
+    366,
+    756,
+    516,
+    912
+  ],
+  "btn_profile_settings_redeem": [
+    718,
+    756,
+    868,
+    912
+  ],
+  "btn_profile_settings_blockmail": [
+    1066,
+    756,
+    1216,
+    912
+  ],
+  "btn_profile_CLOSE": [
+    1616,
+    104,
+    1660,
+    146
+  ],
+  "btn_profile_album": [
+    320,
+    262,
+    376,
+    316
+  ],
+  "btn_profile_avatarSelection": [
+    320,
+    334,
+    370,
+    382
+  ],
+  "txt_profile_actionPoints": [
+    460,
+    602,
+    638,
+    626
+  ],
+  "btn_profile_actionPointsPlus": [
+    656,
+    594,
+    696,
+    632
+  ],
+  "txt_profile_ID": [
+    938,
+    280,
+    1064,
+    306
+  ],
+  "txt_profile_Nick": [
+    780,
+    314,
+    1186,
+    362
+  ],
+  "btn_profile_NickEdit": [
+    1203,
+    317,
+    1248,
+    362
+  ],
+  "txt_profile_civilization": [
+    1416,
+    320,
+    1612,
+    362
+  ],
+  "txt_profile_alliance": [
+    780,
+    438,
+    1108,
+    476
+  ],
+  "txt_profile_power": [
+    1124,
+    438,
+    1324,
+    474
+  ],
+  "txt_profile_kills": [
+    1362,
+    438,
+    1582,
+    474
+  ],
+  "btn_profile_killsDetails": [
+    1328,
+    408,
+    1358,
+    438
+  ],
+  "btn_profile_moreInfo": [
+    392,
+    736,
+    536,
+    906
+  ],
+  "btn_profile_rankings": [
+    594,
+    736,
+    738,
+    906
+  ],
+  "btn_profile_commander": [
+    796,
+    736,
+    940,
+    906
+  ],
+  "btn_profile_troops": [
+    1000,
+    736,
+    1144,
+    906
+  ],
+  "btn_profile_achievements": [
+    1202,
+    736,
+    1346,
+    906
+  ],
+  "btn_profile_settings": [
+    1404,
+    736,
+    1548,
+    906
+  ],
+  "btn_profile_VIP_CLOSE": [
+    1616,
+    102,
+    1662,
+    146
+  ],
+  "txt_profile_VIP_loginDays": [
+    1306,
+    226,
+    1406,
+    256
+  ],
+  "txt_profile_VIP_points": [
+    740,
+    284,
+    1068,
+    318
+  ],
+  "btn_profile_VIP_pointsPlus": [
+    1362,
+    282,
+    1402,
+    318
+  ],
+  "btn_profile_VIP_pointsChest": [
+    1478,
+    226,
+    1586,
+    304
+  ],
+  "btn_profile_VIP_pointsClaim": [
+    1352,
+    584,
+    1460,
+    616
+  ],
+  "btn_menu_alliance_CLOSE": [
+    1654,
+    46,
+    1698,
+    88
+  ],
+  "tab_menu_alliance_alliance": [
+    84,
+    192,
+    176,
+    278
+  ],
+  "tab_menu_alliance_members": [
+    84,
+    388,
+    176,
+    474
+  ],
+  "tab_menu_alliance_settings": [
+    84,
+    584,
+    176,
+    670
+  ],
+  "btn_menu_alliance_calendar": [
+    698,
+    750,
+    778,
+    824
+  ],
+  "btn_menu_alliance_messageBoard": [
+    698,
+    850,
+    778,
+    902
+  ],
+  "btn_menu_alliance_mail": [
+    698,
+    922,
+    778,
+    974
+  ],
+  "txt_menu_alliance_name": [
+    316,
+    668,
+    716,
+    712
+  ],
+  "txt_menu_alliance_power": [
+    408,
+    722,
+    684,
+    764
+  ],
+  "txt_menu_alliance_leader": [
+    418,
+    790,
+    684,
+    828
+  ],
+  "txt_menu_alliance_territory": [
+    438,
+    840,
+    528,
+    874
+  ],
+  "txt_menu_alliance_giftLevel": [
+    560,
+    888,
+    608,
+    920
+  ],
+  "txt_menu_alliance_members": [
+    450,
+    934,
+    590,
+    970
+  ],
+  "txt_menu_alliance_comments": [
+    876,
+    210,
+    1582,
+    484
+  ],
+  "btn_menu_alliance_translation": [
+    1594,
+    452,
+    1636,
+    494
+  ],
+  "btn_menu_alliance_war": [
+    864,
+    526,
+    1022,
+    722
+  ],
+  "btn_menu_alliance_holySites": [
+    1062,
+    526,
+    1220,
+    722
+  ],
+  "btn_menu_alliance_territory": [
+    1260,
+    526,
+    1418,
+    722
+  ],
+  "btn_menu_alliance_help": [
+    1458,
+    526,
+    1616,
+    722
+  ],
+  "btn_menu_alliance_storehouse": [
+    864,
+    752,
+    1022,
+    948
+  ],
+  "btn_menu_alliance_technology": [
+    1062,
+    752,
+    1220,
+    948
+  ],
+  "btn_menu_alliance_gifts": [
+    1260,
+    752,
+    1418,
+    948
+  ],
+  "btn_menu_alliance_shop": [
+    1458,
+    752,
+    1616,
+    948
+  ],
+  "btn_menu_campaign": [
+    1194,
+    986,
+    1296,
+    1046
+  ],
+  "btn_menu_items": [
+    1348,
+    986,
+    1450,
+    1046
+  ],
+  "btn_menu_alliance": [
+    1498,
+    986,
+    1600,
+    1046
+  ],
+  "btn_menu_commander": [
+    1644,
+    986,
+    1746,
+    1046
+  ],
+  "btn_menu_alliance_help_CLOSE": [
+    1654,
+    64,
+    1698,
+    106
+  ],
+  "btn_menu_alliance_help_help": [
+    904,
+    964,
+    1018,
+    1004
+  ],
+  "btn_menu_campaign_BACK": [
+    22,
+    20,
+    98,
+    92
+  ],
+  "btn_menu_campaign_expedition": [
+    162,
+    324,
+    468,
+    678
+  ],
+  "btn_menu_campaign_arkOfOsiris": [
+    600,
+    324,
+    906,
+    678
+  ],
+  "btn_menu_campaign_sunsetCanyon": [
+    1026,
+    324,
+    1332,
+    678
+  ],
+  "btn_menu_campaign_lostCanyon": [
+    1474,
+    324,
+    1780,
+    678
+  ],
+  "txt_menu_campaign_expedition": [
+    216,
+    642,
+    408,
+    682
+  ],
+  "txt_menu_campaign_arkOfOsiris": [
+    634,
+    642,
+    856,
+    682
+  ],
+  "txt_menu_campaign_sunsetCanyon": [
+    1046,
+    642,
+    1308,
+    682
+  ],
+  "txt_menu_campaign_lostCanyon": [
+    1502,
+    642,
+    1720,
+    682
+  ],
+  "box_menu_campaign_items": [
+    130,
+    644,
+    1780,
+    682
+  ],
+  "btn_menu_campaign_next": [
+    1842,
+    466,
+    1872,
+    526
+  ],
+  "btn_menu_campaign_expedition_BACK": [
+    22,
+    20,
+    98,
+    92
+  ],
+  "btn_menu_campaign_expedition_store": [
+    138,
+    150,
+    240,
+    224
+  ],
+  "btn_menu_campaign_expedition_chest": [
+    138,
+    306,
+    240,
+    386
+  ],
+  "btn_menu_campaign_expedition_challenge": [
+    1418,
+    966,
+    1676,
+    1006
+  ],
+  "txt_menu_campaign_expedition_completedCount": [
+    232,
+    912,
+    330,
+    978
+  ],
+  "txt_menu_campaign_expedition_medalPoint": [
+    1588,
+    24,
+    1716,
+    56
+  ],
+  "btn_menu_campaign_expedition_store_CLOSE": [
+    1616,
+    102,
+    1660,
+    144
+  ],
+  "txt_menu_campaign_expedition_store_medalPoint": [
+    1586,
+    24,
+    1722,
+    58
+  ],
+  "btn_menu_campaign_expedition_store_constance": [
+    1140,
+    394,
+    1264,
+    436
+  ],
+  "btn_menu_campaign_expedition_store_aethelflaed": [
+    1420,
+    394,
+    1544,
+    436
+  ],
+  "txt_menu_campaign_expedition_store_aethelflaed_remaining": [
+    1406,
+    250,
+    1536,
+    432
+  ],
+  "txt_menu_campaign_expedition_store_free": [
+    1428,
+    480,
+    1492,
+    514
+  ],
+  "btn_menu_campaign_expedition_store_refresh": [
+    1540,
+    470,
+    1594,
+    520
+  ],
+  "btn_menu_campaign_expedition_store_goldStar": [
+    874,
+    582,
+    984,
+    634
+  ],
+  "btn_menu_campaign_expedition_store_wood": [
+    1420,
+    582,
+    1530,
+    634
+  ],
+  "btn_menu_campaign_expedition_store_training": [
+    1420,
+    790,
+    1530,
+    842
+  ],
+  "btn_menu_campaign_expedition_store_buy": [
+    866,
+    682,
+    1002,
+    720
+  ],
+  "btn_menu_campaign_expedition_store_silverStar": [
+    874,
+    582,
+    984,
+    634
+  ],
+  "btn_menu_campaign_expedition_store_food": [
+    1148,
+    582,
+    1258,
+    634
+  ],
+  "btn_menu_campaign_expedition_store_book": [
+    874,
+    790,
+    984,
+    842
+  ],
+  "btn_menu_campaign_expedition_store_stone": [
+    1420,
+    790,
+    1530,
+    842
+  ],
+  "btn_menu_campaign_expedition_store_goldStar4": [
+    874,
+    790,
+    984,
+    842
+  ],
+  "btn_menu_campaign_expedition_store_legend": [
+    1442,
+    682,
+    1532,
+    720
+  ],
+  "box_menu_campaign_expedition_store_buy1": [
+    864,
+    678,
+    1562,
+    724
+  ],
+  "box_menu_campaign_expedition_store_buy2": [
+    864,
+    888,
+    1562,
+    934
+  ],
+  "box_menu_campaign_expedition_store_items": [
+    870,
+    576,
+    1534,
+    846
+  ],
+  "btn_menu_campaign_expedition_rewards": [
+    868,
+    776,
+    1070,
+    818
+  ],
+  "txt_menu_alliance_war_new": [
+    980,
+    530,
+    1014,
+    560
+  ],
+  "txt_menu_alliance_technology_new": [
+    1178,
+    758,
+    1212,
+    788
+  ],
+  "txt_menu_alliance_gifts_new": [
+    1376,
+    758,
+    1410,
+    788
+  ],
+  "tab_menu_alliance_technology_development": [
+    84,
+    230,
+    176,
+    316
+  ],
+  "tab_menu_alliance_technology_territory": [
+    84,
+    414,
+    176,
+    500
+  ],
+  "tab_menu_alliance_technology_war": [
+    84,
+    596,
+    176,
+    682
+  ],
+  "tab_menu_alliance_technology_allianceSkill": [
+    84,
+    780,
+    176,
+    866
+  ],
+  "img_menu_alliance_technology_notFull": [
+    1116,
+    794,
+    1146,
+    830
+  ],
+  "img_menu_alliance_technology_recommendation": [
+    292,
+    670,
+    332,
+    712
+  ],
+  "btn_menu_alliance_technology_CLOSE": [
+    1652,
+    88,
+    1698,
+    130
+  ],
+  "txt_menu_alliance_technology_todayDonation": [
+    542,
+    924,
+    628,
+    952
+  ],
+  "txt_menu_alliance_technology_remaining": [
+    690,
+    924,
+    812,
+    950
+  ],
+  "btn_menu_alliance_technology_donate_CLOSE": [
+    1616,
+    100,
+    1662,
+    144
+  ],
+  "btn_menu_alliance_technology_donate": [
+    1400,
+    810,
+    1536,
+    840
+  ],
+  "img_menu_alliance_technology_donate_gold": [
+    1415,
+    850,
+    1451,
+    884
+  ],
+  "txt_menu_alliance_technology_donateAmount": [
+    1452,
+    852,
+    1536,
+    884
+  ],
+  "btn_menu_alliance_technology_donateGem": [
+    1026,
+    810,
+    1162,
+    840
+  ],
+  "btn_menu_alliance_technology_donateGemAmount": [
+    1098,
+    850,
+    1258,
+    882
+  ],
+  "btn_menu_alliance_technology_nextChance": [
+    1516,
+    916,
+    1624,
+    946
+  ],
+  "txt_menu_alliance_technology_donated": [
+    1140,
+    508,
+    1380,
+    542
+  ],
+  "box_menu_alliance_technology_skills": [
+    202,
+    154,
+    1714,
+    1034
+  ],
+  "btn_menu_alliance_gifts_CLOSE": [
+    1648,
+    42,
+    1694,
+    86
+  ],
+  "tab_menu_alliance_gifts_rare": [
+    1352,
+    294,
+    1428,
+    326
+  ],
+  "tab_menu_alliance_gifts_normal": [
+    950,
+    294,
+    1058,
+    326
+  ],
+  "btn_menu_alliance_gifts_claim": [
+    1410,
+    406,
+    1518,
+    434
+  ],
+  "box_menu_alliance_gifts_claimArea": [
+    1376,
+    346,
+    1550,
+    994
+  ],
+  "box_menu_alliance_gifts_claim1": [
+    1410,
+    840,
+    1518,
+    868
+  ],
+  "box_menu_alliance_gifts_claim2": [
+    1410,
+    551,
+    1518,
+    579
+  ],
+  "box_menu_alliance_gifts_claim3": [
+    1410,
+    696,
+    1518,
+    724
+  ],
+  "box_menu_alliance_gifts_claim4": [
+    1410,
+    841,
+    1518,
+    869
+  ],
+  "btn_menu_alliance_gifts_treasure": [
+    374,
+    510,
+    684,
+    740
+  ],
+  "btn_menu_alliance_gifts_treasureNotFull": [
+    698,
+    878,
+    724,
+    950
+  ],
+  "btn_menu_alliance_gifts_claimAll": [
+    1642,
+    278,
+    1692,
+    322
   ]
 }

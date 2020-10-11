@@ -1,0 +1,101 @@
+{
+  "login_prefix": "img_avatar_login_",
+  "google_prefix": "btn_accountSetting_switchAccount_google_",
+  "MAX_X": 1920,
+  "MAX_Y": 1080,
+  "ZOOM_MAX": 50,
+  "IMG_EXT": ".png",
+  "EMULATOR": "LDPLAYER",
+  "DURATION_CLICK": 0.5,
+  "DURATION_DRAG": 1.5,
+  "DURATION_PRESS": 5,
+  "CLICK_INTERVAL": 1.0,
+  "ROOT": "../_config/images/",
+  "UIS": "../_config/images/uis/",
+  "CHARACTERS": "../_config/images/characters/",
+  "OBJECTS": "../_config/images/objects/",
+  "MAPS": "../_config/images/maps/",
+  "SCREENSHOTS": "../_config/images/screenshots/",
+  "_OCR": "../_config/images/_ocr/",
+  "OCR": "../_config/images/ocr/",
+  "tesseract_cmd_win": "C:/Program Files/Tesseract-OCR/tesseract.exe",
+  "tesseract_data_win": "--tessdata-dir \"C:/Program Files/Tesseract-OCR/tessdata\"",
+  "json": "conf/goodleDrive_secret.json",
+  "scopes": "https://spreadsheets.google.com/feeds,https://www.googleapis.com/auth/drive",
+  "urls": {
+    "ROK_SETTINGS": "https://docs.google.com/spreadsheets/d/1hJ4OyhvRNKSz1zBIagX9r3_O-t-Go5C0MmmK_Hh1AAs/edit#gid=0"
+  },
+  "matrix_p2c": [
+    [
+      1.35162297,
+      0.628326412,
+      -339.296263
+    ],
+    [
+      6.9388939e-17,
+      2.27541342,
+      -498.846844
+    ],
+    [
+      2.71050543e-19,
+      0.000651153648,
+      1.0
+    ]
+  ],
+  "map_size": [
+    1200,
+    1200
+  ],
+  "min_size": [
+    8,
+    6
+  ],
+  "max_size": [
+    320,
+    240
+  ],
+  "click_area": [
+    230,
+    170,
+    1600,
+    900
+  ],
+  "expedition_store_offset": [
+    0,
+    88
+  ],
+  "expedition_store_list": [
+    "aethelflaed",
+    "constance",
+    "legend",
+    "goldStar",
+    "goldStar2",
+    "goldStar4",
+    "silverStar",
+    "silverStar2",
+    "silverStar4",
+    "book",
+    "food",
+    "wood",
+    "stone",
+    "gold"
+  ],
+  "expedition_store_black": [
+    "aethelflaed",
+    "constance",
+    "silverStar",
+    "silverStar2",
+    "silverStar4",
+    "book",
+    "food",
+    "wood",
+    "stone",
+    "gold"
+  ],
+  "expedition_store_white": [
+    "legend",
+    "goldStar",
+    "goldStar2",
+    "goldStar4"
+  ]
+}
