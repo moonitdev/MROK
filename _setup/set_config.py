@@ -1,35 +1,12 @@
-##@@@-------------------------------------------------------------------------
-##@@@ Basic Libraries
 import os, sys
 import re
-# import time
-# import numpy as np
 
-# ##@@@-------------------------------------------------------------------------
-# ##@@@ Installed(conda/pip) Libraries
-# import pyautogui as pag
-# import cv2
-# import pytesseract
-
-
-##@@@-------------------------------------------------------------------------
-##@@@ External(.json/.py)
-sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
-from settings import _ENV, _IMGS, _MAP
 sys.path.append(os.path.join(os.path.dirname(__file__), '../supporters'))
 from databaser.GoogleSpread import GoogleSpread
 from imageFns import *
 from dataFns import json_to_file, modify_file, str_to_json  # , file_to_json
 
-##@@@@========================================================================
-##@@@@ Functions
-
-##@@@-------------------------------------------------------------------------
-##@@@ Basic Functions
-
 gdrive = GoogleSpread()
-# dicts = gdrive.read_sheet('ROK_SETTINGS', '1920_1080')
-# ROOT = 'C:\\Dev\\docMoon\\projects\\MROK\\_setup\\screenshots\\'
 
 def setup_config():
     """
@@ -105,19 +82,6 @@ def setup_characters():
     dicts = gdrive.read_sheet('ROK_SETTINGS', 'characters')
     json_to_file(dicts, '../_config/json/characters.json', mode='w+')
     return dicts
-
-
-# def setup_ui_boxes(file_='TEST', sheet_='crop'):
-#     dicts = _bs.get_dict_from_sheet(_bs.fetch_sheet(file_, sheet_), 0)
-#     #jsons = []
-#     uis = {}
-#     for dic in dicts:
-#         for k, v in dic.items():
-#             if k == 'use' and v == 'x':
-#                 uis[dic['prefix']] = box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
-#                 _bs.json_to_file(uis, '../_config/ui_boxes.json')
-#     print(uis)
-#     return uis
 
 
 ##@@@@========================================================================
