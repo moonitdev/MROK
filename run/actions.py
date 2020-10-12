@@ -1,21 +1,6 @@
-##@@@-------------------------------------------------------------------------
-##@@@ Basic Libraries
 import os, sys
-# import re
 import time
-# import numpy as np
 
-# ##@@@-------------------------------------------------------------------------
-# ##@@@ Installed(conda/pip) Libraries
-# import pyautogui as pag
-# import cv2
-# import pytesseract
-
-
-##@@@-------------------------------------------------------------------------
-##@@@ External(.json/.py)
-# sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
-# from settings import _ENV, _IMGS, _MAP
 sys.path.append(os.path.join(os.path.dirname(__file__), '../supporters'))
 # from databaser.GoogleSpread import GoogleSpread
 from functions.imageFns import *
@@ -73,6 +58,8 @@ def claim_VIP():
 def claim_gifts():
     """
     기능: 연맹 선물 수령
+    Note:
+      - 새로운 선물(빨간 동그라미)이 있을 때만 클릭하도록!!
     """
     series = [
         {'box': uis['btn_menu_alliance'], 'interval': 2},
@@ -93,17 +80,20 @@ def claim_gifts():
     series = [
         {'box': uis['tab_menu_alliance_gifts_normal'], 'interval': 3},
         {'box': uis['btn_menu_alliance_gifts_claimAll'], 'interval': 2},
+        {'box': uis['btn_menu_alliance_gifts_rewards_confirm'], 'interval': 2},
         {'box': uis['tab_menu_alliance_gifts_rare'], 'interval': 3},
     ]
     mouse_click_series_box(series=series)
+    time.sleep(2)
 
     for i in range(1, 4):
-        box = uis['box_menu_alliance_gifts_claim' + i]
+        box = uis['box_menu_alliance_gifts_claim' + str(i)]
+        print('box: {}, box: {}'.format(i, box))
         mouse_click_box(box)
     
     series = [
-        {'box': uis['btn__menu_alliance_gifts_CLOSE'], 'interval': 2},
-        {'box': uis['btn__menu_alliance_CLOSE'], 'interval':2},
+        {'box': uis['btn_menu_alliance_gifts_CLOSE'], 'interval': 2},
+        {'box': uis['btn_menu_alliance_CLOSE'], 'interval':2},
     ]
     mouse_click_series_box(series=series)
 

@@ -1237,9 +1237,9 @@
   ],
   "box_menu_alliance_gifts_claim1": [
     1410,
-    840,
+    406,
     1518,
-    868
+    434
   ],
   "box_menu_alliance_gifts_claim2": [
     1410,
@@ -1276,5 +1276,167 @@
     278,
     1692,
     322
+  ],
+  "btn_menu_alliance_gifts_rewards_confirm": [
+    870,
+    778,
+    1070,
+    814
+  ],
+  "btn_courierStation_boutique_CLOSE": [
+    1616,
+    104,
+    1660,
+    146
+  ],
+  "btn_courierStation_boutique_free": [
+    1468,
+    214,
+    1552,
+    244
+  ],
+  "img_courierStation_boutique_price_gem": [
+    647,
+    603,
+    677,
+    637
+  ],
+  "img_courierStation_boutique_price_food": [
+    888,
+    603,
+    918,
+    637
+  ],
+  "img_courierStation_boutique_item_wood": [
+    882,
+    444,
+    1034,
+    526
+  ],
+  "img_courierStation_boutique_item_stone": [
+    1159,
+    444,
+    1311,
+    526
+  ],
+  "img_courierStation_boutique_item_gold": [
+    1434,
+    444,
+    1586,
+    526
+  ],
+  "img_courierStation_boutique_item_accelerationArbitrary": [
+    607,
+    818,
+    759,
+    900
+  ],
+  "img_courierStation_boutique_item_accelerationResearch": [
+    882,
+    818,
+    1034,
+    900
+  ],
+  "img_courierStation_boutique_item_accelerationCure": [
+    1434,
+    818,
+    1586,
+    900
+  ],
+  "img_courierStation_boutique_price_wood": [
+    611,
+    567,
+    641,
+    611
+  ],
+  "img_courierStation_boutique_item_buffGathering": [
+    607,
+    780,
+    759,
+    862
+  ],
+  "img_courierStation_boutique_item_buffWood": [
+    882,
+    780,
+    1034,
+    862
+  ],
+  "img_courierStation_boutique_item_buffGold": [
+    1159,
+    780,
+    1311,
+    862
+  ],
+  "txt_courierStation_boutique_price": [
+    644,
+    570,
+    760,
+    604
+  ],
+  "box_courierStation_boutique": [
+    554,
+    310,
+    1640,
+    960
+  ],
+  "img_courierStation_boutique_item_accelerationTraining": [
+    882,
+    814,
+    1034,
+    896
+  ],
+  "img_courierStation_boutique_item_buffFood": [
+    1427,
+    789,
+    1593,
+    875
+  ],
+  "txt_courierStation_courierStation": [
+    794,
+    108,
+    1126,
+    146
+  ],
+  "btn_courierStation_courierStation_CLOSE": [
+    1616,
+    104,
+    1660,
+    146
+  ],
+  "btn_courierStation_GO": [
+    724,
+    700,
+    822,
+    786
+  ],
+  "btn_courierStation_INFO": [
+    494,
+    700,
+    584,
+    786
+  ],
+  "box_courierStation": [
+    532,
+    466,
+    768,
+    634
+  ],
+  "btn_verification_alert": [
+    1268,
+    136,
+    1368,
+    200
+  ],
+  "txt_verification_rewards": [
+    950,
+    146,
+    1154,
+    180
+  ],
+  "btn_verification_verify": [
+    1073,
+    537,
+    1197,
+    567
   ]
 }

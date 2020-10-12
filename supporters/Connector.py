@@ -108,22 +108,25 @@ class Connector:
         pass
 
     def catch_verification(self):
-        btn_alert = match_image_box(template=img_path('btn_Verification_Alert'), image=expand_box(uis['btn_Verification_Alert'], offset=[20, 300]))
+        # btn_alert = match_image_box(template=img_path('btn_verification_Aalert'), image=expand_box(uis['btn_verification_alert'], offset=[20, 300]))
 
-        if type(btn_alert) is list:
-            mouse_click(btn_alert)
+        # if type(btn_alert) is list:
+        #     mouse_click(btn_alert)
+        #     time.sleep(2)
+        #     self.do_verification(attempts=0)
+        #     return True
+        
+        # btn_verify = match_image_box(template=img_path('btn_verification_verify'), image=expand_box(uis['btn_verification_verify'], offset=[100, 200]), precision=0.999, show=True)
+        btn_verify = match_image_box(template=img_path('btn_verification_verify'), image=expand_box(uis['btn_verification_verify'], offset=[100, 200]), precision=0.999)
+        print('btn_verify: {}'.format(btn_verify))
+        if type(btn_verify) is list:
+            print('btn_verify: {}'.format(btn_verify))
+            mouse_click(btn_verify)
             time.sleep(2)
             self.do_verification(attempts=0)
             return True
         
-        lbl_rewards = match_image_box(template=img_path('lbl_Verification_Rewards'), image=expand_box(uis['lbl_Verification_Rewards'], offset=[20, 300]))
-        if type(lbl_rewards) is list:
-            mouse_click(lbl_rewards)
-            time.sleep(2)
-            self.do_verification(attempts=0)
-            return True
-        
-        return False
+        # return False
 
 
     def find_verification_centers(self):
@@ -158,14 +161,9 @@ class Connector:
         Note:
             - 
         """
-        # box_Verification_Templates
-        # box_Verification_Image
-        # btn_Verification_OK
-        # btn_Verification_Close
-        # btn_Verification_Refresh
         centers = self.find_verification_centers()
 
-        if not centers:
+        if not centers or len(centers) > 3:
             mouse_click_match(template=img_path('btn_Verification_Refresh'), image=expand_box(uis['btn_Verification_Refresh'], offset=[20, 300]))
             time.sleep(3)
             self.do_verification(attempts=attempts)
@@ -191,4 +189,5 @@ if __name__ == '__main__':
 
     time.sleep(5)
 
-    conn.do_verification()
+    # conn.do_verification()
+    conn.catch_verification()
