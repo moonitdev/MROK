@@ -113,8 +113,8 @@ def mouse_click_series(series=[{}]):
     기능: series에 해당하는 마우스 연속 클릭
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
-        - series || 마우스 클릭 배열 | list(of dict) | [{}] | {'pos':[0, 0], 'interval':1, 'callback':time.sleep, 'kwargs': {'a':'b'}},
-            * pos : 마우스 클릭 위치(list)
+        - series || 마우스 클릭 배열 | list(of dict) | [{}] | {'position':[0, 0], 'interval':1, 'callback':time.sleep, 'kwargs': {'a':'b'}},
+            * position : 마우스 클릭 위치(list)
             * interval : 클릭 후 멈춤 시간(float)
             * callback : 클릭 후 실행 함수(function)
             * kwargs : callback 함수의 매개 변수(dict)
@@ -122,7 +122,7 @@ def mouse_click_series(series=[{}]):
         - 
     """
     for one in series:
-        mouse_click(one['pos'])
+        mouse_click(one['position'])
         if 'callback' in one:
             one['callback'](**one['kwargs'])
         time.sleep(one['interval'])
@@ -133,7 +133,7 @@ def mouse_click_series_box(series=[{}]):
     기능: series에 해당하는 마우스 연속 클릭
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
-        - series || 마우스 클릭 배열 | list(of dict) | [{}] | {'pos':[0, 0], 'interval':1, 'callback':time.sleep, 'kwargs': {'a':'b'}},
+        - series || 마우스 클릭 배열 | list(of dict) | [{}] | {'position':[0, 0], 'interval':1, 'callback':time.sleep, 'kwargs': {'a':'b'}},
             * box : 마우스 클릭 위치(list)
             * interval : 클릭 후 멈춤 시간(float)
             * callback : 클릭 후 실행 함수(function)
@@ -293,7 +293,7 @@ def key_press(key=None):
     pag.press(key)
 
 
-def key_hotkey(hotkey=()):
+def key_hotkey(*hotkey):
     """
     기능: 핫키(hotkey)을 입력
     입력:
@@ -302,7 +302,7 @@ def key_hotkey(hotkey=()):
     Note:
         - 
     """
-    pag.hotkey(hotkey)
+    pag.hotkey(*hotkey)
 
 
 def key_input(position=[], keys=None):
@@ -338,6 +338,21 @@ def zoom(mode='OUT', n=1, interval=0.1):
             key_press('f4')
             time.sleep(interval)
 
+
+def get_clipboard_copy(position=None):
+    if position != None:
+        mouse_click(position)
+    pag.hotkey('ctrl', 'c')
+    print(pyperclip.paste())
+    return pyperclip.paste()
+
+
+def get_clipboard_click(position=[1002, 346]):
+    mouse_click(position)
+    print(pyperclip.paste())
+    print(pyperclip.paste())
+    return pyperclip.paste()
+
 # def press_hotkey():
 #     """
 #     Brief: pressHotKey
@@ -352,9 +367,9 @@ def test(dt):
 
 if __name__ == '__main__':
     # series = [
-    #     {'pos':[100, 100], 'interval':5, 'callback':test, 'kwargs': {'a':'b'}},
-    #     {'pos':[1000, 500], 'interval':1},
-    #     {'pos':[300, 400], 'interval':1, 'callback':test, 'kwargs': {'c':'d', 'e':'f'}},
+    #     {'position':[100, 100], 'interval':5, 'callback':test, 'kwargs': {'a':'b'}},
+    #     {'position':[1000, 500], 'interval':1},
+    #     {'position':[300, 400], 'interval':1, 'callback':test, 'kwargs': {'c':'d', 'e':'f'}},
     # ]
     # mouse_click_series(series)
     time.sleep(5)

@@ -1438,5 +1438,95 @@
     537,
     1197,
     567
+  ],
+  "btn_object_click_cityHall_emojis": [
+    1542,
+    274,
+    1576,
+    308
+  ],
+  "btn_object_click_cityHall_marker": [
+    1632,
+    274,
+    1666,
+    308
+  ],
+  "btn_object_click_cityHall_share": [
+    1720,
+    274,
+    1754,
+    308
+  ],
+  "btn_object_click_cityHall_enter": [
+    1362,
+    689,
+    1502,
+    723
+  ],
+  "txt_object_click_cityHall_power": [
+    1454,
+    422,
+    1754,
+    456
+  ],
+  "txt_object_click_cityHall_kills": [
+    1454,
+    468,
+    1754,
+    502
+  ],
+  "txt_object_click_cityHall_alliance": [
+    1454,
+    516,
+    1754,
+    550
+  ],
+  "txt_object_click_cityHall_coordinate": [
+    1340,
+    284,
+    1518,
+    314
+  ],
+  "txt_addMarker_Nick": [
+    484,
+    334,
+    1430,
+    386
+  ],
+  "inp_addMarker_Nick": [
+    22,
+    998,
+    382,
+    1044
+  ],
+  "btn_addMarker_OK": [
+    22,
+    998,
+    382,
+    1044
+  ],
+  "btn_addMarker_confirm": [
+    864,
+    774,
+    1062,
+    810
+  ],
+  "btn_addMarker_special": [
+    578,
+    496,
+    752,
+    672
+  ],
+  "btn_addMarker_friend": [
+    874,
+    496,
+    1048,
+    672
+  ],
+  "btn_addMarker_enemy": [
+    1172,
+    496,
+    1346,
+    672
   ]
 }

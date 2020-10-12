@@ -5,15 +5,20 @@ import platform, ctypes
 sys.path.append(os.path.join(os.path.dirname(__file__), './functions'))
 from guiFns import *
 from imageFns import *
+from functions.dataFns import file_to_json
 
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
 from settings import _ENV, _IMGS, _MAP
 
 
-with open('../_config/json/uis.json', encoding='UTF-8') as f:
-    uis = json.load(f)
-# with open('../_config/ui_boxes.json', encoding='UTF-8') as f:
-#     vals = json.load(f)
+uis = file_to_json('../_config/json/uis.json')
+config = file_to_json('../_config/json/config.json')
+characters = file_to_json('../_config/json/characters.json')
+
+_CENTER = [config['MAX_X']//2, config['MAX_Y']//2]
+
+# with open('../_config/json/uis.json', encoding='UTF-8') as f:
+#     uis = json.load(f)
 
 def is_connected():
     if match_image_box(template, image=[]):
@@ -34,10 +39,11 @@ class Connector:
         self.OS = self.set_OS() # Windows, Darwin(OSX), Linux, ...
         self.resolution = self.set_resolution() # [1920, 1080]
         self.emulator = 'LDPLAYER' # LDPLAYER, BLUESTACK, 
-        self.account = 'deverlife@gmail.com' # deverlife@gmail.com, mowater@gmail.com, ...
-        self.nick = '천년왕국' # 게임 닉네임
-        self.id = '33627943'  # 게임 아이디
-
+        self.nick = self.set_nick() # 게임 닉네임
+        self.account = self.set_account() # deverlife@gmail.com, mowater@gmail.com, ...
+        self.id = self.set_id() #  게임 아이디 '33627943'
+        self.sn = self.set_sn() #  캐릭터 일련번호 'M000', 'M001', ...
+ 
     def set_state(self):
         pass
 
@@ -56,10 +62,29 @@ class Connector:
         pass
 
     def set_nick(self):
-        pass
+        # set_viewMode(mode='AllianceView')
+        series = [
+            {'position':_CENTER, 'interval':2},
+            {'position': uis['btn_object_click_cityHall_marker'], 'interval':3},
+            {'position': uis['txt_addMarker_Nick'], 'interval':3}
+        ]
+        mouse_click_series(series=series)
+        return get_clipboard_copy()
+
+    def set_sn(self):
+        for character in characters:
+            if characters['nick'] == self.nick:
+                return characters['sn']
 
     def set_id(self):
-        pass
+        for character in characters:
+            if characters['nick'] == self.nick:
+                return characters['id']
+
+    def set_account(self):
+        for character in characters:
+            if characters['nick'] == self.nick:
+                return characters['google'] + '@gmail.com'
 
     def get_state(self):
         return self.state
@@ -108,15 +133,12 @@ class Connector:
         pass
 
     def catch_verification(self):
-        # btn_alert = match_image_box(template=img_path('btn_verification_Aalert'), image=expand_box(uis['btn_verification_alert'], offset=[20, 300]))
+        btn_alert = match_image_box(template=img_path('btn_verification_alert'), image=expand_box(uis['btn_verification_alert'], offset=[20, 300]))
 
-        # if type(btn_alert) is list:
-        #     mouse_click(btn_alert)
-        #     time.sleep(2)
-        #     self.do_verification(attempts=0)
-        #     return True
-        
-        # btn_verify = match_image_box(template=img_path('btn_verification_verify'), image=expand_box(uis['btn_verification_verify'], offset=[100, 200]), precision=0.999, show=True)
+        if type(btn_alert) is list:
+            mouse_click(btn_alert)
+            time.sleep(2)
+
         btn_verify = match_image_box(template=img_path('btn_verification_verify'), image=expand_box(uis['btn_verification_verify'], offset=[100, 200]), precision=0.999)
         print('btn_verify: {}'.format(btn_verify))
         if type(btn_verify) is list:
@@ -131,9 +153,11 @@ class Connector:
 
     def find_verification_centers(self):
         templates = extract_templates(image=uis['box_Verification_Templates'])
+        if len(templates) > 4: ## 템플릿 이미지가 4개를 초과하면, 포기
+            return False
 
         centers = []
-        for template in templates:
+        for template in templates: ## 템플릿 이미지들과 유사한 이미지를, 이미지 영역에서 찾음
             center = feature_image_box(template=template, image=uis['box_Verification_Image'], precision=0.7, inverse=True)
             if center is False:
                 return False
@@ -163,7 +187,7 @@ class Connector:
         """
         centers = self.find_verification_centers()
 
-        if not centers or len(centers) > 3:
+        if not centers:
             mouse_click_match(template=img_path('btn_Verification_Refresh'), image=expand_box(uis['btn_Verification_Refresh'], offset=[20, 300]))
             time.sleep(3)
             self.do_verification(attempts=attempts)
@@ -189,5 +213,5 @@ if __name__ == '__main__':
 
     time.sleep(5)
 
-    # conn.do_verification()
-    conn.catch_verification()
+    # conn.catch_verification()
+    conn.set_nick()

@@ -14,8 +14,8 @@ characters = file_to_json('../_config/json/characters.json')
 characters_image = config['CHARACTERS']
 
 
-def set_img_path(name, category='UIS'):
-    return config[category] + name + config['IMG_EXT']
+# def set_img_path(name, category='UIS'):
+#     return config[category] + name + config['IMG_EXT']
 
 
 def login(nick='millennium 102'):

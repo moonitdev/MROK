@@ -23,18 +23,15 @@ from pynput.keyboard import Listener, Key
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract.exe'
 tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\tessdata"'
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../_config'))
-from settings import _ENV, _IMGS, _MAP
-# # from emulators import KEY_MAP as ui_key
-# # from emulators import OBJECTS as ui_obj
-# # from emulators import LOCATION_ROK_FULL as ui_xy
-# # from emulators import IMAGE_ROK_FULL as ui_img
+from functions.dataFns import file_to_json
 
+uis = file_to_json('../_config/json/uis.json')
+config = file_to_json('../_config/json/config.json')
+# characters = file_to_json('../_config/json/characters.json')
 
-# _CENTER = [_ENV['MAX_X']//2,_ENV['MAX_Y']//2]
+def set_img_path(name, category='UIS'):
+    return config[category] + name + config['IMG_EXT']
 
-SCREEN_X = 1919
-SCREEN_Y = 1079
 
 def set_viewbox(box=None):
     """
@@ -142,10 +139,10 @@ def fit_box_to_screen(box):
         box[0] = 1
     if box[1] < 1:
         box[1] = 1
-    if box[2] > _ENV['MAX_X']:
-        box[2] = _ENV['MAX_X']
-    if box[3] > _ENV['MAX_Y']:
-        box[3] = _ENV['MAX_Y']
+    if box[2] > config['MAX_X']:
+        box[2] = config['MAX_X']
+    if box[3] > config['MAX_Y']:
+        box[3] = config['MAX_Y']
     return box
 
 

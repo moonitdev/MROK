@@ -4,7 +4,11 @@ import re
 sys.path.append(os.path.join(os.path.dirname(__file__), '../supporters'))
 from databaser.GoogleSpread import GoogleSpread
 from imageFns import *
-from dataFns import json_to_file, modify_file, str_to_json  # , file_to_json
+from dataFns import json_to_file, modify_file, str_to_json, file_to_json
+
+uis = file_to_json('../_config/json/uis.json')
+config = file_to_json('../_config/json/config.json')
+# characters = file_to_json('../_config/json/characters.json')
 
 gdrive = GoogleSpread()
 
@@ -49,16 +53,16 @@ def setup_ui_images():
         for k, v in dic.items():
             if k == 'x_y_w_h' and v != '':
                 box = box_from_wh(list(map(int, dic['x_y_w_h'].replace(' ','').split(','))))
-                source = _IMGS['SCREENSHOTS'] + dic['subdir'] + '/' + dic['source']
+                source = config['SCREENSHOTS'] + dic['subdir'] + '/' + dic['source']
                 print('source: {}, box: {}'.format(source, box))
 
                 if dic['prefix'].split('_')[0] == 'box':
                     pass
                 else:
                     if dic['prefix'].split('_')[0] == 'txt':
-                        destination = _IMGS['_OCR'] + dic['prefix'] + _ENV['IMG_EXT']
+                        destination = set_img_path(dic['prefix'], category='_OCR')
                     else:
-                        destination = _IMGS['UIS'] + dic['prefix'] + _ENV['IMG_EXT']
+                        destination = set_img_path(dic['prefix'], category='UIS')
                 
                     # print('source: {}, box: {}, destination: {}'.format(source, box, destination))
                     save_file_crop(source=source, box=box, destination=destination)
