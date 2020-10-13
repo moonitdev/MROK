@@ -353,12 +353,21 @@ def get_clipboard_click(position=[1002, 346]):
     print(pyperclip.paste())
     return pyperclip.paste()
 
-# def press_hotkey():
-#     """
-#     Brief: pressHotKey
-#     Args:
-#     """
-#     pass
+
+def set_view_mode(position=[1002, 346]):
+    mouse_click(position)
+    print(pyperclip.paste())
+    print(pyperclip.paste())
+    return pyperclip.paste()
+
+
+def set_menu_mode(position=[1002, 346]):
+    mouse_click(position)
+    print(pyperclip.paste())
+    print(pyperclip.paste())
+    return pyperclip.paste()
+
+
 
 ### callback 테스트용
 def test(dt):

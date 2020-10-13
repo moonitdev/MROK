@@ -41,7 +41,7 @@ class Connector:
         self.emulator = 'LDPLAYER' # LDPLAYER, BLUESTACK, 
         self.nick = self.set_nick() # 게임 닉네임
         self.account = self.set_account() # deverlife@gmail.com, mowater@gmail.com, ...
-        self.id = self.set_id() #  게임 아이디 '33627943'
+        # self.id = self.set_id() #  게임 아이디 '33627943'
         self.sn = self.set_sn() #  캐릭터 일련번호 'M000', 'M001', ...
  
     def set_state(self):
