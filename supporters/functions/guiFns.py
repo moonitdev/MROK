@@ -350,13 +350,11 @@ def get_clipboard_copy(position=None):
 def get_clipboard_click(position=[1002, 346]):
     mouse_click(position)
     print(pyperclip.paste())
-    print(pyperclip.paste())
     return pyperclip.paste()
 
 
 def set_view_mode(position=[1002, 346]):
     mouse_click(position)
-    print(pyperclip.paste())
     print(pyperclip.paste())
     return pyperclip.paste()
 
@@ -364,9 +362,13 @@ def set_view_mode(position=[1002, 346]):
 def set_menu_mode(position=[1002, 346]):
     mouse_click(position)
     print(pyperclip.paste())
-    print(pyperclip.paste())
     return pyperclip.paste()
 
+
+# def set_view_menu():
+#     reconnect()
+#     set_view_mode()
+#     set_menu_mode()
 
 
 ### callback 테스트용

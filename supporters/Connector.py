@@ -120,6 +120,16 @@ class Connector:
         mouse_click_match_wait(template=img_path('btn_Main_Menu'), image=expand_box(uis['btn_Main_Menu'], offset=[20]), precision=0.99, pause=20, duration=30)
 
 
+    def reconnect():
+        # 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행(OFF -> ON)
+
+        # ROK app이 (강제) 중지된 상태가 확인되면, 확인 버튼 누름(STOPPED)
+
+        # ROK app 실행(OUT)
+
+        # ROK 인증이 필요한 경우(VERIFICATION)
+
+
     def on_rok(self):
         pass
 
