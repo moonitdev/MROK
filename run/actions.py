@@ -20,11 +20,11 @@ characters_image = config['CHARACTERS']
 
 def login(nick='millennium 102'):
     series = [
-        {'box': uis['btn_Main_Profile'], 'interval': 2},
-        {'box': uis['btn_profile_settings'], 'interval': 2},
-        {'box': uis['btn_profile_settings_characterMangement'], 'interval': 2},
+        {'position': uis['btn_Main_Profile'], 'interval': 2},
+        {'position': uis['btn_profile_settings'], 'interval': 2},
+        {'position': uis['btn_profile_settings_characterMangement'], 'interval': 2},
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
     path = ''
     print("nick: {}".format(nick))
@@ -39,7 +39,7 @@ def login(nick='millennium 102'):
     mouse_click_match_scroll(template=path, image=uis['box_characterMangement'], scroll=-(box[3]-box[1]))
     time.sleep(1)
     
-    mouse_click_box(uis['btn_characterMangement_login_YES'])
+    mouse_click(uis['btn_characterMangement_login_YES'])
 
 
 def claim_VIP():
@@ -47,12 +47,12 @@ def claim_VIP():
     기능: 매일 주어지는 VIP point/chest gift 수령
     """
     series = [
-        {'box': uis['btn_Main_VIP'], 'interval': 2},
-        {'box': uis['btn_profile_VIP_pointsChest'], 'interval': 4, 'callback':mouse_click, 'kwargs':{'position':None, 'clicks':4, 'interval':0.5}},
-        {'box': uis['btn_profile_VIP_pointsClaim'], 'interval': 4, 'callback':mouse_click, 'kwargs':{'position':None, 'clicks':4, 'interval':0.5}},
-        {'box': uis['btn_profile_VIP_CLOSE'], 'interval': 1}
+        {'position': uis['btn_Main_VIP'], 'interval': 2},
+        {'position': uis['btn_profile_VIP_pointsChest'], 'interval': 4, 'callback':mouse_click, 'kwargs':{'position':None, 'clicks':4, 'interval':0.5}},
+        {'position': uis['btn_profile_VIP_pointsClaim'], 'interval': 4, 'callback':mouse_click, 'kwargs':{'position':None, 'clicks':4, 'interval':0.5}},
+        {'position': uis['btn_profile_VIP_CLOSE'], 'interval': 1}
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
 
 def claim_gifts():
@@ -62,11 +62,11 @@ def claim_gifts():
       - 새로운 선물(빨간 동그라미)이 있을 때만 클릭하도록!!
     """
     series = [
-        {'box': uis['btn_menu_alliance'], 'interval': 2},
-        {'box': uis['btn_menu_alliance_gifts'], 'interval': 2},
-        {'box': uis['tab_menu_alliance_gifts_rare'], 'interval': 3},
+        {'position': uis['btn_menu_alliance'], 'interval': 2},
+        {'position': uis['btn_menu_alliance_gifts'], 'interval': 2},
+        {'position': uis['tab_menu_alliance_gifts_rare'], 'interval': 3},
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
     ## rare 선물 claim 누르기
     for _ in range(0, 50):
@@ -78,24 +78,24 @@ def claim_gifts():
             break
 
     series = [
-        {'box': uis['tab_menu_alliance_gifts_normal'], 'interval': 3},
-        {'box': uis['btn_menu_alliance_gifts_claimAll'], 'interval': 2},
-        {'box': uis['btn_menu_alliance_gifts_rewards_confirm'], 'interval': 2},
-        {'box': uis['tab_menu_alliance_gifts_rare'], 'interval': 3},
+        {'position': uis['tab_menu_alliance_gifts_normal'], 'interval': 3},
+        {'position': uis['btn_menu_alliance_gifts_claimAll'], 'interval': 2},
+        {'position': uis['btn_menu_alliance_gifts_rewards_confirm'], 'interval': 2},
+        {'position': uis['tab_menu_alliance_gifts_rare'], 'interval': 3},
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
     time.sleep(2)
 
     for i in range(1, 4):
         box = uis['box_menu_alliance_gifts_claim' + str(i)]
         print('box: {}, box: {}'.format(i, box))
-        mouse_click_box(box)
+        mouse_click(box)
     
     series = [
-        {'box': uis['btn_menu_alliance_gifts_CLOSE'], 'interval': 2},
-        {'box': uis['btn_menu_alliance_CLOSE'], 'interval':2},
+        {'position': uis['btn_menu_alliance_gifts_CLOSE'], 'interval': 2},
+        {'position': uis['btn_menu_alliance_CLOSE'], 'interval':2},
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
 
 def do_allianceHelp():
@@ -105,13 +105,13 @@ def do_allianceHelp():
     # Note: menu가 열려있는지 확인 후 닫혀있으면 연다
     # unfold_menu()
     series = [
-        {'box': uis['btn_menu_alliance'], 'interval': 2},
-        {'box': uis['btn_menu_alliance_help'], 'interval':2},
-        {'box': uis['btn_menu_alliance_help_help'], 'interval': 2},  ## 도움이 있을 때
-        {'box': uis['btn_menu_alliance_help_CLOSE'], 'interval': 2},  ## 도움이 없을 때
-        {'box': uis['btn_menu_alliance_CLOSE'], 'interval': 1}
+        {'position': uis['btn_menu_alliance'], 'interval': 2},
+        {'position': uis['btn_menu_alliance_help'], 'interval':2},
+        {'position': uis['btn_menu_alliance_help_help'], 'interval': 2},  ## 도움이 있을 때
+        {'position': uis['btn_menu_alliance_help_CLOSE'], 'interval': 2},  ## 도움이 없을 때
+        {'position': uis['btn_menu_alliance_CLOSE'], 'interval': 1}
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
 
 def buy_expedition_store(items=['aethelflaed', 'legend', 'goldStar', 'goldStar4', 'training']):
@@ -127,7 +127,7 @@ def buy_expedition_store(items=['aethelflaed', 'legend', 'goldStar', 'goldStar4'
     for item in items:
         name = 'btn_menu_campaign_expedition_store_' + item
         if item == 'aethelflaed' or item == 'constance' or item == 'legend':
-            center = mouse_click_box(box=uis[name])
+            center = mouse_click(box=uis[name])
         else:
             template = config['UIS'] + name + config['IMG_EXT']
             center = match_image_box(template=template, image=uis['box_menu_campaign_expedition_store_items'], precision=0.999)
@@ -145,12 +145,12 @@ def open_buy_expedition():
     # Note: menu가 열려있는지 확인 후 닫혀있으면 연다
     # unfold_menu()
     series = [
-        {'box': uis['btn_menu_campaign'], 'interval': 2},
-        {'box': uis['btn_menu_campaign_expedition'], 'interval':2},
-        {'box': uis['btn_menu_campaign_expedition_chest'], 'interval': 2, 'callback':mouse_click, 'kwargs':{'position':center_from_box(uis['btn_menu_campaign_expedition_rewards']), 'clicks':4, 'interval':0.5}},  ## expedition 상자 오픈
-        {'box': uis['btn_menu_campaign_expedition_store'], 'interval': 2},  ## expedition 스토어
+        {'position': uis['btn_menu_campaign'], 'interval': 2},
+        {'position': uis['btn_menu_campaign_expedition'], 'interval':2},
+        {'position': uis['btn_menu_campaign_expedition_chest'], 'interval': 2, 'callback':mouse_click, 'kwargs':{'position':center_from_box(uis['btn_menu_campaign_expedition_rewards']), 'clicks':4, 'interval':0.5}},  ## expedition 상자 오픈
+        {'position': uis['btn_menu_campaign_expedition_store'], 'interval': 2},  ## expedition 스토어
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
     buy_expedition_store(items=['aethelflaed', 'legend', 'goldStar', 'goldStar4', 'training'])
 
@@ -159,16 +159,16 @@ def open_buy_expedition():
     template = config['_OCR'] + name + config['IMG_EXT']
     free = match_image_box(template=template, image=expand_box(box=uis[name], offset=[10, 10]))
     if type(free) is list:
-        mouse_click_box(box=uis['btn_menu_campaign_expedition_store_refresh'])
+        mouse_click(box=uis['btn_menu_campaign_expedition_store_refresh'])
         time.sleep(1)
         buy_expedition_store(items=['legend', 'goldStar', 'goldStar4', 'training'])
 
     series = [
-        {'box': uis['btn_menu_campaign_expedition_store_CLOSE'], 'interval': 2},
-        {'box': uis['btn_menu_campaign_expedition_BACK'], 'interval':2},
-        {'box': uis['btn_menu_campaign_BACK'], 'interval': 2}
+        {'position': uis['btn_menu_campaign_expedition_store_CLOSE'], 'interval': 2},
+        {'position': uis['btn_menu_campaign_expedition_BACK'], 'interval':2},
+        {'position': uis['btn_menu_campaign_BACK'], 'interval': 2}
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
 
 def donate_allianceSkills():
@@ -176,10 +176,10 @@ def donate_allianceSkills():
     기능: 연맹 기술 기부
     """
     series = [
-        {'box': uis['btn_menu_alliance'], 'interval': 2},
-        {'box': uis['btn_menu_alliance_technology'], 'interval': 2}
+        {'position': uis['btn_menu_alliance'], 'interval': 2},
+        {'position': uis['btn_menu_alliance_technology'], 'interval': 2}
     ]
-    mouse_click_series_box(series=series)
+    mouse_click_series(series=series)
 
     prefix = 'tab_menu_alliance_technology_'
     skills = ['development', 'territory', 'war', 'allianceSkill']
@@ -209,17 +209,17 @@ def donate_allianceSkills():
     if found:
         mouse_press(position=center_from_box(uis['btn_menu_alliance_technology_donate']), duration=20)
         series = [
-            {'box': uis['btn_menu_alliance_technology_donate_CLOSE'], 'interval': 2},
-            {'box': uis['btn_menu_alliance_technology_CLOSE'], 'interval': 2},
-            {'box': uis['btn_menu_alliance_CLOSE'], 'interval': 2}
+            {'position': uis['btn_menu_alliance_technology_donate_CLOSE'], 'interval': 2},
+            {'position': uis['btn_menu_alliance_technology_CLOSE'], 'interval': 2},
+            {'position': uis['btn_menu_alliance_CLOSE'], 'interval': 2}
         ]
-        mouse_click_series_box(series=series)
+        mouse_click_series(series=series)
     else:
         series = [
-            {'box': uis['btn_menu_alliance_technology_CLOSE'], 'interval': 2},
-            {'box': uis['btn_menu_alliance_CLOSE'], 'interval': 2}
+            {'position': uis['btn_menu_alliance_technology_CLOSE'], 'interval': 2},
+            {'position': uis['btn_menu_alliance_CLOSE'], 'interval': 2}
         ]
-        mouse_click_series_box(series=series)
+        mouse_click_series(series=series)
 
 
 if __name__ == '__main__':

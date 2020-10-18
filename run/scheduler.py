@@ -1,72 +1,42 @@
-# import actions
+from actions import *
+sys.path.append(os.path.join(os.path.dirname(__file__), '../supporters'))
+from Connector import *
 
-characters = ['', '', '']
-
-# tasks = [
-#     {
-#         'sn':'M001',
-#         'works': [
-#             claim_VIP,
-#             claim_gifts,
-#             do_allianceHelp,
-#             buy_expedition_store
-#         ]
-#     },
-#     {
-#         'sn':'M002',
-#         'works': [
-#             claim_VIP,
-#             claim_gifts,
-#             do_allianceHelp,
-#             buy_expedition_store
-#         ]
-#     },
-# ]
-
-def work1():
-    print('this is work1')
-
-def work2():
-    print('this is work2')
-
-def work3():
-    print('this is work3')
-
-def work4():
-    print('this is work4')
-
-def work5():
-    print('this is work5')
 
 tasks = [
     {
-        'sn':'M001',
+        'sn':'M003',
         'works': [
-            work1,
-            work2,
-            work3,
-            work4
+            claim_VIP,
+            claim_gifts,
+            do_allianceHelp,
+            buy_expedition_store
         ]
     },
     {
-        'sn':'M002',
+        'sn':'M001',
         'works': [
-            work1,
-            work2,
-            work3,
-            work4,
-            work5
+            claim_VIP,
+            claim_gifts,
+            do_allianceHelp,
+            buy_expedition_store
         ]
     },
 ]
 
 
-
 def do_tasks(tasks):
+    conn = Connector()
     for task in tasks:
         print("I'm :{}".format(task['sn']))
-        # 현재 캐릭터 'sn' != task['sn'] -> login
+        conn.goto_sn(task['sn'])
+        time.sleep(30)
         for work in task['works']:
             work()
+
+
+
+
+time.sleep(5)
 
 do_tasks(tasks)

@@ -60,7 +60,7 @@ def mouse_click(position=None, duration=_ENV['DURATION_CLICK'], clicks=1, interv
     기능: 해당 위치에서 마우스를 클릭함
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
-        - position || 스크린 좌표 | list | None | [247, 102]
+        - position || 스크린 좌표 or 영역 | list | None | [247, 102]: 클릭 좌표 / [0, 0, 100, 200]: 영역
         - duration || 마우스 클릭 시간(초) | float | _ENV['MOUSE_DURATION']: 0.5
         - clicks || 마우스 클릭 횟수 | int | 1 | 2: 2번 클릭
         - interval || 마우스 클릭 간격(초) | float | 0.25 | 0.25 -> 0.25초 간격으로 마우스를 클릭
@@ -70,12 +70,15 @@ def mouse_click(position=None, duration=_ENV['DURATION_CLICK'], clicks=1, interv
     """
     if position == None:
         pag.click(duration=duration, clicks=clicks, interval=interval)
-    else:
-        pag.moveTo(position[0], position[1], duration)
-        time.sleep(random.uniform(0.0101, 0.0299))
-        pag.mouseDown()
-        time.sleep(random.uniform(0.0101, 0.0299))
-        pag.mouseUp()
+        return True
+    if len(position) == 4:
+        position = center_from_box(position)
+
+    pag.moveTo(position[0], position[1], duration)
+    time.sleep(random.uniform(0.0101, 0.0299))
+    pag.mouseDown()
+    time.sleep(random.uniform(0.0101, 0.0299))
+    pag.mouseUp()
 
 
 def mouse_press(position=None, duration=_ENV['DURATION_PRESS']):
@@ -92,20 +95,6 @@ def mouse_press(position=None, duration=_ENV['DURATION_PRESS']):
     pag.mouseDown()
     time.sleep(duration)
     pag.mouseUp()
-
-
-def mouse_click_box(box=[0, 0, 100, 100], duration=_ENV['DURATION_CLICK']):
-    """
-    기능: 해당 박스의 중앙 좌표에서 마우스를 클릭함
-    입력:
-        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
-        - box || 스크린 영역 상자 | list | [0, 0, 100, 100] | [0, 0, 100, 100]
-        - duration || 마우스 클릭 시간(초) | float | _ENV['MOUSE_DURATION']: 0.5
-    출력:
-        - 의미 | 데이터 타입 | 예시
-        - 클릭한 마우스 위치 | list | [247, 102]
-    """
-    mouse_click(position=center_from_box(box), duration=duration)
     
 
 def mouse_click_series(series=[{}]):
@@ -124,27 +113,6 @@ def mouse_click_series(series=[{}]):
     for one in series:
         mouse_click(one['position'])
         if 'callback' in one:
-            one['callback'](**one['kwargs'])
-        time.sleep(one['interval'])
-
-
-def mouse_click_series_box(series=[{}]):
-    """
-    기능: series에 해당하는 마우스 연속 클릭
-    입력:
-        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
-        - series || 마우스 클릭 배열 | list(of dict) | [{}] | {'position':[0, 0], 'interval':1, 'callback':time.sleep, 'kwargs': {'a':'b'}},
-            * box : 마우스 클릭 위치(list)
-            * interval : 클릭 후 멈춤 시간(float)
-            * callback : 클릭 후 실행 함수(function)
-            * kwargs : callback 함수의 매개 변수(dict)
-    Note:
-        - 
-    """
-    for one in series:
-        mouse_click_box(one['box'])
-        if 'callback' in one:
-            # print(**one['kwargs'])
             one['callback'](**one['kwargs'])
         time.sleep(one['interval'])
 
@@ -179,7 +147,7 @@ def mouse_scroll(start=[], scroll=-100):
     pag.scroll(scroll)
 
 
-def mouse_click_match(template, image=None):
+def mouse_click_match(template, image=None, precision=0.9):
     """
     기능: image(스크린 영역)에 template과 일치하는 이미지가 있으면 그 중앙 좌표를 클릭
     입력:
@@ -189,34 +157,73 @@ def mouse_click_match(template, image=None):
     Note:
         - 
     """
-    center = match_image_box(template=template, image=image)
+    center = match_image_box(template=template, image=image, precision=precision)
     if not center:
         print("not founded!!!")
         return False
     else:
         mouse_click(center)
+        return True
 
 
-def mouse_click_match_wait(template, image=None, precision=0.9, pause=10, duration=15, interval=2):
+def mouse_click_match_wait(template, image=None, precision=0.9, pause=10, repeat=15, interval=2):
     """
-    기능: image(스크린 영역)에 template과 일치하는 이미지가 있으면 그 중앙 좌표를 클릭(pause, duration, interval에 맞게 반복 찾기)
+    기능: image(스크린 영역)에 template과 일치하는 이미지가 있으면 그 중앙 좌표를 클릭(pause, repeat, interval에 맞게 반복 찾기)
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
         - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
         - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
         - precision || 이미지 유사도 | float | 0.9 | 0 < precision <= 1
         - pause || 처음 멈춤 시간(초) | float | 3 | 3
-        - duration || 반복 횟수 | int | 15 | 15
+        - repeat || 반복 횟수 | int | 15 | 15
         - interval || 반복시 멈춤 시간(초) | float | 1 | 1
     Note:
         - 
     """
-    center = wait_match_image(template=template, image=image, precision=precision, pause=pause, duration=duration, interval=interval)
+    center = wait_match_image(template=template, image=image, precision=precision, pause=pause, repeat=repeat, interval=interval)
     if not center:
         print("not founded!!!")
         return False
     else:
         mouse_click(center)
+        return True
+
+
+def mouse_click_match_not(template, image=None, target=None, precision=0.9, pause=10, repeat=15, interval=2):
+    """
+    기능: image(스크린 영역)에 template과 일치하는 이미지가 있으면, target 영역에 target 이미지가 나타날 때까지 template 버튼 클릭
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
+        - target || target 이미지/영역 | None | dict | {'tpl':path, 'img':[]}
+        - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
+        - precision || 이미지 유사도 | float | 0.9 | 0 < precision <= 1
+        - pause || 처음 멈춤 시간(초) | float | 3 | 3
+        - repeat || 반복 횟수 | int | 15 | 15
+        - interval || 반복시 멈춤 시간(초) | float | 1 | 1
+    Note:
+        - 네트워크 타임아웃 에러시, 접속 반복
+    """
+
+    time.sleep(pause)
+    match = mouse_click_match(template, image=image, precision=precision)
+    if not match:
+        print('No problem!')
+        return False
+    else:
+        if repeat == 0:
+            print('Oh No~~~')
+            return False
+        else:
+            for _ in range(0, repeat):
+                click_target = mouse_click_match_wait(template=target['tpl'], image=target['img'], precision=precision)
+                # center = wait_match_image(template=target['tpl'], image=target['img'], precision=precision)
+                if click_target == False:
+                    print('Try Again~')
+                    mouse_click_match_not(template=template, image=None, target=target, precision=precision, pause=pause, repeat=repeat-1, interval=interval)
+                else:
+                    print('Good Job!!!')
+                    return True
 
 
 def mouse_click_match_scroll(template, image=None, start=[], scroll=-200, n=5):
@@ -339,11 +346,36 @@ def zoom(mode='OUT', n=1, interval=0.1):
             time.sleep(interval)
 
 
-def get_clipboard_copy(position=None):
+def get_clipboard_copy(start, end, copy, selectAll=None):
+    """
+    기능: start 위치에서 end 위치로 마우스를 드래그했을 때 화면 상단에 생기는, selectAll, copy를 클릭하여 문자열을 클립보드에 넣고 그 값을 반환
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - start || 드래그 시작 좌표 | list | [] | [20, 1018]
+        - end || 드래그 끝 좌표 | list | [] | [200, 1018]
+        - copy || copy 버튼 좌표 | list | [] | center_from_box([1718, 44, 1776, 72])
+    Note:
+        - LDPlayer(ROK)에서 hotkey가 작동하지 않아, 차선책으로...
+    """
+    mouse_drag(start=start, end=end, duration=1)
+    if selectAll != None:
+        mouse_click(selectAll)
+    return get_clipboard_click(position=copy)
+    # return pyperclip.paste()
+
+def _get_clipboard_copy(position=None):
+    """
+    기능: 해당 위치(position)의 문자열을 클립보드에 넣고, 그 값을 반환
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - position || 문자열 좌표 | list | [] | [300, 500]
+    Note:
+        - ROK에서 hotkey가 작동하지 않음!!!
+    """
     if position != None:
         mouse_click(position)
+        time.sleep(1)
     pag.hotkey('ctrl', 'c')
-    print(pyperclip.paste())
     return pyperclip.paste()
 
 
@@ -352,23 +384,6 @@ def get_clipboard_click(position=[1002, 346]):
     print(pyperclip.paste())
     return pyperclip.paste()
 
-
-def set_view_mode(position=[1002, 346]):
-    mouse_click(position)
-    print(pyperclip.paste())
-    return pyperclip.paste()
-
-
-def set_menu_mode(position=[1002, 346]):
-    mouse_click(position)
-    print(pyperclip.paste())
-    return pyperclip.paste()
-
-
-# def set_view_menu():
-#     reconnect()
-#     set_view_mode()
-#     set_menu_mode()
 
 
 ### callback 테스트용

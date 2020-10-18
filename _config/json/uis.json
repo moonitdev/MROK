@@ -163,9 +163,9 @@
   ],
   "box_OS_Quickloanch": [
     564,
-    1032,
+    1030,
     1576,
-    1078
+    1080
   ],
   "box_Player_Apps-mid": [
     220,
@@ -359,7 +359,7 @@
     132,
     844
   ],
-  "btn_Main_CityView": [
+  "btn_Main_GoAllianceView": [
     28,
     944,
     158,
@@ -407,7 +407,7 @@
     1556,
     132
   ],
-  "btn_Main_KingdomView": [
+  "btn_Main_GoCityView": [
     28,
     944,
     158,
@@ -1500,10 +1500,16 @@
     1044
   ],
   "btn_addMarker_OK": [
-    22,
-    998,
-    382,
-    1044
+    1814,
+    1012,
+    1916,
+    1034
+  ],
+  "btn_addMarker_CLOSE": [
+    1494,
+    188,
+    1538,
+    230
   ],
   "btn_addMarker_confirm": [
     864,
@@ -1528,5 +1534,335 @@
     496,
     1346,
     672
+  ],
+  "btn_menu_campaign_sunsetCanyon_BACK": [
+    24,
+    42,
+    96,
+    116
+  ],
+  "txt_menu_campaign_sunsetCanyon_myRanking": [
+    368,
+    170,
+    472,
+    228
+  ],
+  "txt_menu_campaign_sunsetCanyon_myStarPoint": [
+    1390,
+    184,
+    1500,
+    226
+  ],
+  "btn_menu_campaign_sunsetCanyon_challenge": [
+    844,
+    960,
+    1078,
+    996
+  ],
+  "btn_menu_campaign_sunsetCanyon_history": [
+    50,
+    426,
+    146,
+    532
+  ],
+  "btn_menu_campaign_sunsetCanyon_defense": [
+    48,
+    612,
+    146,
+    726
+  ],
+  "txt_menu_campaign_sunsetCanyon_remaingTime": [
+    1616,
+    44,
+    1796,
+    84
+  ],
+  "btn_menu_campaign_sunsetCanyon_chanllenge_CLOSE": [
+    1516,
+    40,
+    1562,
+    82
+  ],
+  "btn_menu_campaign_sunsetCanyon_chanllenge_refresh": [
+    396,
+    138,
+    554,
+    168
+  ],
+  "txt_menu_campaign_sunsetCanyon_chanllenge_nick1": [
+    490,
+    346,
+    942,
+    384
+  ],
+  "txt_menu_campaign_sunsetCanyon_chanllenge_power1": [
+    536,
+    396,
+    738,
+    438
+  ],
+  "txt_menu_campaign_sunsetCanyon_chanllenge_starPoint1": [
+    1124,
+    372,
+    1248,
+    412
+  ],
+  "btn_menu_campaign_sunsetCanyon_chanllenge_challenge1": [
+    1300,
+    372,
+    1536,
+    404
+  ],
+  "btn_menu_campaign_sunsetCanyon_chanllenge_ranking1": [
+    280,
+    366,
+    388,
+    410
+  ],
+  "btn_menu_campaign_sunsetCanyon_chanllenge_unfold1": [
+    1590,
+    382,
+    1618,
+    408
+  ],
+  "box_menu_campaign_sunsetCanyon_chanllenge": [
+    272,
+    332,
+    1652,
+    946
+  ],
+  "txt_menu_campaign_sunsetCanyon_chanllenge_attemps": [
+    1274,
+    146,
+    1340,
+    184
+  ],
+  "txt_menu_campaign_sunsetCanyon_chanllenge_tickets": [
+    1484,
+    138,
+    1576,
+    184
+  ],
+  "txt_menu_campaign_sunsetCanyon_chanllenge_ticketPlus": [
+    1620,
+    132,
+    1676,
+    180
+  ],
+  "btn_menu_campaign_sunsetCanyon_field_BACK": [
+    24,
+    20,
+    98,
+    92
+  ],
+  "chk_menu_campaign_sunsetCanyon_field_skipBattle_off": [
+    864,
+    872,
+    910,
+    916
+  ],
+  "btn_menu_campaign_sunsetCanyon_field_OK": [
+    928,
+    960,
+    994,
+    994
+  ],
+  "btn_menu_campaign_sunsetCanyon_battle_finish": [
+    1760,
+    982,
+    1804,
+    1020
+  ],
+  "btn_menu_campaign_sunsetCanyon_battle_stats": [
+    1798,
+    54,
+    1874,
+    124
+  ],
+  "btn_menu_campaign_lostCanyon_remainingTime": [
+    516,
+    80,
+    696,
+    114
+  ],
+  "txt_menu_campaign_lostCanyon_myRanking": [
+    378,
+    150,
+    526,
+    214
+  ],
+  "txt_menu_campaign_lostCanyon_myPontSpeed": [
+    1320,
+    160,
+    1456,
+    208
+  ],
+  "btn_menu_campaign_lostCanyon_challenge": [
+    844,
+    940,
+    1078,
+    976
+  ],
+  "txt_menu_campaign_lostCanyon_challenge_nick1": [
+    638,
+    346,
+    938,
+    380
+  ],
+  "txt_menu_campaign_lostCanyon_challenge_power1": [
+    680,
+    390,
+    846,
+    422
+  ],
+  "txt_menu_campaign_lostCanyon_challenge_rank1": [
+    452,
+    368,
+    534,
+    398
+  ],
+  "txt_menu_campaign_lostCanyon_challenge_speed1": [
+    1108,
+    364,
+    1230,
+    404
+  ],
+  "btn_menu_campaign_lostCanyon_challenge_challenge1": [
+    1258,
+    364,
+    1446,
+    392
+  ],
+  "txt_menu_campaign_lostCanyon_challenge_unfold1": [
+    1492,
+    372,
+    1526,
+    392
+  ],
+  "box_menu_campaign_lostCanyon_challenge": [
+    384,
+    328,
+    1550,
+    970
+  ],
+  "img_menu_campaign_sunsetCanyon_field_skipBattle_OFF": [
+    862,
+    870,
+    910,
+    916
+  ],
+  "img_menu_campaign_sunsetCanyon_field_skipBattle_ON": [
+    862,
+    870,
+    910,
+    916
+  ],
+  "btn_menu_campaign_lostCanyon_field_BACK": [
+    24,
+    20,
+    98,
+    92
+  ],
+  "btn_menu_campaign_lostCanyon_field_OK": [
+    928,
+    960,
+    994,
+    994
+  ],
+  "img_menu_campaign_lostCanyon_field_skipBattle_OFF": [
+    862,
+    870,
+    910,
+    916
+  ],
+  "img_menu_campaign_lostCanyon_field_skipBattle_ON": [
+    862,
+    870,
+    910,
+    916
+  ],
+  "btn_OS_Player_inactive": [
+    648,
+    1036,
+    686,
+    1080
+  ],
+  "btn_OS_Player_active": [
+    648,
+    1036,
+    686,
+    1080
+  ],
+  "btn_Player_stop_confirm": [
+    1360,
+    592,
+    1408,
+    622
+  ],
+  "btn_disconnect_timeout_confirm": [
+    870,
+    748,
+    1070,
+    784
+  ],
+  "btn_ldplayer_adwin_CLOSE": [
+    1452,
+    273,
+    1468,
+    289
+  ],
+  "btn_ldplayer_adpop_CLOSE": [
+    1884,
+    627,
+    1898,
+    641
+  ],
+  "btn_disconnect_otherDevice_confirm": [
+    870,
+    748,
+    1070,
+    784
+  ],
+  "btn_addMarker_selectAll": [
+    1420,
+    44,
+    1538,
+    72
+  ],
+  "btn_addMarker_cut": [
+    1606,
+    44,
+    1650,
+    72
+  ],
+  "btn_addMarker_copy": [
+    1718,
+    44,
+    1776,
+    72
+  ],
+  "btn_addMarker_paste": [
+    1842,
+    44,
+    1912,
+    72
+  ],
+  "img_ldplayer_settings": [
+    1891,
+    49,
+    1913,
+    71
+  ],
+  "tab_addMarker_staff": [
+    246,
+    304,
+    324,
+    378
+  ],
+  "tab_addMarker_general": [
+    262,
+    490,
+    350,
+    578
   ]
 }

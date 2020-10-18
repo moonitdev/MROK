@@ -550,26 +550,26 @@ def filter_color(image, color='WHITE'):
     return img_result
 
 
-def wait_match_image(template, image=None, precision=0.9, pause=10, duration=15, interval=2):
+def wait_match_image(template, image=None, precision=0.9, pause=10, repeat=15, interval=2):
     """
-    기능: 매치되는 이미지가 있을 때까지 잠깐씩(pause 초) 멈추면서 duration 횟수만큼 찾기 반복
+    기능: 매치되는 이미지가 있을 때까지 잠깐씩(pause 초) 멈추면서 repeat 횟수만큼 찾기 반복
     입력:
         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
         - template || 템플릿 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]}
         - image || 원본 이미지 파일 경로(이름 포함), 스크린 이미지 영역(box) | None / str / list / dict | None | None: full screen / str: 파일 경로 / list: 이미지 영역 / dict : 파일 경로의 이미지의 지정 이미지 영역 {'path':path, 'box':[,,,]} 
         - precision || 이미지 유사도 | float | 0.9 | 0 < precision <= 1
         - pause || 처음 멈춤 시간(초) | float | 3 | 3
-        - duration || 반복 횟수 | int | 15 | 15
+        - repeat || 반복 횟수 | int | 15 | 15
         - interval || 반복시 멈춤 시간(초) | float | 1 | 1
     Note:
         - 
     """
     time.sleep(pause)
     center = match_image_box(template, image=image, precision=precision)
-    if duration == 0:
+    if repeat == 0:
         return center
     else:
-        for _ in range(0, duration):
+        for _ in range(0, repeat):
             center = match_image_box(template, image=image, precision=precision)
             if center == False:
                 time.sleep(interval)

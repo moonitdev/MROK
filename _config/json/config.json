@@ -8,7 +8,7 @@
   "EMULATOR": "LDPLAYER",
   "DURATION_CLICK": 0.5,
   "DURATION_DRAG": 1.5,
-  "DURATION_PRESS": 5,
+  "DURATION_PRESS": 5.0,
   "CLICK_INTERVAL": 1.0,
   "ROOT": "../_config/images/",
   "UIS": "../_config/images/uis/",
@@ -97,5 +97,21 @@
     "goldStar",
     "goldStar2",
     "goldStar4"
+  ],
+  "sunsetCanyon_offset": [
+    0,
+    130
+  ],
+  "lostCanyon_offset": [
+    0,
+    133
+  ],
+  "addMarker_start": [
+    20,
+    1018
+  ],
+  "addMarker_end": [
+    200,
+    1018
   ]
 }
