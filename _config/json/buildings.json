@@ -1,5 +1,5 @@
 {
-  "Farm": {
+  "farm": {
     "box": [
       407,
       732,
@@ -7,7 +7,7 @@
       887
     ]
   },
-  "Lumber Mill": {
+  "lumberMill": {
     "box": [
       1485,
       662,
@@ -15,7 +15,7 @@
       816
     ]
   },
-  "Quarry": {
+  "quarry": {
     "box": [
       1035,
       726,
@@ -23,7 +23,7 @@
       882
     ]
   },
-  "Goldmine": {
+  "goldMine": {
     "box": [
       263,
       676,
@@ -31,7 +31,7 @@
       829
     ]
   },
-  "Academy": {
+  "academy": {
     "box": [
       423,
       301,
@@ -57,7 +57,7 @@
       614
     ]
   },
-  "Alliance Center": {
+  "allianceCenter": {
     "box": [
       241,
       419,
@@ -77,7 +77,7 @@
       738
     ]
   },
-  "Shop": {
+  "shop": {
     "box": [
       253,
       550,
@@ -103,7 +103,7 @@
       854
     ]
   },
-  "Trading Post": {
+  "tradingPost": {
     "box": [
       1488,
       439,
@@ -129,7 +129,7 @@
       751
     ]
   },
-  "Lyceum of Wisdom": {
+  "lyceumOfWisdom": {
     "box": [
       1306,
       322,
@@ -155,7 +155,7 @@
       633
     ]
   },
-  "Courier Station": {
+  "courierStation": {
     "box": [
       1200,
       603,
@@ -175,7 +175,7 @@
       928
     ]
   },
-  "Tavern": {
+  "tavern": {
     "box": [
       559,
       676,
@@ -195,7 +195,7 @@
       989
     ]
   },
-  "Scout Camp": {
+  "scoutCamp": {
     "box": [
       691,
       718,
@@ -215,7 +215,7 @@
       1043
     ]
   },
-  "Barracks": {
+  "barracks": {
     "box": [
       83,
       290,
@@ -241,7 +241,7 @@
       613
     ]
   },
-  "Archery Range": {
+  "archeryRange": {
     "box": [
       1033,
       429,
@@ -267,7 +267,7 @@
       750
     ]
   },
-  "Stable": {
+  "stable": {
     "box": [
       9,
       447,
@@ -293,7 +293,7 @@
       772
     ]
   },
-  "Siege Workshop": {
+  "siegeWorkshop": {
     "box": [
       794,
       592,
@@ -319,7 +319,7 @@
       917
     ]
   },
-  "Hospital": {
+  "hospital": {
     "box": [
       418,
       572,
@@ -345,7 +345,7 @@
       872
     ]
   },
-  "Castle": {
+  "castle": {
     "box": [
       847,
       306,
@@ -371,7 +371,7 @@
       617
     ]
   },
-  "Blacksmith": {
+  "blacksmith": {
     "box": [
       1060,
       299,
@@ -397,7 +397,7 @@
       618
     ]
   },
-  "City Hall": {
+  "cityHall": {
     "box": [
       579,
       279,

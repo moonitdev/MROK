@@ -10,6 +10,7 @@ from functions.dataFns import file_to_json
 uis = file_to_json('../_config/json/uis.json')
 config = file_to_json('../_config/json/config.json')
 characters = file_to_json('../_config/json/characters.json')
+buildings = file_to_json('../_config/json/buildings.json')
 
 characters_image = config['CHARACTERS']
 
@@ -18,28 +19,43 @@ characters_image = config['CHARACTERS']
 #     return config[category] + name + config['IMG_EXT']
 
 
-def login(nick='millennium 102'):
+# def login(nick='millennium 102'):
+#     series = [
+#         {'position': uis['btn_Main_Profile'], 'interval': 2},
+#         {'position': uis['btn_profile_settings'], 'interval': 2},
+#         {'position': uis['btn_profile_settings_characterMangement'], 'interval': 2},
+#     ]
+#     mouse_click_series(series=series)
+
+#     path = ''
+#     print("nick: {}".format(nick))
+#     for character in characters:
+#         print("character['nick']: {}".format(character['nick']))
+#         if character['nick'] == nick:
+#             path = config['CHARACTERS'] + config['login_prefix'] + character['sn'] + config['IMG_EXT']
+#             print(path)
+#             break
+#     box = uis['box_characterMangement']
+#     print(box)
+#     mouse_click_match_scroll(template=path, image=uis['box_characterMangement'], scroll=-(box[3]-box[1]))
+#     time.sleep(1)
+    
+#     mouse_click(uis['btn_characterMangement_login_YES'])
+
+
+def claim_city_resources():
+    """
+    기능: 도시 자원 수령(클릭)
+    Note:
+      - 자원 수령 주기(time interval) 정할 수 있도록
+    """
     series = [
-        {'position': uis['btn_Main_Profile'], 'interval': 2},
-        {'position': uis['btn_profile_settings'], 'interval': 2},
-        {'position': uis['btn_profile_settings_characterMangement'], 'interval': 2},
+        {'position': buildings['farm']['box'], 'interval': 0.2},
+        {'position': buildings['lumberMill']['box'], 'interval': 0.2},
+        {'position': buildings['quarry']['box'], 'interval': 0.2},
+        {'position': buildings['goldMine']['box'], 'interval': 1}
     ]
     mouse_click_series(series=series)
-
-    path = ''
-    print("nick: {}".format(nick))
-    for character in characters:
-        print("character['nick']: {}".format(character['nick']))
-        if character['nick'] == nick:
-            path = config['CHARACTERS'] + config['login_prefix'] + character['sn'] + config['IMG_EXT']
-            print(path)
-            break
-    box = uis['box_characterMangement']
-    print(box)
-    mouse_click_match_scroll(template=path, image=uis['box_characterMangement'], scroll=-(box[3]-box[1]))
-    time.sleep(1)
-    
-    mouse_click(uis['btn_characterMangement_login_YES'])
 
 
 def claim_VIP():
@@ -94,6 +110,23 @@ def claim_gifts():
     series = [
         {'position': uis['btn_menu_alliance_gifts_CLOSE'], 'interval': 2},
         {'position': uis['btn_menu_alliance_CLOSE'], 'interval':2},
+    ]
+    mouse_click_series(series=series)
+
+
+def open_tavern_chest(chest='free'):
+    """
+    기능: 주점 상자 열기
+    Note:
+      - 자원 수령 주기(time interval) 정할 수 있도록
+      - silver 일일퀘스트 완료용 함수 필요
+      - 장비, 도감 완료시 버튼 클릭 확인
+    """
+    series = [
+        {'position': buildings['tavern']['box'], 'interval': 2},
+        {'position': uis['btn_tavern_open_chest_silver_open']['box'], 'interval': 0.2},
+        {'position': buildings['quarry']['box'], 'interval': 0.2},
+        {'position': buildings['goldMine']['box'], 'interval': 1}
     ]
     mouse_click_series(series=series)
 
@@ -229,4 +262,5 @@ if __name__ == '__main__':
     # do_allianceHelp() ## 연맹 도움
     # open_buy_expedition()  ## expedition 상자 오픈, 스토어 아이템 구매
     # donate_allianceSkills()  ## 연맹 기술 기부
-    claim_gifts()  ## 연맹 선물 수령
+    # claim_gifts()  ## 연맹 선물 수령
+    claim_city_resources()  ## 도시 자원 수령
