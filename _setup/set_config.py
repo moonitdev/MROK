@@ -88,9 +88,39 @@ def setup_characters():
     return dicts
 
 
+def setup_buildings():
+    """
+    기능: googledrive spreadsheet에 저장된 ROK buildings 내용으로 이미지를 crop 저장, json 파일 생성
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - buildings 정보 json 파일 | json | [{'':''}]
+    Note:
+        - 
+    """
+    dicts = gdrive.read_sheet('ROK_SETTINGS', 'buildings')
+
+    buildings = {}
+    for dic in dicts:
+        if dic['box'] == '':
+            continue
+        buildings[dic['name']] = {}
+        for k, v in dic.items():
+            if k == 'image' or k == 'category' or k == 'name':
+                continue
+            elif v != '':
+                box = box_from_wh(list(map(int, dic[k].replace(' ','').split(','))))
+                source = config['SCREENSHOTS'] + '/buildings/' + dic['image']
+                print('source: {}, box: {}'.format(source, box))
+                buildings[dic['name']][k] = box
+
+    json_to_file(buildings, '../_config/json/buildings.json', mode='w+')
+    return buildings
+
+
 ##@@@@========================================================================
 ##@@@@ Execute Test
 if __name__ == '__main__':
-    setup_ui_images()  ## UI 이미지 만들기, 좌표 저장(uis.json)
+    # setup_ui_images()  ## UI 이미지 만들기, 좌표 저장(uis.json)
     # setup_config()  ## config.json 생성
-    # setup_characters()  ## config.json 생성
+    # setup_characters()  ## characters.json 생성
+    setup_buildings() ## buildings.json 생성
