@@ -1864,5 +1864,491 @@
     490,
     350,
     578
+  ],
+  "btn_tavern_open_chest_BACK": [
+    24,
+    24,
+    98,
+    94
+  ],
+  "txt_tavern_open_chest_silver_keys": [
+    1250,
+    28,
+    1338,
+    58
+  ],
+  "txt_tavern_open_chest_golden_keys": [
+    1424,
+    28,
+    1512,
+    58
+  ],
+  "txt_tavern_open_chest_equipment_keys": [
+    1596,
+    28,
+    1684,
+    58
+  ],
+  "btn_tavern_open_chest_silver_open": [
+    340,
+    888,
+    458,
+    922
+  ],
+  "box_tavern_open_chest_open": [
+    234,
+    860,
+    1794,
+    958
+  ],
+  "txt_tavern_open_chest_freeToday_silver": [
+    502,
+    790,
+    556,
+    824
+  ],
+  "txt_tavern_open_chest_freeInTime_gold": [
+    940,
+    790,
+    1098,
+    824
+  ],
+  "txt_tavern_open_chest_freeInTime_equipment": [
+    1498,
+    790,
+    1656,
+    824
+  ],
+  "btn_tavern_open_chest_open_confirm": [
+    366,
+    910,
+    564,
+    944
+  ],
+  "box_tavern_open_chest_open_confirm": [
+    242,
+    878,
+    1654,
+    978
+  ],
+  "box_tavern_open_chest_open_openAnother": [
+    820,
+    894,
+    1092,
+    920
+  ],
+  "box_tavern_open_chest_open_openAll": [
+    1366,
+    894,
+    1534,
+    920
+  ],
+  "btn_tavern_open_chest_commander_comfirm": [
+    192,
+    894,
+    390,
+    930
+  ],
+  "btn_search_cropland_search": [
+    590,
+    714,
+    760,
+    750
+  ],
+  "btn_search_cropland_minus": [
+    444,
+    582,
+    494,
+    630
+  ],
+  "btn_search_cropland_plus": [
+    854,
+    582,
+    904,
+    630
+  ],
+  "txt_search_cropland_level": [
+    728,
+    556,
+    760,
+    580
+  ],
+  "btn_search_cropland": [
+    598,
+    900,
+    746,
+    1018
+  ],
+  "btn_search_BACK": [
+    24,
+    24,
+    100,
+    98
+  ],
+  "btn_search_loggingCamp_search": [
+    876,
+    714,
+    1046,
+    750
+  ],
+  "btn_search_loggingCamp_minus": [
+    732,
+    582,
+    782,
+    630
+  ],
+  "btn_search_loggingCamp_plus": [
+    1142,
+    582,
+    1192,
+    630
+  ],
+  "txt_search_loggingCamp_level": [
+    1016,
+    556,
+    1048,
+    580
+  ],
+  "btn_search_loggingCamp": [
+    886,
+    900,
+    1034,
+    1018
+  ],
+  "btn_search_stoneDeposit_search": [
+    1164,
+    714,
+    1334,
+    750
+  ],
+  "btn_search_stoneDeposit_minus": [
+    1020,
+    582,
+    1070,
+    630
+  ],
+  "btn_search_stoneDeposit_plus": [
+    1430,
+    582,
+    1480,
+    630
+  ],
+  "txt_search_stoneDeposit_level": [
+    1304,
+    556,
+    1336,
+    580
+  ],
+  "btn_search_stoneDeposit": [
+    1174,
+    900,
+    1322,
+    1018
+  ],
+  "btn_search_goldDeposit_search": [
+    1452,
+    714,
+    1622,
+    750
+  ],
+  "btn_search_goldDeposit_minus": [
+    1306,
+    582,
+    1356,
+    630
+  ],
+  "btn_search_goldDeposit_plus": [
+    1716,
+    582,
+    1766,
+    630
+  ],
+  "txt_search_goldDeposit_level": [
+    1590,
+    556,
+    1622,
+    580
+  ],
+  "btn_search_goldDeposit": [
+    1462,
+    900,
+    1610,
+    1018
+  ],
+  "btn_gather_resource_gather": [
+    1344,
+    708,
+    1516,
+    744
+  ],
+  "btn_gather_resource_marker": [
+    1630,
+    274,
+    1666,
+    310
+  ],
+  "btn_gather_resource_share": [
+    1720,
+    274,
+    1756,
+    310
+  ],
+  "txt_gather_resource_coordinate": [
+    1342,
+    286,
+    1522,
+    314
+  ],
+  "txt_gather_resource_level": [
+    1426,
+    360,
+    1464,
+    392
+  ],
+  "txt_gather_resource_reserves": [
+    1590,
+    422,
+    1760,
+    458
+  ],
+  "btn_dispatch_newTroops": [
+    1392,
+    194,
+    1644,
+    238
+  ],
+  "btn_dispatch_newTroops_plus": [
+    1764,
+    120,
+    1882,
+    186
+  ],
+  "txt_dispatch_queue": [
+    1840,
+    22,
+    1892,
+    54
+  ],
+  "bdg_dispatch_state_gather": [
+    1841,
+    363,
+    1879,
+    401
+  ],
+  "bdg_dispatch_state_camp": [
+    1841,
+    723,
+    1879,
+    761
+  ],
+  "bdg_dispatch_state_return2": [
+    1854,
+    405,
+    1886,
+    437
+  ],
+  "bdg_dispatch_state_gather2": [
+    1854,
+    290,
+    1886,
+    322
+  ],
+  "bdg_dispatch_state_camp2": [
+    1854,
+    520,
+    1886,
+    552
+  ],
+  "bdg_dispatch_state_explore2": [
+    1854,
+    605,
+    1886,
+    637
+  ],
+  "bdg_dispatch_state_march2": [
+    1854,
+    349,
+    1886,
+    381
+  ],
+  "txt_dispatch_queue2": [
+    1812,
+    242,
+    1868,
+    268
+  ],
+  "btn_dispatch_expand": [
+    1752,
+    238,
+    1790,
+    276
+  ],
+  "btn_dispatch_newTroops_CLOSE": [
+    1654,
+    46,
+    1698,
+    88
+  ],
+  "btn_dispatch_newTroops_slot_save": [
+    1630,
+    228,
+    1686,
+    268
+  ],
+  "btn_dispatch_newTroops_slot_load": [
+    1630,
+    306,
+    1686,
+    346
+  ],
+  "btn_dispatch_newTroops_slot_change": [
+    1630,
+    378,
+    1682,
+    428
+  ],
+  "btn_dispatch_newTroops_slot_1_1": [
+    1640,
+    470,
+    1674,
+    504
+  ],
+  "btn_dispatch_newTroops_slot_1_2": [
+    1640,
+    558,
+    1674,
+    592
+  ],
+  "btn_dispatch_newTroops_slot_1_3": [
+    1640,
+    644,
+    1674,
+    678
+  ],
+  "btn_dispatch_newTroops_slot_1_4": [
+    1640,
+    730,
+    1674,
+    764
+  ],
+  "btn_dispatch_newTroops_slot_1_5": [
+    1640,
+    816,
+    1674,
+    850
+  ],
+  "txt_dispatch_newTroops_totalPower": [
+    1018,
+    170,
+    1180,
+    204
+  ],
+  "txt_dispatch_newTroops_commanderPower": [
+    1484,
+    170,
+    1610,
+    204
+  ],
+  "btn_dispatch_newTroops_max": [
+    976,
+    926,
+    1068,
+    958
+  ],
+  "btn_dispatch_newTroops_march": [
+    1336,
+    912,
+    1456,
+    942
+  ],
+  "txt_dispatch_newTroops_marchTime": [
+    1362,
+    956,
+    1492,
+    982
+  ],
+  "btn_dispatch_newTroops_deputyMinus": [
+    694,
+    740,
+    724,
+    768
+  ],
+  "btn_dispatch_reinforce_CLOSE": [
+    1654,
+    46,
+    1698,
+    88
+  ],
+  "btn_dispatch_reinforce_join": [
+    290,
+    478,
+    362,
+    530
+  ],
+  "bdg_dispatch_state_garrison2": [
+    1854,
+    579,
+    1886,
+    611
+  ],
+  "btn_dispatch_newTroops_slot_2_1": [
+    1640,
+    470,
+    1674,
+    504
+  ],
+  "btn_dispatch_newTroops_slot_2_2": [
+    1640,
+    558,
+    1674,
+    592
+  ],
+  "btn_dispatch_newTroops_slot_2_3": [
+    1640,
+    644,
+    1674,
+    678
+  ],
+  "btn_dispatch_newTroops_slot_2_4": [
+    1640,
+    730,
+    1674,
+    764
+  ],
+  "btn_dispatch_newTroops_slot_2_5": [
+    1640,
+    816,
+    1674,
+    850
+  ],
+  "btn_dispatch_newTroops_slot_3_1": [
+    1640,
+    470,
+    1674,
+    504
+  ],
+  "btn_dispatch_newTroops_slot_3_2": [
+    1640,
+    558,
+    1674,
+    592
+  ],
+  "btn_dispatch_newTroops_slot_3_3": [
+    1640,
+    644,
+    1674,
+    678
+  ],
+  "btn_dispatch_newTroops_slot_3_4": [
+    1640,
+    730,
+    1674,
+    764
+  ],
+  "btn_dispatch_newTroops_slot_3_5": [
+    1640,
+    816,
+    1674,
+    850
   ]
 }

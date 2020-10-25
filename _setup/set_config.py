@@ -120,7 +120,7 @@ def setup_buildings():
 ##@@@@========================================================================
 ##@@@@ Execute Test
 if __name__ == '__main__':
-    # setup_ui_images()  ## UI 이미지 만들기, 좌표 저장(uis.json)
+    setup_ui_images()  ## UI 이미지 만들기, 좌표 저장(uis.json)
     # setup_config()  ## config.json 생성
     # setup_characters()  ## characters.json 생성
-    setup_buildings() ## buildings.json 생성
+    # setup_buildings() ## buildings.json 생성

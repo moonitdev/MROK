@@ -3,6 +3,7 @@ import time
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../supporters'))
 # from databaser.GoogleSpread import GoogleSpread
+from connector import *
 from functions.imageFns import *
 from functions.guiFns import *
 from functions.dataFns import file_to_json
@@ -56,6 +57,44 @@ def claim_city_resources():
         {'position': buildings['goldMine']['box'], 'interval': 1}
     ]
     mouse_click_series(series=series)
+
+
+def search_resources(resource='food', level=5, kingdom='normal'):
+    """
+    기능: 도시 자원 검색
+    입력:
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | '../images/source/dest01.png'
+        - resource || 자원 종류 | str | 'food' | {'food': 'cropland', 'wood': 'loggingCamp', 'stone': 'stoneDeposit', 'gold': 'goldDeposit'}
+        - level || 자원 레벨 | int | 5 | 1, 2, ...., 10
+        - kingdom || 킹덤 종류 | str | 'normal' | 'normal': 일반 / 'lost': '잃어버린 왕국(kvk)'
+    Note:
+      - 자원 검색
+    """
+    mapper = {'food': 'cropland', 'wood': 'loggingCamp', 'stone': 'stoneDeposit', 'gold': 'goldDeposit'}
+
+    ## viewMode -> allianceView
+    set_view_mode(mode='AllianceView')
+
+    ## click search button
+    ## click search resource button
+    btn_search1 =  uis['btn_search_' + mapper[resource]]
+    btn_search2 =  uis['btn_search_' + mapper[resource] + '_search']
+    btn_plus =  uis['btn_search_' + mapper[resource] + '_plus']
+
+    series = [
+        {'position': uis['btn_Main_Search'], 'interval': 0.5},
+        {'position': btn_search1, 'interval': 0.2},
+    ]
+
+    mouse_click_series(series=series)
+
+    ## click level plus
+    for _ in range(0, level):
+        mouse_click(btn_plus)
+
+    ## click gather button   
+    mouse_click(btn_search2)
+
 
 
 def claim_VIP():
@@ -263,4 +302,6 @@ if __name__ == '__main__':
     # open_buy_expedition()  ## expedition 상자 오픈, 스토어 아이템 구매
     # donate_allianceSkills()  ## 연맹 기술 기부
     # claim_gifts()  ## 연맹 선물 수령
-    claim_city_resources()  ## 도시 자원 수령
+    # claim_city_resources()  ## 도시 자원 수령
+
+    search_resources(resource='wood', level=5) ## 자원지 찾기
