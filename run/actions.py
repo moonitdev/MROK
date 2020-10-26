@@ -204,7 +204,7 @@ def buy_expedition_store(items=['aethelflaed', 'legend', 'goldStar', 'goldStar4'
     for item in items:
         name = 'btn_menu_campaign_expedition_store_' + item
         if item == 'aethelflaed' or item == 'constance' or item == 'legend':
-            center = mouse_click(box=uis[name])
+            center = mouse_click(position=uis[name])
         else:
             template = config['UIS'] + name + config['IMG_EXT']
             center = match_image_box(template=template, image=uis['box_menu_campaign_expedition_store_items'], precision=0.999)
@@ -236,7 +236,7 @@ def open_buy_expedition():
     template = config['_OCR'] + name + config['IMG_EXT']
     free = match_image_box(template=template, image=expand_box(box=uis[name], offset=[10, 10]))
     if type(free) is list:
-        mouse_click(box=uis['btn_menu_campaign_expedition_store_refresh'])
+        mouse_click(position=uis['btn_menu_campaign_expedition_store_refresh'])
         time.sleep(1)
         buy_expedition_store(items=['legend', 'goldStar', 'goldStar4', 'training'])
 

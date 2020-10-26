@@ -40,6 +40,7 @@ def full_screen():
 
 
 def clear_network_error():
+    print('clear_network_error')
     button = img_path('btn_disconnect_timeout_confirm')
     area = expand_box(uis['btn_disconnect_timeout_confirm'], offset=[10])
     target = {
@@ -219,18 +220,18 @@ def set_view_menu():
 
 
 def goto_account(account):
-    if account != account:
-        series = [
-            {'position':uis['btn_Main_Profile'], 'interval': 2},
-            {'position': uis['btn_profile_settings'], 'interval': 2},
-            {'position':uis['btn_profile_settings_account'], 'interval': 2},
-            {'position': uis['btn_accountSetting_switchAccount'], 'interval': 2},
-        ]
-        mouse_click_series(series=series)
+    # if account != account:
+    series = [
+        {'position':uis['btn_Main_Profile'], 'interval': 2},
+        {'position': uis['btn_profile_settings'], 'interval': 2},
+        {'position':uis['btn_profile_settings_account'], 'interval': 2},
+        {'position': uis['btn_accountSetting_switchAccount'], 'interval': 2},
+    ]
+    mouse_click_series(series=series)
 
-        mouse_click_match(template=img_path('btn_accountSetting_switchAccount_google', where='CHARACTERS'), image=expand_box(uis['btn_accountSetting_switchAccount_google'], offset=[50, 200]))
-        time.sleep(2)
-        mouse_click_match(template=img_path('btn_accountSetting_switchAccount_google_' + account, where='CHARACTERS'), image=expand_box(uis['btn_accountSetting_switchAccount_google_' + account], offset=[50, 200]))
+    mouse_click_match(template=img_path('btn_accountSetting_switchAccount_google', where='CHARACTERS'), image=expand_box(uis['btn_accountSetting_switchAccount_google'], offset=[50, 200]))
+    time.sleep(2)
+    mouse_click_match(template=img_path('btn_accountSetting_switchAccount_google_' + account, where='CHARACTERS'), image=expand_box(uis['btn_accountSetting_switchAccount_google_' + account], offset=[50, 200]))
 
     print('goto account: {}'.format(account))
     time.sleep(10)
@@ -238,26 +239,19 @@ def goto_account(account):
 
 
 def goto_sn(sn):
-    ## Note: nick이 다른 account에 있는 경우!!! -> goto_account
-    # account = charcter_info(nick=nick, what='google')
-    # if account != account:
-    #     goto_account(account)
-    #     # goto_nick()
+    series = [
+        {'position':uis['btn_Main_Profile'], 'interval': 2},
+        {'position': uis['btn_profile_settings'], 'interval': 2},
+        {'position':uis['btn_profile_settings_characterMangement'], 'interval': 20},
+    ]
+    mouse_click_series(series=series)
+    sn = 'img_avatar_login_' +  sn
 
-    if sn != sn:
-        series = [
-            {'position':uis['btn_Main_Profile'], 'interval': 2},
-            {'position': uis['btn_profile_settings'], 'interval': 2},
-            {'position':uis['btn_profile_settings_characterMangement'], 'interval': 20},
-        ]
-        mouse_click_series(series=series)
-        sn = 'img_avatar_login_' +  sn
+    ## Note: 드래그 하면서 확인 필요!!!
+    mouse_click_match(template=img_path(sn, where='CHARACTERS'), image=uis['box_characterMangement'])
+    time.sleep(2)
 
-        ## Note: 드래그 하면서 확인 필요!!!
-        mouse_click_match(template=img_path(sn, where='CHARACTERS'), image=uis['box_characterMangement'])
-        time.sleep(2)
-
-        mouse_click(uis['btn_characterMangement_login_YES'])
+    mouse_click(uis['btn_characterMangement_login_YES'])
 
     time.sleep(10)
     connect()
