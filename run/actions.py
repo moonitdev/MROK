@@ -68,14 +68,16 @@ def search_resources(resource='food', level=5, kingdom='normal'):
         - level || 자원 레벨 | int | 5 | 1, 2, ...., 10
         - kingdom || 킹덤 종류 | str | 'normal' | 'normal': 일반 / 'lost': '잃어버린 왕국(kvk)'
     Note:
-      - 자원 검색
+      - '+' 버튼을 몇 번 누를 것인지?(default level값 확인은?)
+      - 해당 level 자원이 없는 경우 '-'를 눌러 level - 1 자원 찾기
+      - 다른 유저 채취 행군/도착 여부 확인 필요!!!
     """
     mapper = {'food': 'cropland', 'wood': 'loggingCamp', 'stone': 'stoneDeposit', 'gold': 'goldDeposit'}
 
     ## viewMode -> allianceView
     set_view_mode(mode='AllianceView')
 
-    ## click search button
+    ## click search(main) button
     ## click search resource button
     btn_search1 =  uis['btn_search_' + mapper[resource]]
     btn_search2 =  uis['btn_search_' + mapper[resource] + '_search']
@@ -92,8 +94,11 @@ def search_resources(resource='food', level=5, kingdom='normal'):
     for _ in range(0, level):
         mouse_click(btn_plus)
 
-    ## click gather button   
+    ## click search(modal) button
     mouse_click(btn_search2)
+
+    ## 다시 search 버튼이 나타나는지 확인
+    
 
 
 
