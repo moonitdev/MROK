@@ -2350,5 +2350,23 @@
     816,
     1674,
     850
+  ],
+  "img_emulator_status_network": [
+    1658,
+    50,
+    1688,
+    72
+  ],
+  "btn_emulator_adCenter_CLOSE": [
+    1452,
+    273,
+    1468,
+    289
+  ],
+  "box_emulator_adSide1_CLOSE": [
+    1884,
+    628,
+    1898,
+    642
   ]
 }

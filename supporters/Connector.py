@@ -104,11 +104,40 @@ def get_nick():
 def get_sn(nick):
     charcter_info(nick=nick, what='sn')
 
+
 def get_id(nick):
     charcter_info(nick=nick, what='id')
 
+
 def get_account(nick):
     charcter_info(nick=nick, what='google')
+
+
+def turn_on_emulator():
+    # 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행(OFF -> ON)
+    return mouse_click_match(template=img_path('btn_OS_Player_inactive'), image=uis['box_OS_Quickloanch'], precision=0.999)
+
+
+def restart_ROK(error_type='stop'):
+    # 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행(OFF -> ON)
+    if error_type == 'stop':
+        ui = 'btn_Player_stop_confirm'
+    elif error_type == 'otherDevice':
+        ui = 'btn_disconnect_otherDevice_confirm'
+    return mouse_click_match(template=img_path(ui), image=expand_box(uis[ui], offset=[10]), precision=0.99)
+
+
+def clear_ad_win(ui_covered, btn_close):
+    # 광고창 없애기
+    template = img_path(ui_covered)
+    image = expand_box(uis[ui_covered], offset=[10])
+    if type(btn_close) == list:
+        position = btn_close
+    else:
+        position = match_image_box(template=img_path(btn_close), image=expand_box(uis[btn_close], offset=[200, 100]))
+    if not match_image_box(template=template, image=image):
+        mouse_click(position=position)
+
 
 def connect():
     """
@@ -120,35 +149,36 @@ def connect():
         - action의 첫 클릭시 네트워크 에러 처리 필요
     """
     # 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행(OFF -> ON)
-    conn1 = mouse_click_match(template=img_path('btn_OS_Player_inactive'), image=uis['box_OS_Quickloanch'], precision=0.999)
+    turn_on_emulator()
 
     # ROK app이 (강제) 중지된 상태가 확인되면, 확인 버튼 누름(STOPPED)
-    conn2 = mouse_click_match(template=img_path('btn_Player_stop_confirm'), image=expand_box(uis['btn_Player_stop_confirm'], offset=[10]), precision=0.99)
+    restart_ROK(error_type='stop')
 
     # 다른 기기 로그인으로 인한 중지
-    conn3 = mouse_click_match(template=img_path('btn_disconnect_otherDevice_confirm'), image=expand_box(uis['btn_disconnect_otherDevice_confirm'], offset=[10]), precision=0.99)
+    restart_ROK(error_type='otherDevice')
 
-    # 광고 팝업이 있으면 닫음(ADWIN/ADPOP)
-    mouse_click_match(template=img_path('btn_ldplayer_adwin_CLOSE'), image=expand_box(uis['btn_ldplayer_adwin_CLOSE'], offset=[10]), precision=0.98)
-    mouse_click_match(template=img_path('btn_ldplayer_adpop_CLOSE'), image=expand_box(uis['btn_ldplayer_adpop_CLOSE'], offset=[10]), precision=0.98)
+    # 에뮬레이터 켜짐 확인
+    template = img_path('img_emulator_status_network')
+    image = expand_box(uis['img_emulator_status_network'], offset=[100, 200])
+    wait_match_image(template=template, image=image)
 
-    # ROK app 실행(OUT)
-    if conn1 or conn2 or conn3:
-        mouse_click_match_wait(template=img_path('btn_Player_ROK-mid'), image=expand_box(uis['btn_Player_ROK-mid'], offset=[10]), precision=0.99, pause=10)
-        key_press('f11')
-        set_menu_wait()
-        # mouse_click_match_wait(template=img_path('btn_Main_Menu'), image=expand_box(uis['btn_Main_Menu'], offset=[20]), precision=0.99, pause=20, repeat=30)
-        # 표준 veiw_mode, menu_mode 로 변경
+    # 광고창 닫기
+    clear_ad_win(ui_covered='btn_Player_ROK-mid', btn_close='btn_emulator_adCenter_CLOSE')
 
-    # 네트워크 불량으로 인한 접속 타임아웃
-    # conn4 = mouse_click_match(template=img_path('btn_disconnect_timeout_confirm'), image=expand_box(uis['btn_disconnect_timeout_confirm'], offset=[10]), precision=0.99)
-    # if conn4:
-    #     set_menu_wait()
+    # ROK 앱 클릭
+    mouse_click_match(template=img_path('btn_Player_ROK-mid'), image=expand_box(uis['btn_Player_ROK-mid'], offset=[10]), precision=0.99)
 
-    clear_network_error()
+    # fullscreen
+    full_screen()
 
     # ROK 인증이 필요한 경우(VERIFICATION)
-    catch_verification()
+    clear_verification()
+
+    # 메뉴 unfold
+    set_menu_wait()
+
+    # 네트워크 에러 해결
+    # clear_network_error()
 
 
 def go_home_city():
@@ -211,7 +241,11 @@ def set_menu_wait():
     Note:
         - 
     """
-    mouse_click_match_wait(template=img_path('btn_Main_Menu'), image=expand_box(uis['btn_Main_Menu'], offset=[20]), precision=0.99, pause=20, repeat=30)
+    loaded = wait_match_image(template=img_path('btn_Main_GoAllianceView'), image=expand_box(uis['btn_Main_GoAllianceView'], offset=[20]), precision=0.99, pause=3, repeat=15, interval=1)
+    if loaded:
+        clear_ad_win(ui_covered='btn_Main_Menu', btn_close=uis['box_emulator_adSide1_CLOSE'])
+    
+    mouse_click_match(template=img_path('btn_Main_Menu'), image=expand_box(uis['btn_Main_Menu'], offset=[20]), precision=0.99)
 
 
 def set_view_menu():
@@ -262,7 +296,7 @@ def goto_nick(nick):
         goto_sn(charcter_info(nick=nick, what='sn'))
 
 
-def catch_verification():
+def clear_verification():
     btn_alert = match_image_box(template=img_path('btn_verification_alert'), image=expand_box(uis['btn_verification_alert'], offset=[20, 300]))
 
     if type(btn_alert) is list:
@@ -277,8 +311,7 @@ def catch_verification():
         time.sleep(2)
         do_verification(attempts=0)
         return True
-    
-    # return False
+
 
 def find_verification_centers():
     templates = extract_templates(image=uis['box_Verification_Templates'])
@@ -334,13 +367,14 @@ def do_verification(attempts=0):
 
 if __name__ == '__main__':
     time.sleep(5)
+    connect()
 
     # goto_account('life681225')
     # goto_nick('millennium 202')
     # goto_account('deverlife')
 
-    # catch_verification()
+    # clear_verification()
     # get_nick()
 
-    full_screen()
-    set_view_mode(mode='CityView')
+    # full_screen()
+    # set_view_mode(mode='CityView')

@@ -136,7 +136,7 @@ def do_tasks(schedules):
             time.sleep(2)
             for work in task['works']:
                 clear_network_error()
-                catch_verification()
+                clear_verification()
                 work()
 
 # def do_tasks(tasks):
