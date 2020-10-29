@@ -3,12 +3,13 @@ import json
 import platform, ctypes
 
 sys.path.append(os.path.join(os.path.dirname(__file__), './functions'))
-from guiFns import *
+from guiFns import ( mouse_click, mouse_click_series, mouse_click_match_not, mouse_click_match, key_press )
+#expand_box, wait_match_image
 from imageFns import *
 from functions.dataFns import file_to_json
 
-sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
-from settings import _ENV, _IMGS, _MAP
+# sys.path.append(os.path.join(os.path.dirname(sys.path[0]), '_config'))
+# from settings import _ENV, _IMGS, _MAP
 
 uis = file_to_json('../_config/json/uis.json')
 config = file_to_json('../_config/json/config.json')
@@ -17,16 +18,37 @@ characters = file_to_json('../_config/json/characters.json')
 _CENTER = [config['MAX_X']//2, config['MAX_Y']//2]
 
 
-def is_connected():
-    if match_image_box(template, image=[]):
-        pass
-
-
 def img_path(prefix, where='UIS'):
-    return _IMGS[where] + prefix + _ENV['IMG_EXT']
+    """
+    기능: 
+        - 이미지 경로(파일 이름 포함) 반환
+    입력: 
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - prefix || 이미지 파일 이름 | str | None | 'btn_addMarker_OK'
+        - where || 이미지 종류 | str | 'UIS' | ../_config/json/config.json'참조 / 'UIS': ui요소, 'CHARACTERS': 캐릭터, 'OBJECTS': 오브젝트
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 이미지 경로(파일 이름 포함) | str | '../_config/images/uis/btn_addMarker_OK.png'
+    Note:
+        - 이미지 종류 정리 필요
+    """
+    return config[where] + prefix + config['IMG_EXT']
 
 
 def charcter_info(nick, what='sn'):
+    """
+    기능: 
+        - 캐릭터 정보(sn, id, google) 반환
+    입력: 
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - nick || 캐릭터 닉네임 | str | None | '[]천년왕국'
+        - what || 정보 종류 | str | 'sn' | ../_config/json/characters.json'참조 / 'sn': 시리얼넘버, 'id': 아이디번호, 'google': 구글 계정('@gmail.com' 제외)
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 캐릭터 해당 정보 | str | 'M000'
+    Note:
+        - 시리얼넘버 정리 필요
+    """
     for character in characters:
         if character['nick'] in nick:
             return character[what]
@@ -34,12 +56,25 @@ def charcter_info(nick, what='sn'):
 
 
 def full_screen():
+    """
+    기능: 
+        - 에뮬레이터(ldplayer)를 전체 화면으로
+    Note:
+        - 기준 ui(ldplayer settings 버튼) 변경 or expand_box 사이즈 최적화 필요
+    """
     win = match_image_box(template=img_path('img_ldplayer_settings'), image=expand_box(uis['img_ldplayer_settings'], offset=[200, 100]))
     if type(win) == list:
         key_press('f11')
 
 
 def clear_network_error():
+    """
+    기능: 
+        - 네트워크 에러 발생시 재로딩
+    Note:
+        - 네트워크 에러 상황 및 종류 확인
+        - 재로딩 완료 확인 및 표준 매뉴.맵 크기 조정 필요!!
+    """
     print('clear_network_error')
     button = img_path('btn_disconnect_timeout_confirm')
     area = expand_box(uis['btn_disconnect_timeout_confirm'], offset=[10])
@@ -52,6 +87,13 @@ def clear_network_error():
 
 
 def get_resolution():
+    """
+    기능: 
+        - 화면 해상도 출력
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 화면 해상도 | list | [1920, 1080]
+    """
     user32 = ctypes.windll.user32
     screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
     return list(screensize)
@@ -62,6 +104,9 @@ def get_nick():
     기능: 
         - 캐릭터 닉네임을 확인하고, nick값에 입력
         - 자신의 도시를 클릭한 후, addMarker 창에서 복사함
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 닉네임(연맹정보 포함) | str | 'Duke Plz 공작부탁드립니다 [760W]ぐ천년왕국ブ'
     Note:
         - 임원의 경우 인터페이스가 다름!!!
         - 자신의 도시가 지도의 중앙에 나오도록 조정한 후에 해야 함!!!
@@ -92,7 +137,7 @@ def get_nick():
     time.sleep(3)
     # input = center_from_box(uis['inp_addMarker_Nick'])
     nick = get_clipboard_copy(config['addMarker_start'], config['addMarker_end'], center_from_box(uis['btn_addMarker_copy']), center_from_box(uis['btn_addMarker_selectAll']))  # [760X]ぐ천년왕국ブ 와 같이 연맹 이름이 포함됨
-    # print('nick is {}'.format(nick))
+    print('nick is {}'.format(nick))
     series = [
         {'position':uis['btn_addMarker_OK'], 'interval': 2},
         {'position': uis['btn_addMarker_CLOSE'], 'interval': 2}
@@ -102,24 +147,62 @@ def get_nick():
 
 
 def get_sn(nick):
+    """
+    기능: 
+        - 캐릭터 시리얼넘버(사용자 임의 지정 값) 반환
+    입력: 
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - nick || 캐릭터 닉네임 | str | None | 'Duke Plz 공작부탁드립니다 [760W]ぐ천년왕국ブ' / get_nick() 참조
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 캐릭터 시리얼넘버 | str | 'M000'
+    """
     charcter_info(nick=nick, what='sn')
 
 
 def get_id(nick):
+    """
+    기능: 
+        - 캐릭터 아이디(캐릭터 8자리 고유번호) 반환
+    입력: 
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - nick || 캐릭터 닉네임 | str | None | 'Duke Plz 공작부탁드립니다 [760W]ぐ천년왕국ブ' / get_nick() 참조
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 캐릭터 아이디 | str | '33627943'
+    """
     charcter_info(nick=nick, what='id')
 
 
 def get_account(nick):
+    """
+    기능: 
+        - 캐릭터 구글 계정 반환
+    입력: 
+        - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+        - nick || 캐릭터 닉네임 | str | None | 'Duke Plz 공작부탁드립니다 [760W]ぐ천년왕국ブ' / get_nick() 참조
+    출력:
+        - 의미 | 데이터 타입 | 예시
+        - 캐릭터 구글 계정('@gmail.com' 제외) | str | 'deverlife'
+    """
     charcter_info(nick=nick, what='google')
 
 
 def turn_on_emulator():
-    # 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행(OFF -> ON)
+    """
+    기능: 
+        - 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행
+    """
     return mouse_click_match(template=img_path('btn_OS_Player_inactive'), image=uis['box_OS_Quickloanch'], precision=0.999)
 
 
 def restart_ROK(error_type='stop'):
-    # 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행(OFF -> ON)
+    """
+    기능: 
+        - '중지(stop)', '다른 기기(otherDevice)' 등으로 접속이 끊긴 ROK 재실행
+    Note:
+        - '중지', '다른 기기' 외의 경우가 없는지 확인 필요!!
+    """
     if error_type == 'stop':
         ui = 'btn_Player_stop_confirm'
     elif error_type == 'otherDevice':
@@ -128,7 +211,12 @@ def restart_ROK(error_type='stop'):
 
 
 def clear_ad_win(ui_covered, btn_close):
-    # 광고창 없애기
+    """
+    기능: 
+        - 에뮬레이터 로딩시 생긴 광고창(중앙/우측) 닫기(가려진 ui가 있으면, '닫기'버튼 누름)
+    Note:
+        - 광고창 갯수 변화, 광고창 '닫기' 버튼 위치 등 확인 필요
+    """
     template = img_path(ui_covered)
     image = expand_box(uis[ui_covered], offset=[10])
     if type(btn_close) == list:
@@ -148,13 +236,8 @@ def connect():
         - 로딩 도중 네트워크 에러 처리 필요
         - action의 첫 클릭시 네트워크 에러 처리 필요
     """
-    # 퀵런치 바에 LDPlayer 아이콘이 활성화 되어 있지 않았다면, 에뮬레이터(ldplayer) 실행(OFF -> ON)
     turn_on_emulator()
-
-    # ROK app이 (강제) 중지된 상태가 확인되면, 확인 버튼 누름(STOPPED)
     restart_ROK(error_type='stop')
-
-    # 다른 기기 로그인으로 인한 중지
     restart_ROK(error_type='otherDevice')
 
     # 에뮬레이터 켜짐 확인
@@ -303,7 +386,7 @@ def clear_verification():
         mouse_click(btn_alert)
         time.sleep(2)
 
-    btn_verify = match_image_box(template=img_path('btn_verification_verify'), image=expand_box(uis['btn_verification_verify'], offset=[100, 200]), precision=0.999)
+    btn_verify = match_image_box(template=img_path('btn_verification_verify'), image=expand_box(uis['btn_verification_verify'], offset=[200, 100]), precision=0.99)
     print('btn_verify: {}'.format(btn_verify))
     if type(btn_verify) is list:
         print('btn_verify: {}'.format(btn_verify))
@@ -367,13 +450,14 @@ def do_verification(attempts=0):
 
 if __name__ == '__main__':
     time.sleep(5)
-    connect()
+    # connect()
+    # get_nick()
 
     # goto_account('life681225')
     # goto_nick('millennium 202')
     # goto_account('deverlife')
 
-    # clear_verification()
+    clear_verification()
     # get_nick()
 
     # full_screen()

@@ -2368,5 +2368,143 @@
     628,
     1898,
     642
+  ],
+  "bdg_menu_alliance_gifts_normal_new": [
+    1169,
+    272,
+    1191,
+    294
+  ],
+  "bdg_menu_alliance_gifts_rare_new": [
+    1556,
+    272,
+    1578,
+    294
+  ],
+  "bdg_menu_alliance_gifts_normal_new2": [
+    1173,
+    276,
+    1186,
+    289
+  ],
+  "bdg_menu_alliance_gifts_rare_new2": [
+    1561,
+    276,
+    1574,
+    289
+  ],
+  "btn_dispatch_unoccupied_march": [
+    1412,
+    552,
+    1540,
+    588
+  ],
+  "btn_dispatch_unoccupied_teleport": [
+    1064,
+    554,
+    1248,
+    596
+  ],
+  "txt_dispatch_unoccupied_coordinate": [
+    1252,
+    192,
+    1418,
+    222
+  ],
+  "bdg_buildings_hospital": [
+    292,
+    724,
+    338,
+    770
+  ],
+  "bdg_buildings_goldMine": [
+    68,
+    618,
+    112,
+    662
+  ],
+  "bdg_buildings_quarry": [
+    224,
+    514,
+    268,
+    558
+  ],
+  "bdg_buildings_farm": [
+    168,
+    168,
+    212,
+    212
+  ],
+  "bdg_buildings_courierStation": [
+    488,
+    326,
+    548,
+    386
+  ],
+  "bdg_buildings_lumberMill": [
+    796,
+    138,
+    840,
+    182
+  ],
+  "btn_tools_build_economic": [
+    102,
+    536,
+    178,
+    612
+  ],
+  "btn_tools_build_military": [
+    102,
+    704,
+    178,
+    780
+  ],
+  "btn_tools_build_decorative": [
+    102,
+    868,
+    178,
+    944
+  ],
+  "btn_tools_build_decorative_3": [
+    1056,
+    518,
+    1428,
+    898
+  ],
+  "box_menu_alliance_claim": [
+    1376,
+    338,
+    1554,
+    1004
+  ],
+  "bdg_menu_alliance_war": [
+    984,
+    556,
+    1014,
+    568
+  ],
+  "bdg_menu_alliance_territory": [
+    1242,
+    556,
+    1272,
+    568
+  ],
+  "bdg_menu_alliance_help": [
+    1578,
+    556,
+    1608,
+    568
+  ],
+  "bdg_menu_alliance_technology": [
+    1179,
+    783,
+    1209,
+    795
+  ],
+  "bdg_menu_alliance_gifts": [
+    1377,
+    556,
+    1407,
+    568
   ]
 }
