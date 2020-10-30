@@ -3,6 +3,11 @@ import sys, os
 sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'functions')) ## 현재 디렉토리 기준 상대 경로 설정
 from dataFns import *  ## (사용자) 상용 함수 라이브러리
 
+def get_header_dict(row=1, col=1):
+    # worksheet.cell(1, 2).value
+    # values_list = worksheet.row_values(1)
+    # for i in 
+    pass
 
 # def list_to_dict(ls=[]):
 #     """

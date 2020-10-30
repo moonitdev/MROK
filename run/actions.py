@@ -89,7 +89,7 @@ def claim_VIP():
     mouse_click_series(series=series)
 
 
-def claim_gifts_rare():
+def claim_gifts_rare1():
     template = img_path(prefix='bdg_menu_alliance_gifts_rare_new', where='UIS')
     # image = img_path(prefix='uis/menu_alliance_gifts11', where='SCREENSHOTS')
     image = expand_box(uis['bdg_menu_alliance_gifts_rare_new'], offset=[10, 10])
@@ -106,17 +106,14 @@ def claim_gifts_rare():
                 mouse_click(claim)
             else:
                 break
-    
-        scroll_box = uis['box_menu_alliance_claim']
-        mouse_scroll_box(box=scroll_box, direction=[0, -1], offset=5)
-        # mouse_scroll_box(box=scroll_box, direction=[0, 1], offset=5)
-        # mouse_scroll(start=[], scroll=-100)
-        for i in range(1, 4):
-            box = uis['box_menu_alliance_gifts_claim' + str(i)]
-            print('box: {}, box: {}'.format(i, box))
-            mouse_click(box)
 
-    # return match_image_box(template=template, image=image, mask=mask, precision=0.999, show=True)
+
+def claim_gifts_rare2():
+    mouse_click(uis['tab_menu_alliance_gifts_rare'])
+    for i in range(1, 4):
+        box = uis['box_menu_alliance_gifts_claim' + str(i)]
+        print('box: {}, box: {}'.format(i, box))
+        mouse_click(box)
 
 
 def claim_gifts_normal():
@@ -150,8 +147,9 @@ def claim_gifts():
         print('new gifts exist!')
         mouse_click(position=uis['btn_menu_alliance_gifts'])
         time.sleep(2)
-        claim_gifts_rare()
+        claim_gifts_rare1()
         claim_gifts_normal()
+        claim_gifts_rare2()
 
         series = [
             {'position': uis['btn_menu_alliance_gifts_CLOSE'], 'interval': 2},
@@ -162,49 +160,6 @@ def claim_gifts():
         print('new gifts not exist!')
         mouse_click(uis['btn_menu_alliance_CLOSE'])
         return False
-
-
-# def claim_gifts():
-#     """
-#     기능: 연맹 선물 수령
-#     Note:
-#       - 새로운 선물(빨간 동그라미)이 있을 때만 클릭하도록!!
-#     """
-#     series = [
-#         {'position': uis['btn_menu_alliance'], 'interval': 2},
-#         {'position': uis['btn_menu_alliance_gifts'], 'interval': 2},
-#         {'position': uis['tab_menu_alliance_gifts_rare'], 'interval': 3},
-#     ]
-#     mouse_click_series(series=series)
-
-#     ## rare 선물 claim 누르기
-#     for _ in range(0, 50):
-#         image_box = expand_box(box=uis['box_menu_alliance_gifts_claim4'], offset=[20, 10])
-#         claim = match_image_box(template=set_img_path('btn_menu_alliance_gifts_claim'), image=image_box)
-#         if type(claim) is list:
-#             mouse_click(claim)
-#         else:
-#             break
-
-#     series = [
-#         {'position': uis['tab_menu_alliance_gifts_normal'], 'interval': 3},
-#         {'position': uis['btn_menu_alliance_gifts_claimAll'], 'interval': 2},
-#         {'position': uis['btn_menu_alliance_gifts_rewards_confirm'], 'interval': 2},
-#         {'position': uis['tab_menu_alliance_gifts_rare'], 'interval': 3},
-#     ]
-#     mouse_click_series(series=series)
-#     time.sleep(2)
-
-#     for i in range(1, 4):
-#         box = uis['box_menu_alliance_gifts_claim' + str(i)]
-#         print('box: {}, box: {}'.format(i, box))
-#         mouse_click(box)
-    
-#     series = [
-#         {'position': uis['btn_menu_alliance_gifts_CLOSE'], 'interval': 2},
-#         {'position': uis['btn_menu_alliance_CLOSE'], 'interval':2},
-#     ]
-#     mouse_click_series(series=series)
 
 
 def open_tavern_chest(chest='free'):
