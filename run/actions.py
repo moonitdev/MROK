@@ -72,7 +72,14 @@ def search_resources(resource='food', level=5, kingdom='normal'):
     mouse_click(btn_search2)
 
     ## 다시 search 버튼이 나타나는지 확인
-    
+
+
+def send_army(spot, army):
+    pass
+
+
+def send_armies(spots, armies):
+    pass
 
 
 

@@ -23,10 +23,11 @@ from pynput.keyboard import Listener, Key
 pytesseract.pytesseract.tesseract_cmd = 'C:/Program Files (x86)/Tesseract-OCR/tesseract.exe'
 tessdata_dir_config = '--tessdata-dir "C:\\Program Files (x86)\\Tesseract-OCR\\tessdata"'
 
-from functions.dataFns import file_to_json
+# from functions.dataFns import file_to_json
+# from dataFns import file_to_json
 
-uis = file_to_json('../_config/json/uis.json')
-config = file_to_json('../_config/json/config.json')
+# uis = file_to_json('../_config/json/uis.json')
+# config = file_to_json('../_config/json/config.json')
 # characters = file_to_json('../_config/json/characters.json')
 
 def set_img_path(name, category='UIS'):
@@ -657,15 +658,74 @@ def rectify_ocr(text, lang='digit'):
             text = text.replace(s[i], d[i])
     return text
 
+
+
+def get_color(source):
+    image = cv2.imread(source, cv2.IMREAD_COLOR)
+    print(type(image[0][0]))
+    print(numpy.array(data))
+
+
+def exist_color(source, color):
+    image = cv2.imread(source, cv2.IMREAD_COLOR)
+    row = image.shape[0]
+    col = image.shape[1]
+    for i in range(0, row):
+        for j in range(0, col):
+            if np.array_equal(np.array(color), image[i][j], equal_nan=False):
+                # print(np.array(color))
+                print(image[i][j])
+                return True
+    return False
+
+
+def exist_colors(source, colors):
+    for color in colors:
+        if exist_color(source, color):
+            return True
+    return False
+
+# [[[  0 186   0]
+#   [  0 209   0]
+#   [  0 215   0]
+#   [  0 201   0]]
+
+#  [[  0 208   0]
+#   [  0 217   0]
+#   [  0 217   0]
+#   [  0 208   0]]
+
+#  [[  0 219   0]
+#   [  0 219   0]
+#   [  0 219   0]
+#   [  0 217   0]]
+
+#  [[  0 213   0]
+#   [  0 218   0]
+#   [  0 217   0]
+#   [  0 212   0]]]
+
+
 if __name__ == '__main__':
 
-    img_path = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\screenshots\\uis\\menu_alliance_technology_war04.png'
-    # image = {'path': '../_config/images/screenshots/uis/menu_alliance_technology_development04.png', 'box': [202, 154, 1714, 1034]}
-    image = {'path': img_path, 'box': [202, 154, 1714, 1034]}
-    # template = '../_config/images/uis/img_menu_alliance_technology_notFull.png'
-    template = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\uis\\img_menu_alliance_technology_notFull.png'
-    match_image_box(template=template, image=image, precision=0.997, multi=True, show=True)
+    # img_path = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\screenshots\\uis\\menu_alliance_technology_war04.png'
+    # # image = {'path': '../_config/images/screenshots/uis/menu_alliance_technology_development04.png', 'box': [202, 154, 1714, 1034]}
+    # image = {'path': img_path, 'box': [202, 154, 1714, 1034]}
+    # # template = '../_config/images/uis/img_menu_alliance_technology_notFull.png'
+    # template = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\uis\\img_menu_alliance_technology_notFull.png'
+    # match_image_box(template=template, image=image, precision=0.997, multi=True, show=True)
 
     # source = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\_ocr\\txt_Main_Power.png'
     # dest = 'C:\\Dev\\docMoon\\projects\\MROK\\_config\\images\\_ocr\\test.png'
     # set_ocr_image(image=source, reverse=False, path=dest)
+
+    source = 'C:/Dev/docMoon/projects/MROK/_config/images/screenshots/mask/resource_green.png'
+    # color = [0, 186, 0]
+    colors = [[1, 108, 0], [0, 101, 0], [0, 217, 1], [1, 186, 0]]
+    # get_color(source)
+
+    # c = exist_color(source, color)
+    # print(c)
+
+    c = exist_colors(source, colors)
+    print(c)

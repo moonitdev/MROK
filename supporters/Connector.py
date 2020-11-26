@@ -450,15 +450,17 @@ def do_verification(attempts=0):
 
 if __name__ == '__main__':
     time.sleep(5)
-    # connect()
+    connect()
     # get_nick()
 
     # goto_account('life681225')
     # goto_nick('millennium 202')
     # goto_account('deverlife')
 
-    clear_verification()
+    # clear_verification()
     # get_nick()
 
     # full_screen()
     # set_view_mode(mode='CityView')
+
+    # turn_on_emulator()
