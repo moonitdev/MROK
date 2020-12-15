@@ -1,6 +1,7 @@
 import os, sys
 import configparser
 import json
+from functools import reduce
 import gspread  ## google drive gspread
 from oauth2client.service_account import ServiceAccountCredentials  ## googledrive 인증
 #sys.path.append(os.path.join(os.path.dirname(sys.path[0]), 'functions')) ## Note: 부모 디렉토리 기준 상대 경로 설정
@@ -364,7 +365,7 @@ class GoogleSpread:
         return results
 
 
-    def find_cell(self, val='', regex=False):
+    def find_cell_by_val(self, val='', regex=False):
         """
         기능: url의 spreadsheet의 sheet에서 val값을 갖는 cell을 반환
         입력:
@@ -373,10 +374,12 @@ class GoogleSpread:
         Note:
             - 
         """
-        return self.sheet.find(val)
+        cell = self.sheet.find(val)
+        return [cell.row, cell.col]
+
 
     @staticmethod
-    def _find_cells(ws=None, val='', regex=False):
+    def _find_cells_by_val(ws=None, val='', regex=False):
         """
         기능: url의 spreadsheet의 sheet에서 val값을 갖는 cell들을 모두 반환
         입력:
@@ -392,7 +395,7 @@ class GoogleSpread:
         return results
 
 
-    def find_cells(self, val='', regex=False):
+    def find_cells_by_val(self, val='', regex=False):
         """
         기능: url의 spreadsheet의 sheet에서 val값을 갖는 cell들을 모두 반환
         입력:
@@ -404,32 +407,110 @@ class GoogleSpread:
         Note:
             - 
         """
-        return self._find_cells(ws=self.sheet, val=val, regex=regex)
+        return self._find_cells_by_val(ws=self.sheet, val=val, regex=regex)
 
 
-    # def update_sheet_row(self, match={}, data={}, header_row=1):
+    def find_row_by_dict(self, match={}, header_map={}, regex=False):
+        """
+        기능: sheet에서 match 조건에 맞는 행번호 출력
+        입력:
+            - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+            - val || 찾고자 하는 셀들의 내용 | str | '' | 
+        출력:
+            - 의미 | 데이터 타입 | 예시
+            - match 조건에 맞는 행 | int | 5 -> 5번째 행
+        Note:
+            - 
+        """
+        for k, v in match.items():
+            for m in self._find_cells_by_val(ws=self.sheet, val=v, regex=regex):
+                if m[1] == header_map[k]:
+                    return m[0]
+        return False
+
+
+    def find_rows_by_dict(self, match={}, header_map={}, regex=False):
+        """
+        기능: sheet에서 match 조건에 맞는 모든 행번호 출력
+        입력:
+            - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+            - val || 찾고자 하는 셀들의 내용 | str | '' | 
+        출력:
+            - 의미 | 데이터 타입 | 예시
+            - match 조건에 맞는 행들 | list(of int) | [5, 7, 8] -> 5, 7, 8번째 행
+        Note:
+            - 
+        """
+        result = []
+        i = 0
+        for k, v in match.items():
+            result.append([])
+            for m in self._find_cells_by_val(ws=self.sheet, val=v, regex=regex):
+                if m[1] == header_map[k]:
+                    result[i].append(m[0])
+            i += 1
+        
+        return list(reduce(set.intersection, [set(item) for item in result ]))
+
+
+    # def find_dict(self, match={}, fields={}, regex=False):
     #     """
-    #     기능: match 조건에 맞는 행의 내용을 data값으로 변경
+    #     기능: sheet에서 match 조건에 맞는 행번호 출력
     #     입력:
     #         - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
-    #         - match || 변경할 행 일치 조건 | dict | {} | {'header1':'contents1', 'header2':'contents2'}
-    #         - data || 변경할 데이터 | dict | {} | {'header3':'contents3', 'header4':'contents4'}
-    #         - header_row || 해더행 번호 | int | 1 | 1: 첫번째 행이 해더행
+    #         - val || 찾고자 하는 셀들의 내용 | str | '' | 
+    #     출력:
+    #         - 의미 | 데이터 타입 | 예시
+    #         - match 조건에 맞는 행 | int | 5 -> 5번째 행
     #     Note:
     #         - 
     #     """
-    #     ws = self.sheet
-    #     for v in match:
-    #         matches = ws.findall(val)
-    #     find_cells(self, url='ROK_SETTINGS', sheet='test', val='', regex=False):
+    #     for k, v in match.items():
+    #         for m in self._find_cells_by_val(ws=self.sheet, val=v, regex=regex):
+    #             if m[1] == header_map[k]:
+    #                 return m[0]
+    #     return False
 
-    #     header_map = self.get_header_map(header_row=header_row)
-    #     update_row = len(ws.get_all_values()) + 1
 
-    #     for k, v in data.items():
-    #         col = header_map[k]
-    #         ws.update_cell(update_row, col, v)
+    def update_sheet_row(self, match={}, data={}, header_row=1):
+        """
+        기능: match 조건에 맞는 행의 내용을 data값으로 변경
+        입력:
+            - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+            - match || 변경할 행 일치 조건 | dict | {} | {'header1':'contents1', 'header2':'contents2'}
+            - data || 변경할 데이터 | dict | {} | {'header3':'contents3', 'header4':'contents4'}
+            - header_row || 해더행 번호 | int | 1 | 1: 첫번째 행이 해더행
+        Note:
+            - 
+        """
+        ws = self.sheet
+        header_map = self.get_header_map(header_row = header_row)
+        update_row = self.find_row_by_dict(match = match, header_map = header_map)
 
+        for k, v in data.items():
+            col = header_map[k]
+            ws.update_cell(update_row, col, v)
+
+
+    def update_sheet_rows(self, match={}, data={}, header_row=1):
+        """
+        기능: match 조건에 맞는 행의 내용을 data값으로 변경
+        입력:
+            - 변수명 || 의미 | 데이터 타입 | 디폴트값 | 예시
+            - match || 변경할 행 일치 조건 | dict | {} | {'header1':'contents1', 'header2':'contents2'}
+            - data || 변경할 데이터 | dict | {} | {'header3':'contents3', 'header4':'contents4'}
+            - header_row || 해더행 번호 | int | 1 | 1: 첫번째 행이 해더행
+        Note:
+            - 
+        """
+        ws = self.sheet
+        header_map = self.get_header_map(header_row = header_row)
+        update_rows = self.find_rows_by_dict(match = match, header_map = header_map)
+
+        for update_row in update_rows:
+            for k, v in data.items():
+                col = header_map[k]
+                ws.update_cell(update_row, col, v)
 
 # Using gspread with NumPy
 # NumPy is a library for scientific computing in Python. It provides tools for working with high performance multi-dimensional arrays.
@@ -485,8 +566,16 @@ if __name__ == '__main__':
     # ]
     # spread.insert_sheet_rows(dicts=dicts, header_row=1)
 
-    # cell = spread.find_cell(val='contents33', regex=False)
-    # print(cell.row, cell.col)
+    # cell = spread.find_cell_by_val(val='contents33', regex=False)
+    # print(cell)
 
-    cells = spread.find_cells(val='A~~~!~', regex=False)
-    print(cells)
+    # cells = spread.find_cells_by_val(val='A~~~!~', regex=False)
+    # print(cells)
+
+    match = {'A1': 'A~~~!~', 'B1':'B~~!~'}
+    # header_map = spread.get_header_map(header_row=1)
+    # rows = spread.find_rows_by_dict(match=match, header_map=header_map, regex=False)
+
+    # print(rows)
+
+    spread.update_sheet_rows(match=match, data={'A1': '~~~A~~~!~', 'D1':'~~D!~~'}, header_row=1)
